@@ -65,7 +65,7 @@ class _FragmentForMeState extends WidgetBaseStatefull<FragmentForMe, VmFragmentF
         WidgetUtilsButton(
           isExpanded: isExpanded,
           color: R.themeColor.warningLight,
-          title: 'Kredi Başvurusu',
+          title: 'Kredi Başvurusu Görüntüle',
           description: 'Finansal ihtiyaçlarınızı karşılamanıza yardımcı unmark için tasarladık.',
           onPressed: () {},
         ),
