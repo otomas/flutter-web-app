@@ -49,20 +49,13 @@ jobs:
           data: '{"text": "${{ steps.read_html.outputs.content }}"}'
 
       - name: Read HTML file
-        id: read_html
+        id: read_html_content
         run: |
-          FILE_PATH="changes.html"
-          if [ -f "$FILE_PATH" ]; then
-            echo "File contents:"
-            CONTENT=$(cat "$FILE_PATH")
-            echo "html_content<<EOF" >> $GITHUB_ENV
-            echo "$CONTENT" >> $GITHUB_ENV
-            echo "EOF" >> $GITHUB_ENV
-          else
-            echo "File not found!"
-            exit 1
-          fi
+          CONTENT=$(cat changes.html | tr -d '\n')
+          echo "CONTENT=$CONTENT" >> $GITHUB_ENV
 
       - name: Send message to Slack
         run: |
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"Deploy çıkıldı. https://test.otomas.app\n'"${{ env.html_content }}"'"}' https://hooks.slack.com/services/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
+          curl -X POST -H 'Content-type: application/json' \
+          --data "{\"text\":\"$(echo $CONTENT | jq -R .)\"}" \
+          https://hooks.slack.com/services/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
