@@ -16,6 +16,4 @@ jobs:
 
       - name: Send message to Slack
         run: |
-          curl -X POST -H 'Content-type: application/json' \
-          --data '{"text":"Merhaba, bu bir test mesajıdır!"}' \
-          https://hooks.slack.com/services/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
+          curl -X POST --data-urlencode "payload={\"channel\": \"#my-channel-here\", \"username\": \"webhookbot\", \"text\": \"This is posted to #my-channel-here and comes from a bot named webhookbot.\", \"icon_emoji\": \":ghost:\"}" https://hooks.slack.com/services/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
