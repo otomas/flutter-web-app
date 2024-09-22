@@ -10,9 +10,6 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      
-      - name: Get Ip Address
-        uses: echo "ip_address<<EOF" >> $GITHUB_ENV
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -21,7 +18,7 @@ jobs:
         run: docker system prune -af --volumes
 
       - name: Clear Docker Cache on Remote Host
-        run: ssh ${{ env.ip_address }} 'sudo docker images | grep "<none>" | awk '{print $3}' | xargs sudo docker rmi'
+        run: ssh 206.189.12.215 'sudo docker images | grep "<none>" | awk '{print $3}' | xargs sudo docker rmi'
 
       - name: Flutter Upgrade
         run: flutter upgrade
@@ -36,7 +33,7 @@ jobs:
         run: docker buildx build --no-cache --platform linux/amd64 --push -t netkodbilisim/otomas-website:$(date +'%Y-%m-%d-%H-%M-%S') -t netkodbilisim/otomas-website:latest .
 
       - name: Run Image on Server
-        run: ssh ${{ env.ip_address }} 'sudo docker compose -f otomas-website-production-compose.yaml up --build -d --pull always'
+        run: ssh 206.189.12.215 'sudo docker compose -f otomas-website-production-compose.yaml up --build -d --pull always'
 
       - name: Read HTML file
         id: read_html
