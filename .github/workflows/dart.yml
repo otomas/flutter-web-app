@@ -43,9 +43,6 @@ jobs:
           echo "::set-output name=content::$(cat changes.html | tr -d '\n')"
 
       - name: Send message to Slack
-        uses: fjogeleit/http-request-action@v1.2.0
-        with:
-          url: https://hooks.slack.com/services/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
-          method: POST
-          headers: '{"Content-Type":"application/json"}'
-          data: '{"text": "${{ steps.read_html.outputs.content }}"}'
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"$(echo $CONTENT | jq -R .)\"}" https://hooks.slack.com/services/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
+
