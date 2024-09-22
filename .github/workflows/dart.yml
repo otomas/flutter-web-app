@@ -10,12 +10,18 @@ jobs:
     runs-on: self-hosted
 
     steps:
+      
+      - name: Get Ip Address
+        uses: echo "ip_address<<EOF" >> $GITHUB_ENV
+
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Clean up Docker
-        run: |
-          docker system prune -af --volumes
+        run: docker system prune -af --volumes
+
+      - name: Clear Docker Cache on Remote Host
+        run: ssh ${{ env.ip_address }} 'sudo docker images | grep "<none>" | awk '{print $3}' | xargs sudo docker rmi'
 
       - name: Flutter Upgrade
         run: flutter upgrade
@@ -27,5 +33,20 @@ jobs:
         run: flutter build web --release
 
       - name: Deploy to Docker Server
+        run: docker buildx build --no-cache --platform linux/amd64 --push -t netkodbilisim/otomas-website:$(date +'%Y-%m-%d-%H-%M-%S') -t netkodbilisim/otomas-website:latest .
+
+      - name: Run Image on Server
+        run: ssh ${{ env.ip_address }} 'sudo docker compose -f otomas-website-production-compose.yaml up --build -d --pull always'
+
+      - name: Read HTML file
+        id: read_html
         run: |
-          docker buildx build --no-cache --platform linux/amd64 --push -t netkodbilisim/otomas-website:$(date +'%Y-%m-%d-%H-%M-%S') -t netkodbilisim/otomas-website:latest .
+          echo "::set-output name=content::$(cat changes.html | tr -d '\n')"
+
+      - name: Send message to Slack
+        uses: fjogeleit/http-request-action@v1.2.0
+        with:
+          url: https://hooks.slack.com/services/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
+          method: POST
+          headers: '{"Content-Type":"application/json"}'
+          data: '{"text": "${{ steps.read_html.outputs.content }}"}'
