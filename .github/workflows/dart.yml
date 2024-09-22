@@ -18,7 +18,7 @@ jobs:
         run: docker system prune -af --volumes
 
       - name: Clear Docker Cache on Remote Host
-        run: ssh 206.189.12.215 'sudo docker images | grep "<none>" | awk '{print $3}' | xargs sudo docker rmi'
+        run: ssh 206.189.12.215 'sudo docker images | grep "<none>" | xargs sudo docker rmi'
 
       - name: Flutter Upgrade
         run: flutter upgrade
