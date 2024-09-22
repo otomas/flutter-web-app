@@ -10,9 +10,8 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      
+      - uses: actions/checkout@v3
+
       - name: Get Ip Address
         uses: echo "ip_address<<EOF" >> $GITHUB_ENV
 
