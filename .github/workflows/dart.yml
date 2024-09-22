@@ -16,4 +16,4 @@ jobs:
 
       - name: Send message to Slack
         run: |
-          curl -X POST --data-urlencode "payload={\"username\": \"webhookbot\", \"text\": \"This is posted to #my-channel-here and comes from a bot named webhookbot.\", \"icon_emoji\": \":ghost:\"}" https://hooks.slack.com/services/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
+          curl -X POST --data-urlencode "payload={\"channel\": \"#deploy\", \"username\": \"Flutter Deploy Bot\", \"text\": \"Deploy çıkıldı. https://test.otomas.app.\", \"icon_emoji\": \":ghost:\"}" https://hooks.slack.com/services/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
