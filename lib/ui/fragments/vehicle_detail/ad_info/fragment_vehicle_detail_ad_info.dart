@@ -7,6 +7,7 @@ import '../../../../core/constants/ui_brightness_style.dart';
 import '../../../../core/enums/enum_app.dart';
 import '../../../../core/models/model_alert_dialog.dart';
 import '../../../../core/resources/_r.dart';
+import '../../../../core/services/router/router.gr.dart';
 import '../../../../core/utils/alert_utils.dart';
 import '../../../../core/utils/formatters.dart';
 import '../../../base/base_view.dart';
@@ -147,6 +148,7 @@ class _FragmentVehicleDetailAdInfoState extends WidgetBaseStatefull<FragmentVehi
                   onPressed: () async {
                     if (await viewModel.saveInfo() && context.mounted) {
                       unawaited(showPlatformAlert(context, const ModelAlertDialog(description: 'Bilgiler kaydedildi', dialogType: DialogTypes.success)));
+                      unawaited(router(context).startNewView(route: RouteVehicleDetail(vehicleId: widget.id, branchId: widget.branchId), isReplace: true));
                     }
                   },
                   text: 'Değişiklikleri Kaydet',

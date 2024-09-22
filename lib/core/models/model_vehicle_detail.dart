@@ -187,7 +187,7 @@ class ModelVehicleDetail {
 
   
   @JsonProperty(name: 'ad_status')
-  final AdStatus? adStatus;
+  final VehicleStatus? adStatus;
 }
 
 @jsonSerializable
