@@ -17,6 +17,9 @@ jobs:
         run: |
           docker system prune -af --volumes
 
+      - name: Flutter Upgrade
+        run: flutter upgrade
+
       - name: Install dependencies
         run: flutter pub get
 
