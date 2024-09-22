@@ -1,0 +1,55 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "dev-web",
+            "program": "${workspaceFolder}/lib/main_dev.dart",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": ["--web-browser-flag", "--disable-web-security"]
+        },
+        {
+            "name": "dev-debug",
+            "program": "${workspaceFolder}/lib/main_dev.dart",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug"
+        },
+        {
+            "name": "dev-profile",
+            "program": "${workspaceFolder}/lib/main_dev.dart",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "dev-release",
+            "program": "${workspaceFolder}/lib/main_dev.dart",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "prod-debug",
+            "program": "${workspaceFolder}/lib/main.dart",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug"
+        },
+        {
+            "name": "prod-profile",
+            "program": "${workspaceFolder}/lib/main.dart",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "prod-release",
+            "program": "${workspaceFolder}/lib/main.dart",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+    ]
+}

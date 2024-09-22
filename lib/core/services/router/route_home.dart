@@ -1,0 +1,45 @@
+import 'package:auto_route/auto_route.dart';
+
+import 'router.gr.dart';
+
+final routeHome = [
+  AutoRoute(
+    path: '/home',
+    page: RouteHome.page,
+    children: [
+      RedirectRoute(path: '', redirectTo: 'for-me'),
+      AutoRoute(path: '', page: FragmentEmpty.page),
+      AutoRoute(path: 'for-me', page: FragmentForMe.page),
+      AutoRoute(path: 'vehicles-mine', page: FragmentVehiclesMine.page),
+      AutoRoute(path: 'vehicles-archived', page: FragmentVehiclesArchived.page),
+      AutoRoute(path: 'vehicles-purchased', page: FragmentVehiclesPurchased.page),
+      AutoRoute(path: 'vehicles-consignment', page: FragmentVehicleConsignment.page),
+      AutoRoute(path: 'vehicles-deleted', page: FragmentVehicleDeleted.page),
+      AutoRoute(path: 'vehicles-inventory', page: FragmentVehicleInventory.page),
+      AutoRoute(path: 'vehicles-sold', page: FragmentVehicleSold.page),
+      AutoRoute(path: 'account-balance-top-up', page: FragmentAccountBalanceTopUp.page),
+      AutoRoute(path: 'account-bank-accounts', page: FragmentAccountBankAccounts.page),
+      AutoRoute(path: 'account-invoices', page: FragmentAccountInvoices.page),
+      AutoRoute(path: 'account-book', page: FragmentAccountBook.page),
+      AutoRoute(path: 'account-branch-pos-devices', page: FragmentAccountBranchPosDevices.page),
+      AutoRoute(path: 'account-credit-requests', page: FragmentAccountCreditRequests.page),
+      AutoRoute(path: 'account-turnover', page: FragmentAccountTurnover.page),
+      AutoRoute(path: 'authorization', page: FragmentAuthorization.page),
+      AutoRoute(path: 'branches', page: FragmentBranches.page),
+      AutoRoute(path: 'users', page: FragmentUsers.page),
+      AutoRoute(path: 'favorites', page: FragmentFavorites.page),
+      AutoRoute(path: 'customers', page: FragmentCustomer.page),
+      AutoRoute(path: 'messages', page: FragmentMessages.page),
+      AutoRoute(path: 'my-account', page: FragmentMyAccount.page),
+      AutoRoute(path: 'notifications', page: FragmentNotifications.page),
+      AutoRoute(path: 'queries-damage-record', page: FragmentQueriesDamageRecord.page),
+      AutoRoute(path: 'queries-kilometer', page: FragmentQueriesKilometer.page),
+      AutoRoute(path: 'queries-part-change', page: FragmentQueriesPartChange.page),
+      AutoRoute(path: 'settings', page: FragmentSettings.page),
+      AutoRoute(path: 'support-requests', page: FragmentSupportRequests.page),
+      AutoRoute(path: 'users', page: FragmentUsers.page),
+      AutoRoute(path: 'search', page: FragmentSearch.page),
+      AutoRoute(path: 'showcase', page: FragmentShowcase.page),
+    ],
+  ),
+];

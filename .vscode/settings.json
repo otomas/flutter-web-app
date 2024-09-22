@@ -1,0 +1,6 @@
+{
+    "files.exclude": {
+        "**/*.reflectable.dart": true,
+        "**/*.g.dart": true,
+    },
+}

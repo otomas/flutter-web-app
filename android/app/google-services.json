@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "567166482786",
+    "project_id": "property-listing-fc0de",
+    "storage_bucket": "property-listing-fc0de.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:567166482786:android:446c6fe1c7e3c2dbb8d43b",
+        "android_client_info": {
+          "package_name": "com.netkodbilisim.otomas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "567166482786-2ncj70p6il1fplrktauh097ijph2kctf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2yzQrl6k_MoBcQKtDTEiM4LQPHh3BcV0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "567166482786-2ncj70p6il1fplrktauh097ijph2kctf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "567166482786-atpv3pl1dkd92nvu1f2fsk3jdpcghrgk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.netkodbilisim.propertylisting"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
