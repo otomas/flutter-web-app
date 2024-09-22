@@ -14,6 +14,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Send message to Slack
-        run: |
-          curl -X POST --data-urlencode "payload={\"channel\": \"#deploy\", \"username\": \"Flutter Deploy Bot\", \"text\": \"Deploy çıkıldı. https://test.otomas.app.\", \"icon_emoji\": \":ghost:\"}" https://hooks.slack.com/services/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
+      - name: Clean up Docker
+        run: docker system prune -af --volumes
+
+      - name: Clear Docker Cache on Remote Host
+        run: ssh 206.189.12.215 'sudo docker images | grep "<none>" | awk '{print $3}' | xargs -r sudo docker rmi'
+
+      - name: Flutter Upgrade
+        run: flutter upgrade
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build the Flutter web app
+        run: flutter build web --release
+
+      - name: Deploy to Docker Server
+        run: docker buildx build --no-cache --platform linux/amd64 --push -t netkodbilisim/otomas-website:$(date +'%Y-%m-%d-%H-%M-%S') -t netkodbilisim/otomas-website:latest .
+
+      - name: Run Image on Server
+        run: ssh 206.189.12.215 'sudo docker compose -f otomas-website-production-compose.yaml up --build -d --pull always'
