@@ -17,9 +17,6 @@ jobs:
       - name: Clear Docker Cache on Remote Host
         run: ssh 206.189.12.215 "sudo docker images | grep '<none>' | awk '{print \$3}' | xargs -r sudo docker rmi"
 
-      - name: Delete last build
-        run: rm -rf build
-
       - name: Flutter Upgrade
         run: flutter upgrade
 
