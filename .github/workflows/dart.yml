@@ -14,11 +14,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Clean up Docker
-        run: docker system prune -af --volumes
-
       - name: Clear Docker Cache on Remote Host
         run: ssh 206.189.12.215 'sudo docker images | grep "<none>" | awk '{print $3}' | xargs -r sudo docker rmi'
+
+      - name: Delete last build
+        run: rm -rf build
 
       - name: Flutter Upgrade
         run: flutter upgrade
@@ -28,6 +28,9 @@ jobs:
 
       - name: Build the Flutter web app
         run: flutter build web --release
+
+      - name: Clean up Docker
+        run: docker system prune -af --volumes
 
       - name: Deploy to Docker Server
         run: docker buildx build --no-cache --platform linux/amd64 --push -t netkodbilisim/otomas-website:$(date +'%Y-%m-%d-%H-%M-%S') -t netkodbilisim/otomas-website:latest .
