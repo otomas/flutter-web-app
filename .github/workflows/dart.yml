@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Clear Docker Cache on Remote Host
-        run: ssh 206.189.12.215 "sudo docker images | grep '<none>' | awk '{print \$3}' | xargs -r sudo docker rmi"
+        run: ssh otomas-website "sudo docker images | grep '<none>' | awk '{print \$3}' | xargs -r sudo docker rmi"
 
       - name: Flutter Upgrade
         run: flutter upgrade
@@ -33,4 +33,7 @@ jobs:
         run: docker buildx build --no-cache --platform linux/amd64 --push -t netkodbilisim/otomas-website:$(date +'%Y-%m-%d-%H-%M-%S') -t netkodbilisim/otomas-website:latest .
 
       - name: Run Image on Server
-        run: ssh 206.189.12.215 'sudo docker compose -f otomas-website-production-compose.yaml up --build -d --pull always'
+        run: ssh otomas-website 'sudo docker compose -f otomas-website-production-compose.yaml up --build -d --pull always'
+
+      - name: Remove Flutter Pub Cache
+        run: rm -rf ~/.pub-cache
