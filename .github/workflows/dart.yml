@@ -17,14 +17,6 @@ jobs:
         run: |
           docker system prune -af --volumes
 
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.24.3'
-
-      - name: Add Flutter to PATH
-        run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
-
       - name: Install dependencies
         run: flutter pub get
 
