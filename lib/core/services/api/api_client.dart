@@ -62,6 +62,7 @@ import '../../models/response/model_response_vehicle_model.dart';
 import '../../models/response/model_response_vehicle_model_detail.dart';
 import '../../models/response/model_response_vehicle_report_checklist.dart';
 import '../../models/response/model_response_vehicle_series.dart';
+import '../../models/response/model_response_vehicle_status.dart';
 import '../../models/response/model_response_vehicle_traction_type.dart';
 import '../../models/response/model_response_vehicle_transmission_type.dart';
 import '../../models/response/model_response_vehicle_type.dart';
@@ -584,5 +585,8 @@ abstract class ApiClient {
 
   @GET('/public/new-adverts')
   Future<ModelResponsePublicVehicleCard> getPublicVehicleCards();
+  
+  @GET('/user/vehicles/{vehicleId}/archive-status')
+  Future<ModelResponseVehicleStatus> getVehicleStatus(@Path('vehicleId') int vehicleId);
 
 }

@@ -20,7 +20,7 @@ enum QueryType {
   final int id;
 }
 
-enum AdStatus {
+enum VehicleStatus {
   archived('archived'),
   sold('sold'),
   onTheAir('on-the-air'),
@@ -29,8 +29,8 @@ enum AdStatus {
   consignee('consignee'),
   inventory('inventory');
 
-  const AdStatus(this.id);
-  factory AdStatus.fromId(String id) => values.firstWhere((e) => e.id == id);
+  const VehicleStatus(this.id);
+  factory VehicleStatus.fromId(String id) => values.firstWhere((e) => e.id == id);
 
   final String id;
 }

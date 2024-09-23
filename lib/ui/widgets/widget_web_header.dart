@@ -58,7 +58,7 @@ class WidgetWebHeader extends WidgetBase<VmWidgetWebHeader> {
                   fillColor: R.themeColor.viewBg,
                   borderColor: R.themeColor.borderLight,
                   suffixIcon: SvgPicture.asset(R.drawable.svg.iconSearch),
-                  hintText: 'Ne aramıştınız? söyleyin lütfen',
+                  hintText: 'Ne aramıştınız?',
                 ),
               ),
             Expanded(child: Container()),
