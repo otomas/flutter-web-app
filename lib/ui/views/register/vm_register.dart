@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../../core/constants/constant_membership_type.dart';
+import '../../../core/enums/enum_app.dart';
 import '../../../core/extensions/extension_bool.dart';
 import '../../../core/extensions/extension_date.dart';
 import '../../../core/models/model_district.dart';
 import '../../../core/models/model_dropdown.dart';
+import '../../../core/models/request/model_request_register.dart';
 import '../../../core/models/response/model_response_city.dart';
 import '../../../core/models/response/model_response_country.dart';
 import '../../../core/resources/_r.dart';
@@ -154,7 +156,7 @@ class VmRegister extends ViewModelBase {
       status = false;
     } else if (selectedMembershipType?.id == constantMemberShipType.legalEntity.id && companyCreatedDate == null) {
       status = false;
-    } else if (selectedMembershipType?.id == constantMemberShipType.legalEntity.id && taxOfficeController.text.isEmpty) {
+    } else if (selectedMembershipType?.id == constantMemberShipType.legalEntity.id && taxOfficeController.text.isEmpty && int.tryParse(taxOfficeController.text) == null) {
       status = false;
     } else if (selectedMembershipType?.id == constantMemberShipType.legalEntity.id && taxNoController.text.isEmpty) {
       status = false;
@@ -180,6 +182,41 @@ class VmRegister extends ViewModelBase {
     } else {
       errorObserver.message = R.string.pleaseCheckAllFields;
     }
-    return status;
+    return _register();
+  }
+
+  Future<bool> _register() async {
+    var state = false;
+    setActivityState(ActivityState.isLoading);
+    final body = ModelRequestRegister(
+      companyTypeId: selectedMembershipType!.id,
+      ownerCitizenNo: tcNumberController.text,
+      ownerDateOfBirth: birthDate!,
+      ownerFirstName: nameController.text,
+      ownerLastName: surnameController.text,
+      mobileNumber: phoneNumberMask.unmaskText(phoneNumberController.text),
+      email: emailController.text,
+      neighborhoodId: selectedDistrict!.id,
+      address: addressController.text,
+      title: selectedMembershipType?.id !=  constantMemberShipType.legalEntity.id ? null : titleController.text,
+      dateOfIncorporation: selectedMembershipType?.id !=  constantMemberShipType.legalEntity.id ? null : companyCreatedDate,
+      taxOfficeId: selectedMembershipType?.id !=  constantMemberShipType.legalEntity.id ? null : int.tryParse(taxOfficeController.text) ?? 0,
+      taxNo: selectedMembershipType?.id !=  constantMemberShipType.legalEntity.id ? null : taxNoController.text,
+      phoneNumber: phoneNumberMask.unmaskText(companyPhoneNumberController.text),
+      faxNumber: phoneNumberMask.unmaskText(companyFaxNoController.text),
+      accountingEmail: companyEmailAddressController.text,
+      password: passwordController.text,
+      passwordConfirmation: passwordConfirmController.text,
+    );
+    await serviceApi.client.register(body).then(
+      (response) {
+        state = true;
+      },
+      onError: (error) {
+        handleApiError(error);
+      },
+    );
+    setActivityState(ActivityState.isLoaded);
+    return state;
   }
 }

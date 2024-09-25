@@ -27,7 +27,10 @@ enum VehicleStatus {
   discontinuePublication('discontinue-publication'),
   readyForPublication('ready-for-publication'),
   consignee('consignee'),
-  inventory('inventory');
+  inventory('inventory'),
+  rejected('rejected'),
+  waiting('waiting_approve'),
+  expired('expired');
 
   const VehicleStatus(this.id);
   factory VehicleStatus.fromId(String id) => values.firstWhere((e) => e.id == id);

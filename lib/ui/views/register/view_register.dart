@@ -101,7 +101,6 @@ class ViewRegister extends WidgetBase<VmRegister> {
         ],
       );
 
-
   Widget _getForm(BuildContext context, VmRegister viewModel) => Container(
         constraints: BoxConstraints(maxHeight: size(context).height * 0.8),
         decoration: BoxDecoration(
@@ -609,7 +608,7 @@ class ViewRegister extends WidgetBase<VmRegister> {
                 onPressed: () async {
                   if (await viewModel.register()) {
                     if (context.mounted) {
-                      await router(context).onBackPressed();
+                      unawaited(router(context).startNewView(route: RouteLogin(), isReplace: true, clearStack: true));
                     }
                   }
                 },

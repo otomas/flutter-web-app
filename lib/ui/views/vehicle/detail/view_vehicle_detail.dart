@@ -9,6 +9,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../core/constants/ui_brightness_style.dart';
 import '../../../../core/enums/enum_api.dart';
 import '../../../../core/enums/enum_app.dart';
+import '../../../../core/extensions/extension_vehicle_status.dart';
 import '../../../../core/models/model_alert_dialog.dart';
 import '../../../../core/models/model_vehicle.dart';
 import '../../../../core/resources/_r.dart';
@@ -87,59 +88,85 @@ class ViewVehicleDetail extends WidgetBase<VmVehicleDetail> {
                                     IntrinsicHeight(
                                       child: Row(
                                         children: [
-                                          Expanded(
-                                            child: InkWell(
+                                          if (viewModel.vehicleStatus?.status == VehicleStatus.onTheAir)
+                                            Expanded(
+                                              child: ActionButtonBasic(
+                                                title: 'Aracı Yayından Kaldır',
+                                                iconSvgPath: R.drawable.svg.iconZeroWorld,
+                                                iconSvgColor: R.themeColor.error,
+                                                bgColor: R.themeColor.errorLight,
+                                                titleColor: R.themeColor.error,
+                                                onTap: () async {
+                                                  viewModel
+                                                    ..setIsPublishPriceDomestic(false)
+                                                    ..setIsPublishPriceForeign(false);
+                                                  await viewModel.updatePublishedAdd();
+                                                  if (context.mounted) {
+                                                    unawaited(router(context).startNewView(route: RouteVehicleDetail(vehicleId: vehicleId, branchId: branchId), isReplace: true));
+                                                  }
+                                                },
+                                              ),
+                                            )
+                                          else if (viewModel.vehicleStatus?.status == VehicleStatus.waiting)
+                                            ActionButtonBasic(
+                                              title: 'Onay Bekliyor',
+                                              iconSvgPath: R.drawable.svg.iconZeroWorld,
+                                              bgColor: R.themeColor.highlightedLight,
+                                              iconSvgColor: R.themeColor.highlighted,
+                                              titleColor: R.themeColor.highlighted,
                                               onTap: () {
-                                                if (viewModel.vehicleStatus?.status == VehicleStatus.readyForPublication) {
-                                                  unawaited(
-                                                    showPlatformAlert(
-                                                      context,
-                                                      ModelAlertDialog(
-                                                        dialogType: DialogTypes.confirmation,
-                                                        title: 'Aracı yayına alıyorsunuz',
-                                                        description: 'Aracı yayına almak istediğinizden emin misiniz?',
-                                                        buttonText: 'Yayına Al',
-                                                        buttonColor: R.themeColor.highlighted,
-                                                        textColor: R.themeColor.text,
-                                                        onPressedButton: () async {
-                                                          if (!(viewModel.vehicleStatus?.isPublishPriceDomestic ?? false) && !(viewModel.vehicleStatus?.isPublishPriceForeign ?? false)) {
-                                                            viewModel.errorObserver.message = 'Lütfen yayınlanacak iç pazar ya da dış pazar seçimi yapın';
-                                                          } else if (await viewModel.publishAdd() && context.mounted) {
-                                                            viewModel.alertObserver.alert = const ModelAlertDialog(
-                                                              dialogType: DialogTypes.success,
-                                                              title: 'İlanınız kaydedildi',
-                                                              description: 'İlanınız onaylandıktan sonra Pazar yerinde yayınlanacaktır.',
-                                                            );
-                                                          }
-                                                        },
-                                                      ),
-                                                      Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: _getAdPublishStatus(context, viewModel),
-                                                      ),
-                                                    ),
-                                                  );
-                                                } else {
-                                                  viewModel.errorObserver.message = 'İlanı yayına almak için lütfen İlan Bilgileri sekmesindeki alanları doldurunuz';
-                                                }
+                                                showToast('İlanınız onay sürecinde yakında çok yakında bildirim alacaksınız.');
                                               },
-                                              child: Container(
-                                                padding: const EdgeInsets.all(16),
-                                                decoration: BoxDecoration(
-                                                  color: R.themeColor.successLight,
-                                                  borderRadius: BorderRadius.circular(14),
-                                                  border: Border.all(color: R.themeColor.success),
-                                                ),
-                                                child: Column(
-                                                  children: [
-                                                    SvgPicture.asset(R.drawable.svg.iconZeroWorld, colorFilter: ColorFilter.mode(R.themeColor.success, BlendMode.srcIn), height: 36),
-                                                    const SizedBox(height: 8),
-                                                    TextBasic(text: 'Aracı\nYayına Al', color: R.themeColor.success, fontFamily: R.fonts.displayBold, fontSize: 14, textAlign: TextAlign.center),
-                                                  ],
-                                                ),
+                                            )
+                                          else if (!(viewModel.vehicleStatus?.status.isNotPublishable ?? false))
+                                            Expanded(
+                                              child: ActionButtonBasic(
+                                                title: 'Aracı\nYayına Al',
+                                                iconSvgPath: R.drawable.svg.iconZeroWorld,
+                                                iconSvgColor: R.themeColor.success,
+                                                bgColor: R.themeColor.successLight,
+                                                titleColor: R.themeColor.success,
+                                                onTap: () {
+                                                  if (!(viewModel.vehicleStatus?.isEnteredAdInfo ?? false)) {
+                                                    viewModel.errorObserver.message = 'İlanı yayına almak için lütfen İlan Bilgileri sekmesindeki alanları doldurunuz';
+                                                    return;
+                                                  }
+                                                  if (viewModel.vehicleStatus?.status.isPublishable ?? false) {
+                                                    unawaited(
+                                                      showPlatformAlert(
+                                                        context,
+                                                        ModelAlertDialog(
+                                                          dialogType: DialogTypes.confirmation,
+                                                          title: 'Aracı yayına alıyorsunuz',
+                                                          description: 'Aracı yayına almak istediğinizden emin misiniz?',
+                                                          buttonText: 'Yayına Al',
+                                                          buttonColor: R.themeColor.highlighted,
+                                                          textColor: R.themeColor.text,
+                                                          onPressedButton: () async {
+                                                            if (!viewModel.isPublishPriceDomestic.value && !viewModel.isPublishPriceForeign.value) {
+                                                              viewModel.errorObserver.message = 'Lütfen yayınlanacak iç pazar ya da dış pazar seçimi yapın';
+                                                            } else if (await viewModel.publishAdd() && context.mounted) {
+                                                              viewModel.alertObserver.alert = ModelAlertDialog(
+                                                                dialogType: DialogTypes.success,
+                                                                title: 'İlanınız kaydedildi',
+                                                                description: 'İlanınız onaylandıktan sonra Pazar yerinde yayınlanacaktır.',
+                                                                onPressedButton: () async {
+                                                                  unawaited(router(context).startNewView(route: RouteVehicleDetail(vehicleId: vehicleId, branchId: branchId), isReplace: true));
+                                                                },
+                                                              );
+                                                            }
+                                                          },
+                                                        ),
+                                                        Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: _getAdPublishStatus(context, viewModel),
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }
+                                                },
                                               ),
                                             ),
-                                          ),
                                           const SizedBox(width: 5),
                                           Expanded(
                                             child: InkWell(
@@ -424,29 +451,35 @@ class ViewVehicleDetail extends WidgetBase<VmVehicleDetail> {
       );
 
   List<Widget> _getAdPublishStatus(BuildContext context, VmVehicleDetail viewModel) => [
-        SwitchListTile.adaptive(
-          contentPadding: EdgeInsets.zero,
-          applyCupertinoTheme: true,
-          value: viewModel.vehicleStatus!.isPublishPriceDomestic,
-          onChanged: viewModel.setIsPublishPriceDomestic,
-          title: TextBasic(
-            text: 'İç Pazarda Göster',
-            color: R.themeColor.smokeDark,
-            fontFamily: R.fonts.displayMedium,
-            fontSize: 14,
+        ValueListenableBuilder(
+          valueListenable: viewModel.isPublishPriceDomestic,
+          builder: (context, value, child) => SwitchListTile.adaptive(
+            contentPadding: EdgeInsets.zero,
+            applyCupertinoTheme: true,
+            value: value,
+            onChanged: viewModel.setIsPublishPriceDomestic,
+            title: TextBasic(
+              text: 'İç Pazarda Göster',
+              color: R.themeColor.smokeDark,
+              fontFamily: R.fonts.displayMedium,
+              fontSize: 14,
+            ),
           ),
         ),
         Divider(color: R.themeColor.border),
-        SwitchListTile.adaptive(
-          contentPadding: EdgeInsets.zero,
-          applyCupertinoTheme: true,
-          value: viewModel.vehicleStatus!.isPublishPriceForeign,
-          onChanged: viewModel.setIsPublishPriceForeign,
-          title: TextBasic(
-            text: 'Dış Pazarda Göster',
-            color: R.themeColor.smokeDark,
-            fontFamily: R.fonts.displayMedium,
-            fontSize: 14,
+        ValueListenableBuilder(
+          valueListenable: viewModel.isPublishPriceForeign,
+          builder: (context, value, child) => SwitchListTile.adaptive(
+            contentPadding: EdgeInsets.zero,
+            applyCupertinoTheme: true,
+            value: value,
+            onChanged: viewModel.setIsPublishPriceForeign,
+            title: TextBasic(
+              text: 'Dış Pazarda Göster',
+              color: R.themeColor.smokeDark,
+              fontFamily: R.fonts.displayMedium,
+              fontSize: 14,
+            ),
           ),
         ),
       ];

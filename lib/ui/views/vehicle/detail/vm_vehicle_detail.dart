@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 
 import '../../../../core/enums/enum_app.dart';
 import '../../../../core/models/model_router_destinition.dart';
@@ -28,6 +29,9 @@ class VmVehicleDetail extends ViewModelBase {
 
   ModelVehicleStatus? vehicleStatus;
 
+  ValueNotifier<bool> isPublishPriceDomestic = ValueNotifier<bool>(false);
+  ValueNotifier<bool> isPublishPriceForeign = ValueNotifier<bool>(false);
+
   @override
   void init() {
     fragments
@@ -47,13 +51,11 @@ class VmVehicleDetail extends ViewModelBase {
   }
 
   void setIsPublishPriceDomestic(bool? value) {
-    vehicleStatus?.isPublishPriceDomestic = !(vehicleStatus?.isPublishPriceDomestic ?? false);
-    notifyListeners();
+    isPublishPriceDomestic.value = !(vehicleStatus?.isPublishPriceDomestic ?? false);
   }
 
   void setIsPublishPriceForeign(bool? value) {
-    vehicleStatus?.isPublishPriceForeign = !(vehicleStatus?.isPublishPriceForeign ?? false);
-    notifyListeners();
+    isPublishPriceForeign.value = !(vehicleStatus?.isPublishPriceForeign ?? false);
   }
 
   Future<void> getVehicleStatus() async {
@@ -61,6 +63,8 @@ class VmVehicleDetail extends ViewModelBase {
     await serviceApi.client.getVehicleStatus(id).then(
       (response) {
         vehicleStatus = response.data;
+        isPublishPriceDomestic.value = vehicleStatus?.isPublishPriceDomestic ?? false;
+        isPublishPriceForeign.value = vehicleStatus?.isPublishPriceForeign ?? false;
       },
       onError: (error) {
         handleApiError(error);
@@ -72,7 +76,22 @@ class VmVehicleDetail extends ViewModelBase {
   Future<bool> publishAdd() async {
     var state = false;
     setActivityState(ActivityState.isLoading);
-    await serviceApi.client.publishAdd(id, ModelRequestPublishAd(isPublishPriceDomestic: vehicleStatus!.isPublishPriceDomestic ? 1 : 0, isPublishPriceForeign: vehicleStatus!.isPublishPriceForeign ? 1 : 0)).then(
+    await serviceApi.client.publishAdd(id, ModelRequestPublishAd(isPublishPriceDomestic: isPublishPriceDomestic.value ? 1 : 0, isPublishPriceForeign: isPublishPriceForeign.value ? 1 : 0)).then(
+      (response) {
+        state = true;
+      },
+      onError: (error) {
+        handleApiError(error);
+      },
+    );
+    setActivityState(ActivityState.isLoaded);
+    return state;
+  }
+  
+  Future<bool> updatePublishedAdd() async {
+    var state = false;
+    setActivityState(ActivityState.isLoading);
+    await serviceApi.client.updatePublishedAdd(id, ModelRequestPublishAd(isPublishPriceDomestic: isPublishPriceDomestic.value ? 1 : 0, isPublishPriceForeign: isPublishPriceForeign.value ? 1 : 0)).then(
       (response) {
         state = true;
       },
