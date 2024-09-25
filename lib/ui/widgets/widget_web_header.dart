@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../core/enums/enum_app.dart';
+import '../../core/extensions/extension_balance.dart';
 import '../../core/resources/_r.dart';
 import '../../core/services/router/router.gr.dart';
 import '../../core/utils/general_data.dart';
@@ -93,7 +94,7 @@ class WidgetWebHeader extends WidgetBase<VmWidgetWebHeader> {
               const WidgetDropdownProfile(),
               const SizedBox(width: 16),
               WidgetInfoBox(
-                title: '${GeneralData.getInstance().getTokenData()?.balance ?? '0.00'}₺', // TODO(api): waitiing api for balance model.
+                title: GeneralData.getInstance().getTokenData()?.balance.formatPrice() ?? '0.00₺',
                 bgColor: R.themeColor.successLight,
                 textColor: R.themeColor.success,
               ),

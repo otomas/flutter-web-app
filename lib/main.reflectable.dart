@@ -12124,9 +12124,9 @@ final _data = <r.Reflectable, r.ReflectorData>{
             67240965,
             81,
             const prefix0.JsonSerializable(),
-            -1,
-            173,
-            173, const <int>[], const []),
+            83,
+            83,
+            83, const <int>[], const []),
         r.VariableMirrorImpl(
             r'dateOfBirth',
             67240965,
@@ -12151,8 +12151,8 @@ final _data = <r.Reflectable, r.ReflectorData>{
             81,
             const prefix0.JsonSerializable(),
             -1,
-            173,
-            173, const <int>[], const <Object>[
+            174,
+            174, const <int>[], const <Object>[
           const prefix0.JsonProperty(name: 'mobile_number_verified_at')
         ]),
         r.VariableMirrorImpl(
@@ -12161,8 +12161,8 @@ final _data = <r.Reflectable, r.ReflectorData>{
             81,
             const prefix0.JsonSerializable(),
             -1,
-            173,
-            173, const <int>[], const <Object>[
+            174,
+            174, const <int>[], const <Object>[
           const prefix0.JsonProperty(name: 'email_verified_at')
         ]),
         r.VariableMirrorImpl(
@@ -25612,9 +25612,9 @@ final _data = <r.Reflectable, r.ReflectorData>{
             67253254,
             1603,
             const prefix0.JsonSerializable(),
-            -1,
-            173,
-            173,
+            83,
+            83,
+            83,
             const <int>[],
             const [],
             null,
@@ -25649,8 +25649,8 @@ final _data = <r.Reflectable, r.ReflectorData>{
             1603,
             const prefix0.JsonSerializable(),
             -1,
-            173,
-            173,
+            174,
+            174,
             const <int>[],
             const [],
             null,
@@ -25661,8 +25661,8 @@ final _data = <r.Reflectable, r.ReflectorData>{
             1603,
             const prefix0.JsonSerializable(),
             -1,
-            173,
-            173,
+            174,
+            174,
             const <int>[],
             const [],
             null,

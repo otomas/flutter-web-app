@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Build the Flutter web app
+      - name: Generate codes
         run: dart run build_runner build --delete-conflicting-outputs
 
       - name: Build the Flutter web app
