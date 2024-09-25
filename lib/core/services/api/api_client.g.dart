@@ -19,6 +19,30 @@ class _ApiClient implements ApiClient {
   String? baseUrl;
 
   @override
+  Future<ResponseData<dynamic>> register(body) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = JsonMapper.serialize(body);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ResponseData<dynamic>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'user/auth/register',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value =
+        await IsolateHelper.parseJson<ResponseData<dynamic>>(_result.data!);
+    return value;
+  }
+
+  @override
   Future<ModelResponseString> deviceRegister({
     required deviceId,
     required fcmToken,

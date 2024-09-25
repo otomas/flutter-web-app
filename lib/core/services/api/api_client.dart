@@ -9,6 +9,7 @@ import '../../models/request/model_request_add_photo.dart';
 import '../../models/request/model_request_filter_date.dart';
 import '../../models/request/model_request_filter_marketplace.dart';
 import '../../models/request/model_request_publish_ad.dart';
+import '../../models/request/model_request_register.dart';
 import '../../models/request/model_request_register_device.dart';
 import '../../models/request/model_request_vehicle.dart';
 import '../../models/request/model_request_vehicle_info.dart';
@@ -75,6 +76,9 @@ part 'api_client.g.dart';
 @RestApi(parser: Parser.DartJsonMapper)
 abstract class ApiClient {
   factory ApiClient(Dio dio, {String? baseUrl}) = _ApiClient;
+
+  @POST('user/auth/register')
+  Future<ResponseData> register(@Body() ModelRequestRegister body);
 
   @FormUrlEncoded()
   @POST('/system/devices')
