@@ -24,10 +24,10 @@ class VmFragmentUsers extends ViewModelBase {
 
   List<ModelUserInfo> data = [];
   List<ModelDataTableColumn> tableData = [
-    ModelDataTableColumn(id: 'first_name', title: 'Ad Soyad', size: const FractionalColumnSize(0.2)),
+    ModelDataTableColumn(id: 'first_name', title: 'Ad Soyad', size: const FractionalColumnSize(0.3)),
     ModelDataTableColumn(id: 'branch', title: 'Şube', size: const FractionalColumnSize(0.2)),
-    ModelDataTableColumn(id: 'mobile_number', title: 'Telefon Numarası', size: const FractionalColumnSize(0.2)),
-    ModelDataTableColumn(id: 'citizen_no', title: 'Seri', size: const FractionalColumnSize(0.2)),
+    ModelDataTableColumn(id: 'mobile_number', title: 'Telefon Numarası', size: const FractionalColumnSize(0.15)),
+    ModelDataTableColumn(id: 'citizen_no', title: 'Seri', size: const FractionalColumnSize(0.15)),
     ModelDataTableColumn(id: 'email', title: 'Müşteri', size: const FractionalColumnSize(0.2)),
   ];
 
