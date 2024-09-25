@@ -2850,6 +2850,33 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<ResponseData<dynamic>> updatePublishedAdd(
+    vehicleId,
+    body,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = JsonMapper.serialize(body);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ResponseData<dynamic>>(Options(
+      method: 'PUT',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/user/vehicles/${vehicleId}/publish',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value =
+        await IsolateHelper.parseJson<ResponseData<dynamic>>(_result.data!);
+    return value;
+  }
+
+  @override
   Future<ModelResponsePublicVehicle> getPublicVehicleDetail(vehicleId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

@@ -577,6 +577,9 @@ abstract class ApiClient {
   @POST('/user/vehicles/{vehicleId}/publish')
   Future<ResponseData> publishAdd(@Path('vehicleId') int vehicleId, @Body() ModelRequestPublishAd body);
 
+  @PUT('/user/vehicles/{vehicleId}/publish')
+  Future<ResponseData> updatePublishedAdd(@Path('vehicleId') int vehicleId, @Body() ModelRequestPublishAd body);
+
   @GET('/public/market-place/{vehicleId}')
   Future<ModelResponsePublicVehicle> getPublicVehicleDetail(@Path('vehicleId') int vehicleId);
 

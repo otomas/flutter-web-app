@@ -340,3 +340,47 @@ class WidgetFilterRemoveButton extends StatelessWidget {
         ),
       );
 }
+
+class ActionButtonBasic extends StatelessWidget {
+  const ActionButtonBasic({
+    required this.onTap,
+    required this.iconSvgPath,
+    required this.title,
+    this.iconSvgColor,
+    this.titleColor,
+    this.borderColor,
+    this.bgColor,
+    super.key,
+  });
+
+  final Function() onTap;
+
+  final String iconSvgPath;
+  final Color? iconSvgColor;
+
+  final String title;
+  final Color? titleColor;
+
+  final Color? borderColor;
+  final Color? bgColor;
+
+  @override
+  Widget build(BuildContext context) => InkWell(
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: bgColor ?? R.color.transparent,
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: borderColor ?? titleColor ?? R.themeColor.border),
+          ),
+          child: Column(
+            children: [
+              SvgPicture.asset(iconSvgPath, colorFilter: ColorFilter.mode(iconSvgColor ?? R.themeColor.smokeDark, BlendMode.srcIn), height: 36),
+              const SizedBox(height: 8),
+              TextBasic(text: title, color: titleColor ?? R.themeColor.smokeDark, fontFamily: R.fonts.displayBold, fontSize: 14, textAlign: TextAlign.center),
+            ],
+          ),
+        ),
+      );
+}

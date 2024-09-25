@@ -20,6 +20,7 @@ class ModelVehicleStatus {
     required this.plateNumber,
     this.isPublishPriceDomestic = false,
     this.isPublishPriceForeign = false,
+    this.isEnteredAdInfo = false,
     this.priceDomestic,
     this.priceForeign,
     this.price,
@@ -43,4 +44,7 @@ class ModelVehicleStatus {
   final ModelBalance? priceForeign;
 
   final ModelBalance? price;
+
+  @JsonProperty(name: 'is_entered_ad_info', defaultValue: false)
+  final bool isEnteredAdInfo;
 }

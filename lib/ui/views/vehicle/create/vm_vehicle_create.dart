@@ -195,7 +195,7 @@ class VmVehicleCreate extends ViewModelBase {
             description: 'Aracınız başarıyla oluşturuldu.',
             isDismissible: false,
             onPressedButton: () {
-              serviceRoute.startNewView(route: RouteVehicleDetail(vehicleId: response.data!.id), isReplace: true);
+              serviceRoute.startNewView(route: RouteVehicleDetail(vehicleId: response.data!.id), isReplace: true, clearStack: true);
             },
           );
         } else {
