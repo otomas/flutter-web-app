@@ -30,6 +30,7 @@ class RootRouter extends RootStackRouter {
     AutoRoute(path: '/forgot-password', page: RouteForgotPassword.page),
     AutoRoute(path: '/public', page: RoutePublicHome.page),
     AutoRoute(path: '/public-detail', page: RoutePublicDetail.page),
+    AutoRoute(path: '/public-listing', page: RoutePublicListing.page),
 
     // HOME & FRAGMENTS
     ...routeHome,

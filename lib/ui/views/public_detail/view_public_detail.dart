@@ -4,18 +4,19 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:ucg_interactable_svg/interactable_svg/src/widgets/interactable_svg.dart';
-
 import '../../../core/constants/ui_brightness_style.dart';
 import '../../../core/extensions/extension_balance.dart';
+import '../../../core/extensions/extension_date.dart';
 import '../../../core/extensions/extension_iterable.dart';
 import '../../../core/extensions/extension_num.dart';
-import '../../../core/extensions/extension_string.dart';
 import '../../../core/resources/_r.dart';
+import '../../../core/utils/general_data.dart';
 import '../../../core/utils/vehicle_svg.dart';
 import '../../base/base_view.dart';
+import '../../widgets/widget_ad_images.dart';
 import '../../widgets/widget_flexible.dart';
-import '../../widgets/widget_image.dart';
 import '../../widgets/widget_info_card.dart';
 import '../../widgets/widget_info_container.dart';
 import '../../widgets/widget_public_new_ads.dart';
@@ -30,18 +31,24 @@ import 'vm_fragment_public_detail.dart';
 @RoutePage()
 class ViewPublicDetail extends WidgetBase<VmPublicDetail> {
   const ViewPublicDetail({
+    @QueryParam('vehicleId') this.vehicleId,
     super.key,
     super.isActiveLoadingIndicator = true,
   });
+  final int? vehicleId;
 
   @override
   SystemUiOverlayStyle systemBarBrightness() => UIBrightnessStyle.getInstance().system();
 
   @override
-  VmPublicDetail createViewModel(BuildContext context) => VmPublicDetail(apiService(context));
+  VmPublicDetail createViewModel(BuildContext context) => VmPublicDetail(vehicleId ?? -1, apiService(context));
 
   @override
-  Widget buildWidget(BuildContext context, VmPublicDetail viewModel) => const Center(child: Text('public-detail'));
+  Widget buildWidget(BuildContext context, VmPublicDetail viewModel) => Scaffold(
+        key: viewModel.scaffoldkey,
+        appBar: _getAppBar(context, viewModel),
+        body: _getBody(context, viewModel),
+      );
 
   @override
   Widget buildWidgetForWeb(BuildContext context, VmPublicDetail viewModel) => Scaffold(
@@ -53,7 +60,9 @@ class ViewPublicDetail extends WidgetBase<VmPublicDetail> {
   Widget _getBody(BuildContext context, VmPublicDetail viewModel) => ScrollWithNoGlowWidget(
         child: Center(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: size(context).width * 0.06, vertical: 20),
+            padding: isWeb(context)
+                ? EdgeInsets.symmetric(horizontal: size(context).width * 0.06, vertical: 20)
+                : const EdgeInsets.symmetric(horizontal: 15),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -62,7 +71,7 @@ class ViewPublicDetail extends WidgetBase<VmPublicDetail> {
                 _getScreenTypeVisibilityButton(context, viewModel),
                 const SizedBox(height: 30),
                 if (viewModel.isGeneralScreenTypeSelected) ...[
-                  _vehicleInfoContainers(context, viewModel),
+                  if (isWeb(context)) _vehicleInfoContainersWeb(context, viewModel) else _vehicleInfoBar(context, viewModel),
                   const SizedBox(height: 10),
                   IntrinsicHeight(
                     child: WidgetInfoCard(
@@ -74,12 +83,16 @@ class ViewPublicDetail extends WidgetBase<VmPublicDetail> {
                   const SizedBox(height: 15),
                   _getVehicleExpertiseReportContainer(context, viewModel),
                   const SizedBox(height: 10),
-                  _internalEquipmentList(context, viewModel),
+                  Visibility(visible: viewModel.vehicleEquipments['internal']!.isNotEmpty, child: _internalEquipmentList(context, viewModel)),
                   const SizedBox(height: 10),
-                  _externalEquipmentList(context, viewModel),
+                  Visibility(visible: viewModel.vehicleEquipments['external']!.isNotEmpty, child: _externalEquipmentList(context, viewModel)),
                   const SizedBox(height: 10),
-                  _getSimilarVehicles(context, viewModel),
+                  Visibility(visible: viewModel.vehicleEquipments['multimedia']!.isNotEmpty, child: _multimediaEquipmentList(context, viewModel)),
                   const SizedBox(height: 10),
+                  Visibility(visible: viewModel.vehicleEquipments['security']!.isNotEmpty, child: _securityEquipmentList(context, viewModel)),
+                  const SizedBox(height: 10),
+                  if (isWeb(context)) _getSimilarVehicles(context, viewModel),
+                  if (isWeb(context)) const SizedBox(height: 10),
                 ] else
                   Container(
                     decoration: BoxDecoration(color: R.themeColor.boxBg),
@@ -129,90 +142,151 @@ class ViewPublicDetail extends WidgetBase<VmPublicDetail> {
   Widget _getVehicleGeneralInfoCard(BuildContext context, VmPublicDetail viewModel) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            width: size(context).width - (size(context).width * 0.12),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          if (isWeb(context))
+            SizedBox(
+              width: size(context).width - (size(context).width * 0.12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: TextBasic(
+                      text:
+                          '${viewModel.data?.vehicleVersion?.vehicleModel?.vehicleSeries?.vehicleBrand?.name} ${viewModel.data?.vehicleVersion?.vehicleModel?.vehicleSeries?.name} ${viewModel.data?.vehicleVersion?.vehicleModel?.name} ${viewModel.data?.vehicleVersion?.name}',
+                      fontSize: 24,
+                      color: R.themeColor.secondary,
+                      fontFamily: R.fonts.displayBold,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Icon(Icons.star_border, color: R.themeColor.secondary, size: 15),
+                  const SizedBox(width: 5),
+                  TextBasic(text: 'Favorilerime Ekle', fontSize: 12, color: R.themeColor.secondary),
+                  const SizedBox(width: 20),
+                  VerticalDivider(color: R.themeColor.borderLight),
+                  const SizedBox(width: 10),
+                  Icon(Icons.share, color: R.themeColor.secondary, size: 15),
+                  const SizedBox(width: 5),
+                  TextBasic(text: 'Paylaş', fontSize: 12, color: R.themeColor.secondary),
+                ],
+              ),
+            ),
+          if (isWeb(context)) const SizedBox(height: 10),
+          if (isWeb(context))
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  child: TextBasic(
-                    text:
-                        '${viewModel.data?.vehicleVersion?.vehicleModel?.vehicleSeries?.vehicleBrand?.name} ${viewModel.data?.vehicleVersion?.vehicleModel?.vehicleSeries?.name} ${viewModel.data?.vehicleVersion?.vehicleModel?.name} ${viewModel.data?.vehicleVersion?.name}',
-                    fontSize: 24,
-                    color: R.themeColor.secondary,
-                    fontFamily: R.fonts.displayBold,
+                SizedBox(
+                  width: (size(context).width - (size(context).width * 0.12 + 30)) / 2,
+                  child: WidgetAdImages(
+                    data: viewModel.data?.photos ?? [],
                   ),
                 ),
-                const SizedBox(width: 10),
-                Icon(Icons.star_border, color: R.themeColor.secondary, size: 15),
-                const SizedBox(width: 5),
-                TextBasic(text: 'Favorilerime Ekle', fontSize: 12, color: R.themeColor.secondary),
-                const SizedBox(width: 20),
-                VerticalDivider(color: R.themeColor.borderLight),
-                const SizedBox(width: 10),
-                Icon(Icons.share, color: R.themeColor.secondary, size: 15),
-                const SizedBox(width: 5),
-                TextBasic(text: 'Paylaş', fontSize: 12, color: R.themeColor.secondary),
-              ],
-            ),
-          ),
-          const SizedBox(height: 10),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              NetworkImageWithPlaceholder(
-                imageUrl: viewModel.data?.coverPhotoUrl ?? '',
-                width: (size(context).width - (size(context).width * 0.12 + 30)) / 2,
-                height: 500,
-                radius: 12,
-              ),
-              const SizedBox(width: 15),
-              SizedBox(
-                width: (size(context).width - (size(context).width * 0.12 + 30)) / 3,
-                child: Column(
-                  children: [
-                    const SizedBox(height: 20),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Row(
-                          children: [
-                            const Expanded(child: TextBasic(text: '')),
-                            TextBasic(
-                                text: viewModel.data?.priceDomestic.formatPrice() ?? '', fontSize: 32, fontWeight: FontWeight.bold, color: R.themeColor.secondary),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            const Expanded(child: TextBasic(text: '')),
-                            Icon(Icons.location_on, color: R.themeColor.error),
-                            TextBasic(
-                              text:
-                                  '${viewModel.data?.autoGalleryBranch?.neighborhood?.name ?? ''} / ${viewModel.data?.autoGalleryBranch?.neighborhood?.district?.name ?? ''} / ${viewModel.data?.autoGalleryBranch?.neighborhood?.district?.province?.name ?? ''}',
-                              color: R.themeColor.secondary,
-                            ),
-                          ],
-                        ),
-                        WidgetValueText(title: 'İlan Numarası', value: '10618239282', valueColor: R.themeColor.error),
-                        const WidgetValueText(title: 'İlan Tarihi', value: '9 Temmuz 2023'),
-                        WidgetValueText(title: 'Marka', value: viewModel.data?.vehicleVersion?.vehicleModel?.vehicleSeries?.vehicleBrand?.name ?? ''),
-                        WidgetValueText(title: 'Model Yılı', value: viewModel.data?.modelYear?.toString() ?? ''),
-                        WidgetValueText(title: 'Model', value: viewModel.data?.vehicleVersion?.vehicleModel?.vehicleSeries?.name ?? ''),
-                        WidgetValueText(title: 'Yakıt Tipi', value: viewModel.data?.vehicleFuelType?.name ?? ''),
-                        WidgetValueText(title: 'Vites Tipi', value: viewModel.data?.vehicleTransmissionType?.name ?? ''),
-                        WidgetValueText(title: 'Motor Gücü', value: '${viewModel.data?.enginePower.formatPrice()} hp'),
-                        WidgetValueText(title: 'Motor Hacmi', value: '${viewModel.data?.engineCapacity.formatPrice()} cm³'),
-                        WidgetValueText(title: 'Renk', value: viewModel.data?.color ?? '', isActiveDivider: !isWeb(context)),
-                        WidgetValueText(title: 'Kilometre', value: viewModel.data?.kilometer.formatPrice() ?? '0', isActiveDivider: !isWeb(context)),
-                      ],
-                    ),
-                  ],
+                const SizedBox(width: 15),
+                SizedBox(
+                  width: (size(context).width - (size(context).width * 0.12 + 30)) / 3,
+                  child: Column(
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Row(
+                            children: [
+                              const Expanded(child: TextBasic(text: '')),
+                              TextBasic(
+                                text: viewModel.data?.priceForeign.formatPrice() ?? '',
+                                fontSize: 32,
+                                fontWeight: FontWeight.bold,
+                                color: R.themeColor.secondary,
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              const Expanded(child: TextBasic(text: '')),
+                              Icon(Icons.location_on, color: R.themeColor.error),
+                              TextBasic(
+                                text:
+                                    '${viewModel.data?.autoGalleryBranch?.neighborhood?.name ?? ''} / ${viewModel.data?.autoGalleryBranch?.neighborhood?.district?.name ?? ''} / ${viewModel.data?.autoGalleryBranch?.neighborhood?.district?.province?.name ?? ''}',
+                                color: R.themeColor.secondary,
+                              ),
+                            ],
+                          ),
+                          WidgetValueText(title: 'İlan Numarası', value: (viewModel.data?.adNumber ?? -1).toString(), valueColor: R.themeColor.error),
+                          WidgetValueText(title: 'İlan Tarihi', value: viewModel.data?.createdAt.dayMonthNameYearAndMonth() ?? ''),
+                          WidgetValueText(title: 'Marka', value: viewModel.data?.vehicleVersion?.vehicleModel?.vehicleSeries?.vehicleBrand?.name ?? ''),
+                          WidgetValueText(title: 'Model Yılı', value: viewModel.data?.modelYear?.toString() ?? ''),
+                          WidgetValueText(title: 'Model', value: viewModel.data?.vehicleVersion?.vehicleModel?.vehicleSeries?.name ?? ''),
+                          WidgetValueText(title: 'Yakıt Tipi', value: viewModel.data?.vehicleFuelType?.name ?? ''),
+                          WidgetValueText(title: 'Vites Tipi', value: viewModel.data?.vehicleTransmissionType?.name ?? ''),
+                          WidgetValueText(title: 'Motor Gücü', value: '${(viewModel.data?.enginePower ?? 0).formatPrice()} hp'),
+                          WidgetValueText(title: 'Motor Hacmi', value: '${(viewModel.data?.engineCapacity ?? 0).formatPrice()} cm³'),
+                          WidgetValueText(title: 'Renk', value: viewModel.data?.color ?? '', isActiveDivider: !isWeb(context)),
+                          WidgetValueText(title: 'Kilometre', value: viewModel.data?.kilometer.formatPrice() ?? '0', isActiveDivider: !isWeb(context)),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
+                const SizedBox(width: 15),
+                _ownerInfoCard(context, viewModel),
+              ],
+            )
+          else
+            SizedBox(
+              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    child: WidgetAdImages(
+                      data: viewModel.data?.photos ?? [],
+                    ),
+                  ),
+                  const SizedBox(width: 15),
+                  Column(
+                    children: [
+                      const SizedBox(height: 20),
+                      Column(
+                        children: [
+                          Row(
+                            children: [
+                              TextBasic(
+                                text: viewModel.data?.priceForeign.formatPrice() ?? '',
+                                fontSize: 32,
+                                fontWeight: FontWeight.bold,
+                                color: R.themeColor.secondary,
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Icon(Icons.location_on, color: R.themeColor.error),
+                              TextBasic(
+                                text:
+                                    '${viewModel.data?.autoGalleryBranch?.neighborhood?.name ?? ''} / ${viewModel.data?.autoGalleryBranch?.neighborhood?.district?.name ?? ''} / ${viewModel.data?.autoGalleryBranch?.neighborhood?.district?.province?.name ?? ''}',
+                                color: R.themeColor.secondary,
+                              ),
+                            ],
+                          ),
+                          WidgetValueText(title: 'İlan Numarası', value: (viewModel.data?.adNumber ?? -1).toString(), valueColor: R.themeColor.error),
+                          WidgetValueText(title: 'İlan Tarihi', value: viewModel.data?.createdAt.dayMonthNameYearAndMonth() ?? ''),
+                          WidgetValueText(title: 'Marka', value: viewModel.data?.vehicleVersion?.vehicleModel?.vehicleSeries?.vehicleBrand?.name ?? ''),
+                          WidgetValueText(title: 'Model Yılı', value: viewModel.data?.modelYear?.toString() ?? ''),
+                          WidgetValueText(title: 'Model', value: viewModel.data?.vehicleVersion?.vehicleModel?.vehicleSeries?.name ?? ''),
+                          WidgetValueText(title: 'Yakıt Tipi', value: viewModel.data?.vehicleFuelType?.name ?? ''),
+                          WidgetValueText(title: 'Vites Tipi', value: viewModel.data?.vehicleTransmissionType?.name ?? ''),
+                          WidgetValueText(title: 'Motor Gücü', value: '${(viewModel.data?.enginePower ?? 0).formatPrice()} hp'),
+                          WidgetValueText(title: 'Motor Hacmi', value: '${(viewModel.data?.engineCapacity ?? 0).formatPrice()} cm³'),
+                          WidgetValueText(title: 'Renk', value: viewModel.data?.color ?? '', isActiveDivider: !isWeb(context)),
+                          WidgetValueText(title: 'Kilometre', value: viewModel.data?.kilometer.formatPrice() ?? '0', isActiveDivider: !isWeb(context)),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              const SizedBox(width: 15),
-              _ownerInfoCard(context, viewModel),
-            ],
-          ),
+            ),
         ],
       );
 
@@ -233,10 +307,16 @@ class ViewPublicDetail extends WidgetBase<VmPublicDetail> {
                 shape: BoxShape.circle,
                 color: R.themeColor.info,
               ),
-              child: Center(child: TextBasic(text: (viewModel.data?.autoGallery?.title ?? '').firstCharacterUppercase(), fontSize: 34, color: R.color.white)),
+              child: Center(
+                child: TextBasic(
+                  text: viewModel.data?.autoGalleryBranch?.autoGallery?.title?.substring(0, 1).toUpperCase() ?? '',
+                  fontSize: 34,
+                  color: R.color.white,
+                ),
+              ),
             ),
             const SizedBox(height: 5),
-            TextBasic(text: viewModel.data?.autoGallery?.title ?? '', fontSize: 14, color: R.themeColor.secondary),
+            TextBasic(text: viewModel.data?.autoGalleryBranch?.autoGallery?.title ?? '', fontSize: 14, color: R.themeColor.secondary),
             const SizedBox(height: 5),
             Container(
               padding: const EdgeInsets.only(left: 6, right: 6, top: 3, bottom: 3),
@@ -245,10 +325,14 @@ class ViewPublicDetail extends WidgetBase<VmPublicDetail> {
                 borderRadius: BorderRadius.circular(4),
               ),
               child: TextBasic(
-                  text: viewModel.data?.autoGallery?.accountType?.name ?? '', fontSize: 12, color: R.themeColor.secondary, fontFamily: R.fonts.displayBold),
+                text: viewModel.data?.autoGalleryBranch?.autoGallery?.accountType?.name ?? '',
+                fontSize: 12,
+                color: R.themeColor.secondary,
+                fontFamily: R.fonts.displayBold,
+              ),
             ),
             const SizedBox(height: 15),
-            TextBasic(text: viewModel.data?.autoGallery?.email ?? '', fontSize: 12, color: R.themeColor.secondary),
+            TextBasic(text: viewModel.data?.autoGalleryBranch?.autoGallery?.email ?? '', fontSize: 12, color: R.themeColor.secondary),
             const SizedBox(height: 12.5),
             InkWell(
               onTap: () {},
@@ -273,7 +357,7 @@ class ViewPublicDetail extends WidgetBase<VmPublicDetail> {
       );
 
   Widget _getVehicleExpertiseReportContainer(BuildContext context, VmPublicDetail viewModel) => SizedBox(
-        width: size(context).width - (size(context).width * 0.06 + 40),
+        width: size(context).width - (size(context).width * 0.04),
         child: Column(
           children: [
             Row(
@@ -355,7 +439,7 @@ class ViewPublicDetail extends WidgetBase<VmPublicDetail> {
         ],
       );
 
-  Widget _vehicleInfoContainers(BuildContext context, VmPublicDetail viewModel) => SizedBox(
+  Widget _vehicleInfoContainersWeb(BuildContext context, VmPublicDetail viewModel) => SizedBox(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -404,8 +488,91 @@ class ViewPublicDetail extends WidgetBase<VmPublicDetail> {
         ),
       );
 
+  Widget _vehicleInfoContainers(BuildContext context, VmPublicDetail viewModel) => Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                width: (size(context).width - 50) / 3,
+                decoration: BoxDecoration(color: R.themeColor.boxBg, borderRadius: BorderRadius.circular(12)),
+                padding: const EdgeInsets.only(top: 24, bottom: 24, left: 40, right: 40),
+                child: WidgetInfoContainer(title: 'Yıl', description: viewModel.data?.modelYear ?? ''),
+              ),
+              const SizedBox(width: 10),
+              Container(
+                width: (size(context).width - 50) / 3,
+                decoration: BoxDecoration(color: R.themeColor.boxBg, borderRadius: BorderRadius.circular(12)),
+                padding: const EdgeInsets.only(top: 24, bottom: 24, left: 40, right: 40),
+                child: WidgetInfoContainer(title: 'Kilometre', description: viewModel.data?.kilometer.toString() ?? ''),
+              ),
+              const SizedBox(width: 10),
+              Container(
+                width: (size(context).width - 50) / 3,
+                decoration: BoxDecoration(color: R.themeColor.boxBg, borderRadius: BorderRadius.circular(12)),
+                padding: const EdgeInsets.only(top: 24, bottom: 24, left: 40, right: 40),
+                child: WidgetInfoContainer(title: 'Vites', description: viewModel.data?.vehicleTransmissionType?.name ?? ''),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Container(
+                width: (size(context).width - 50) / 3,
+                decoration: BoxDecoration(color: R.themeColor.boxBg, borderRadius: BorderRadius.circular(12)),
+                padding: const EdgeInsets.only(top: 24, bottom: 24, left: 40, right: 40),
+                child: WidgetInfoContainer(title: 'Yakıt Tipi', description: viewModel.data?.vehicleFuelType?.name ?? ''),
+              ),
+              const SizedBox(width: 10),
+              Container(
+                width: (size(context).width - 50) / 3,
+                decoration: BoxDecoration(color: R.themeColor.boxBg, borderRadius: BorderRadius.circular(12)),
+                padding: const EdgeInsets.only(top: 24, bottom: 24, left: 40, right: 40),
+                child: WidgetInfoContainer(title: 'Çekiş Türü', description: viewModel.data?.vehicleTractionType?.name ?? ''),
+              ),
+              const SizedBox(width: 10),
+              Container(
+                width: (size(context).width - 50) / 3,
+                decoration: BoxDecoration(color: R.themeColor.boxBg, borderRadius: BorderRadius.circular(12)),
+                padding: const EdgeInsets.only(top: 24, bottom: 24, left: 40, right: 40),
+                child: WidgetInfoContainer(title: 'Motor', description: ((viewModel.data?.engineCapacity ?? 100) / 100).toStringAsFixed(1)),
+              ),
+            ],
+          ),
+        ],
+      );
+
+  Widget _vehicleInfoBar(BuildContext context, VmPublicDetail viewModel) => SizedBox(
+        width: size(context).width - 30,
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextBasic(text: 'Aracın Öne Çıkan Özellikleri', fontSize: 18, color: R.themeColor.primary, fontWeight: FontWeight.bold),
+                GestureDetector(
+                  onTap: () {
+                    viewModel.changeisVehicleInfoVisible();
+                  },
+                  child: Icon(
+                    viewModel.isVehicleInfoVisible ? CupertinoIcons.minus_circle_fill : CupertinoIcons.plus,
+                    color: R.themeColor.primary,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              child: !viewModel.isVehicleInfoVisible ? Container() : _vehicleInfoContainers(context, viewModel),
+            ),
+            const SizedBox(height: 20),
+          ],
+        ),
+      );
+
   Widget _internalEquipmentList(BuildContext context, VmPublicDetail viewModel) => SizedBox(
-        width: size(context).width - (size(context).width * 0.06 + 40),
+        width: size(context).width - (size(context).width * 0.04),
         child: Column(
           children: [
             Row(
@@ -439,7 +606,83 @@ class ViewPublicDetail extends WidgetBase<VmPublicDetail> {
           border: Border.all(color: R.themeColor.border),
           borderRadius: BorderRadius.circular(14),
         ),
-        child: WidgetVehicleEquipmentList(items: viewModel.vehicleEquipments['Interior'] ?? []),
+        child: WidgetVehicleEquipmentList(items: viewModel.vehicleEquipments['internal'] ?? []),
+      );
+
+  Widget _multimediaEquipmentListContainer(BuildContext context, VmPublicDetail viewModel) => Container(
+        padding: const EdgeInsets.all(30),
+        decoration: BoxDecoration(
+          border: Border.all(color: R.themeColor.border),
+          borderRadius: BorderRadius.circular(14),
+        ),
+        child: WidgetVehicleEquipmentList(items: viewModel.vehicleEquipments['multimedia'] ?? []),
+      );
+
+  Widget _multimediaEquipmentList(BuildContext context, VmPublicDetail viewModel) => SizedBox(
+        width: size(context).width - (size(context).width * 0.04),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextBasic(text: 'Multimedya', fontSize: 18, color: R.themeColor.secondary, fontWeight: FontWeight.bold),
+                GestureDetector(
+                  onTap: () {
+                    viewModel.changeisMultimediaEquipmentVisible();
+                  },
+                  child: Icon(
+                    viewModel.isMultimediaEquipmentVisible ? CupertinoIcons.minus_circle_fill : CupertinoIcons.plus,
+                    color: R.themeColor.primary,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              child: !viewModel.isMultimediaEquipmentVisible ? Container() : _multimediaEquipmentListContainer(context, viewModel),
+            ),
+            const SizedBox(height: 20),
+          ],
+        ),
+      );
+
+  Widget _securityEquipmentListContainer(BuildContext context, VmPublicDetail viewModel) => Container(
+        padding: const EdgeInsets.all(30),
+        decoration: BoxDecoration(
+          border: Border.all(color: R.themeColor.border),
+          borderRadius: BorderRadius.circular(14),
+        ),
+        child: WidgetVehicleEquipmentList(items: viewModel.vehicleEquipments['security'] ?? []),
+      );
+
+  Widget _securityEquipmentList(BuildContext context, VmPublicDetail viewModel) => SizedBox(
+        width: size(context).width - (size(context).width * 0.04),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextBasic(text: 'Güvenlik', fontSize: 18, color: R.themeColor.secondary, fontWeight: FontWeight.bold),
+                GestureDetector(
+                  onTap: () {
+                    viewModel.changeisSecurityEquipmentVisible();
+                  },
+                  child: Icon(
+                    viewModel.isSecurityEquipmentVisible ? CupertinoIcons.minus_circle_fill : CupertinoIcons.plus,
+                    color: R.themeColor.primary,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              child: !viewModel.isSecurityEquipmentVisible ? Container() : _securityEquipmentListContainer(context, viewModel),
+            ),
+            const SizedBox(height: 20),
+          ],
+        ),
       );
 
   Widget _externalEquipmentList(BuildContext context, VmPublicDetail viewModel) => SizedBox(
@@ -477,7 +720,7 @@ class ViewPublicDetail extends WidgetBase<VmPublicDetail> {
           border: Border.all(color: R.themeColor.border),
           borderRadius: BorderRadius.circular(14),
         ),
-        child: WidgetVehicleEquipmentList(items: viewModel.vehicleEquipments['Interior'] ?? []),
+        child: WidgetVehicleEquipmentList(items: viewModel.vehicleEquipments['external'] ?? []),
       );
 
   Widget _getSimilarVehicles(BuildContext context, VmPublicDetail viewModel) => Column(
@@ -499,5 +742,59 @@ class ViewPublicDetail extends WidgetBase<VmPublicDetail> {
           const WidgetPublicNewAds(),
           const SizedBox(height: 20),
         ],
+      );
+
+  AppBar _getAppBar(BuildContext context, VmPublicDetail viewModel) => AppBar(
+        centerTitle: false,
+        backgroundColor: R.color.white,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        title: Row(
+          children: [
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextBasic(text: R.string.hello, color: R.themeColor.smoke, fontFamily: R.fonts.displayMedium, fontSize: 12),
+                  TextBasic(
+                    text: GeneralData.getInstance().getTokenData()?.fullName ?? '-',
+                    color: R.themeColor.secondaryHover,
+                    fontFamily: R.fonts.displayBold,
+                    fontSize: 16,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 12),
+            IconButton(
+              onPressed: () {},
+              icon: SvgPicture.asset(
+                R.drawable.svg.iconChat,
+                colorFilter: ColorFilter.mode(R.themeColor.secondary, BlendMode.srcIn),
+                width: 26,
+              ),
+            ),
+            const SizedBox(width: 10),
+            // IconButton(
+            //   onPressed: () {},
+            //   icon: SvgPicture.asset(
+            //     R.drawable.svg.iconDate,
+            //     colorFilter: ColorFilter.mode(R.themeColor.secondary, BlendMode.srcIn),
+            //     width: 26.0,
+            //   ),
+            // ),
+            // const SizedBox(width: 10.0),
+            IconButton(
+              onPressed: () {},
+              icon: SvgPicture.asset(
+                R.drawable.svg.iconNotification,
+                colorFilter: ColorFilter.mode(R.themeColor.secondary, BlendMode.srcIn),
+                width: 26,
+              ),
+            ),
+          ],
+        ),
       );
 }

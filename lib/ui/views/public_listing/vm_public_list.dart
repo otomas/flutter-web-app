@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import '../../../core/services/service_api.dart';
 import '../../base/base_view_model.dart';
 
-class VmPublicHome extends ViewModelBase {
+class VmPublicListing extends ViewModelBase {
 
-  VmPublicHome(this.serviceApi) {
+  VmPublicListing(this.serviceApi) {
     unawaited(init());
   }
   bool rentSelection = true;

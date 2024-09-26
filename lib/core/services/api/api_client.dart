@@ -585,4 +585,10 @@ abstract class ApiClient {
   @GET('/public/new-adverts')
   Future<ModelResponsePublicVehicleCard> getPublicVehicleCards();
 
+  @DELETE('/user/accounting/accounting-book/{accountBookId}')
+  Future<ResponseData> deleteAccountBookDetail(
+    @Path('accountBookId') int accountBookId,
+    @Field('account_model') String? accountModel,
+    @Field('account_id') num? accountId,
+  );
 }

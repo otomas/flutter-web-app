@@ -51,10 +51,31 @@ class _FragmentAccountBookState extends WidgetBaseStatefull<FragmentAccountBook,
   VmFragmentAccountBook createViewModel(BuildContext context) => VmFragmentAccountBook(apiService(context));
 
   @override
-  Widget buildWidget(BuildContext context, VmFragmentAccountBook viewModel) => const Center(child: TextBasic(text: 'book'));
+  Widget buildWidget(BuildContext context, VmFragmentAccountBook viewModel) => _getBody(context, viewModel);
 
   @override
   Widget buildWidgetForWeb(BuildContext context, VmFragmentAccountBook viewModel) => _getBodyWeb(context, viewModel);
+
+  Widget _getBody(BuildContext context, VmFragmentAccountBook viewModel) => ScrollWithNoGlowWidget(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        child: Column(
+          children: [
+            _getBankAccountSelection(context, viewModel),
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                Expanded(child: _getStartDatePicker(context, viewModel)),
+                const SizedBox(width: 5),
+                Expanded(child: _getEndDatePicker(context, viewModel)),
+                const SizedBox(width: 5),
+                Expanded(child: _getFilterButton(context, viewModel)),
+              ],
+            ),
+            const SizedBox(height: 10),
+            if (viewModel.selectedAccountBookList == null) _getNotSelectedWidget(context, viewModel) else _getSelectedWidget(context, viewModel),
+          ],
+        ),
+      );
 
   Widget _getBodyWeb(BuildContext context, VmFragmentAccountBook viewModel) => ScrollWithNoGlowWidget(
         child: Column(
@@ -88,17 +109,17 @@ class _FragmentAccountBookState extends WidgetBaseStatefull<FragmentAccountBook,
 
   Widget _getSelectedWidget(BuildContext context, VmFragmentAccountBook viewModel) => Column(
         children: [
-          _getSelectedDropDownWidget(context, viewModel),
-          const SizedBox(height: 20),
-          _getSelectedAccountBookWidget(context, viewModel),
+          if (isWeb(context)) _getSelectedDropDownWidget(context, viewModel),
+          if (isWeb(context)) const SizedBox(height: 20),
+          if (isWeb(context)) _getSelectedAccountBookWidgetWeb(context, viewModel) else _getSelectedAccountBookWidget(context, viewModel),
           const SizedBox(height: 20),
         ],
       );
 
   Widget _getNotSelectedWidget(BuildContext context, VmFragmentAccountBook viewModel) => Column(
         children: [
-          _getDropdownWidget(context, viewModel),
-          const SizedBox(height: 20),
+          if (isWeb(context)) _getDropdownWidget(context, viewModel),
+          if (isWeb(context)) const SizedBox(height: 20),
           _getAccountsReport(context, viewModel),
           const SizedBox(height: 20),
         ],
@@ -106,6 +127,23 @@ class _FragmentAccountBookState extends WidgetBaseStatefull<FragmentAccountBook,
 
   Widget _sideBarWidget(BuildContext context, VmFragmentAccountBook viewModel) => Column(
         children: [
+          Visibility(
+            visible: viewModel.selectedSideBar != null || viewModel.selectedBankAccount != null,
+            child: ButtonBasic(
+              bgColor: R.color.transparent,
+              textColor: R.themeColor.primary,
+              child: Row(
+                children: [
+                  Icon(Icons.delete, color: R.themeColor.primary),
+                  TextBasic(text: 'Temizle', color: R.themeColor.primary, fontSize: 16, fontFamily: R.fonts.displayBold),
+                ],
+              ),
+              onPressed: () {
+                viewModel.resetPage();
+              },
+            ),
+          ),
+          Visibility(visible: viewModel.selectedSideBar != null || viewModel.selectedBankAccount != null, child: const SizedBox(height: 10)),
           _getSearchField(context, viewModel),
           const SizedBox(height: 10),
           Column(
@@ -134,7 +172,7 @@ class _FragmentAccountBookState extends WidgetBaseStatefull<FragmentAccountBook,
   Widget _getAccountsReport(BuildContext context, VmFragmentAccountBook viewModel) => Column(
         children: [
           Container(
-            padding: const EdgeInsets.only(left: 20),
+            padding: isWeb(context) ? const EdgeInsets.only(left: 20) : null,
             child: (viewModel.selectedBankAccount == null)
                 ? ListView.builder(
                     itemCount: viewModel.data?.accountsReport?.length ?? 0,
@@ -166,7 +204,7 @@ class _FragmentAccountBookState extends WidgetBaseStatefull<FragmentAccountBook,
 
   Widget _getBankAccountSelection(BuildContext context, VmFragmentAccountBook viewModel) => DropdownBasic(
         key: UniqueKey(),
-        title: R.string.accountSelection,
+        title: isWeb(context) ? R.string.accountSelection : null,
         hint: 'Seçiniz',
         // ignore: discarded_futures
         items: viewModel.sideBarListData,
@@ -207,7 +245,11 @@ class _FragmentAccountBookState extends WidgetBaseStatefull<FragmentAccountBook,
           );
         },
         child: TextFieldBasic(
-          title: viewModel.selectedSideBar == null ? 'Başlangıç Tarihi' : null,
+          title: isWeb(context)
+              ? viewModel.selectedSideBar == null
+                  ? 'Başlangıç Tarihi'
+                  : null
+              : null,
           hintText: 'Başlangıç Tarihi Seçiniz',
           controller: viewModel.startDateController,
           suffixIcon: Icon(Icons.date_range, color: R.themeColor.primary),
@@ -248,7 +290,11 @@ class _FragmentAccountBookState extends WidgetBaseStatefull<FragmentAccountBook,
           );
         },
         child: TextFieldBasic(
-          title: viewModel.selectedSideBar == null ? 'Bitiş Tarihi' : null,
+          title: isWeb(context)
+              ? viewModel.selectedSideBar == null
+                  ? 'Bitiş Tarihi'
+                  : null
+              : null,
           hintText: 'Bitiş Tarihi Seçiniz',
           controller: viewModel.endDateController,
           suffixIcon: Icon(Icons.date_range, color: R.themeColor.primary),
@@ -259,13 +305,17 @@ class _FragmentAccountBookState extends WidgetBaseStatefull<FragmentAccountBook,
       );
 
   Widget _getFilterButton(BuildContext context, VmFragmentAccountBook viewModel) => Container(
-        margin: viewModel.selectedSideBar == null ? const EdgeInsets.only(top: 20) : null,
+        margin: viewModel.selectedSideBar == null
+            ? isWeb(context)
+                ? const EdgeInsets.only(top: 20)
+                : null
+            : const EdgeInsets.all(8),
         child: ButtonBasic(
           text: 'Filtrele',
           bgColor: R.themeColor.primaryLight,
           textColor: R.themeColor.primary,
           onPressed: () async {
-            unawaited(viewModel.getData());
+            isWeb(context) ? unawaited(viewModel.getData()) : unawaited(viewModel.getSelectedAccountBookDetailForMobile());
           },
         ),
       );
@@ -294,8 +344,12 @@ class _FragmentAccountBookState extends WidgetBaseStatefull<FragmentAccountBook,
                 context,
                 isDismissible: false,
                 BsAccountingReport(
-                  type: AccountBookProcessType.create,
                   transactionType: viewModel.selectedAccountBookList?.first.accountTransactionCategoryId ?? -1,
+                  onUpdateSuccess: (var isSuccess) {
+                    if (isSuccess) {
+                      unawaited(viewModel.getSelectedAccountBookDetail());
+                    }
+                  },
                 ),
               ),
             );
@@ -328,26 +382,37 @@ class _FragmentAccountBookState extends WidgetBaseStatefull<FragmentAccountBook,
                       viewModel.selectedSideBar = sideBarModel[index];
                       unawaited(viewModel.getSelectedAccountBookDetail());
                     },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: TextBasic(
-                            text: sideBarModel[index].itemName ?? '',
-                            fontSize: 14,
-                            color: R.themeColor.secondaryHover,
+                    child: Container(
+                      padding: viewModel.selectedSideBar == sideBarModel[index] ? const EdgeInsets.all(10) : const EdgeInsets.all(0),
+                      decoration: BoxDecoration(
+                        color: viewModel.selectedSideBar == sideBarModel[index] ? R.themeColor.primary : R.color.transparent,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: TextBasic(
+                              text: sideBarModel[index].itemName ?? '',
+                              fontSize: 14,
+                              color: viewModel.selectedSideBar == sideBarModel[index] ? R.color.white : R.themeColor.secondaryHover,
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          child: TextBasic(
-                            textAlign: TextAlign.end,
-                            text: (sideBarModel[index].balance?.amount ?? 0).formatPrice(),
-                            fontSize: 14,
-                            color: (sideBarModel[index].balance?.amount ?? 0) < 0 ? R.themeColor.error : R.themeColor.success,
-                            fontWeight: FontWeight.bold,
+                          Expanded(
+                            child: TextBasic(
+                              textAlign: TextAlign.end,
+                              text: (sideBarModel[index].balance?.amount ?? 0).formatPrice(),
+                              fontSize: 14,
+                              color: viewModel.selectedSideBar == sideBarModel[index]
+                                  ? R.color.white
+                                  : (sideBarModel[index].balance?.amount ?? 0) < 0
+                                      ? R.themeColor.error
+                                      : R.themeColor.success,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -490,92 +555,104 @@ class _FragmentAccountBookState extends WidgetBaseStatefull<FragmentAccountBook,
     );
   }
 
-  Widget _getSelectedAccountBookWidget(BuildContext context, VmFragmentAccountBook viewModel) => ScrollWithNoGlowWidget(
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: R.themeColor.primaryLight,
-                borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-                border: Border.all(color: R.themeColor.border),
-              ),
-              padding: const EdgeInsets.all(20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  Widget _getSelectedAccountBookWidget(BuildContext context, VmFragmentAccountBook viewModel) => _getSelectedAccountBookContainer(context, viewModel);
+
+  Widget _getSelectedAccountBookWidgetWeb(BuildContext context, VmFragmentAccountBook viewModel) =>
+      ScrollWithNoGlowWidget(child: _getSelectedAccountBookContainer(context, viewModel));
+
+  Widget _getSelectedAccountBookContainer(BuildContext context, VmFragmentAccountBook viewModel) => Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: R.themeColor.primaryLight,
+              borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+              border: Border.all(color: R.themeColor.border),
+            ),
+            padding: const EdgeInsets.all(20),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  flex: isWeb(context) ? 3 : 2,
+                  child: GestureDetector(
+                    onTap: () => {viewModel.sortAccountBookList(type: 'description', isDescending: viewModel.isAscending)},
+                    child: Row(
+                      children: [
+                        TextBasic(text: 'Açıklama', color: R.themeColor.secondary, fontSize: 14),
+                        Icon(CupertinoIcons.chevron_up_chevron_down, size: 14, color: R.themeColor.secondary),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  flex: 2,
+                  child: GestureDetector(
+                    onTap: () => viewModel.sortAccountBookList(type: 'date', isDescending: viewModel.isAscending),
+                    child: Row(
+                      children: [
+                        TextBasic(text: 'Tarih & Saat', color: R.themeColor.secondary, fontSize: 14),
+                        Icon(CupertinoIcons.chevron_up_chevron_down, size: 14, color: R.themeColor.secondary),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () => viewModel.sortAccountBookList(type: 'amount', isDescending: viewModel.isAscending),
+                    child: Row(
+                      children: [
+                        TextBasic(text: 'Tutar', color: R.themeColor.secondary, fontSize: 14),
+                        Icon(CupertinoIcons.chevron_up_chevron_down, size: 14, color: R.themeColor.secondary),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () => viewModel.sortAccountBookList(type: 'balance', isDescending: viewModel.isAscending),
+                    child: Row(
+                      children: [
+                        TextBasic(text: 'Bakiye', color: R.themeColor.secondary, fontSize: 14),
+                        Icon(CupertinoIcons.chevron_up_chevron_down, size: 14, color: R.themeColor.secondary),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          ListView.builder(
+            itemCount: viewModel.selectedAccountBookList?.length ?? 0,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.zero,
+            itemBuilder: (context, index) {
+              final item = viewModel.selectedAccountBookList?[index];
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(
-                    flex: 3,
-                    child: GestureDetector(
-                      onTap: () => {viewModel.sortAccountBookList(type: 'description', isDescending: viewModel.isAscending)},
-                      child: Row(
-                        children: [
-                          TextBasic(text: 'Açıklama', color: R.themeColor.secondary, fontSize: 14),
-                          Icon(CupertinoIcons.chevron_up_chevron_down, size: 14, color: R.themeColor.secondary),
-                        ],
-                      ),
+                  if (index == 0) const SizedBox(height: 15) else const SizedBox(height: 5),
+                  Container(
+                    margin: const EdgeInsets.all(10),
+                    child: WidgetAccountBookDetail(
+                      data: item,
+                      selectedSideBar: viewModel.selectedSideBar,
+                      onDeleteSuccess: (var isSuccess) {
+                        if (isSuccess) {
+                          unawaited(viewModel.getSelectedAccountBookDetail());
+                        }
+                      },
                     ),
                   ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    flex: 2,
-                    child: GestureDetector(
-                      onTap: () => viewModel.sortAccountBookList(type: 'date', isDescending: viewModel.isAscending),
-                      child: Row(
-                        children: [
-                          TextBasic(text: 'Tarih & Saat', color: R.themeColor.secondary, fontSize: 14),
-                          Icon(CupertinoIcons.chevron_up_chevron_down, size: 14, color: R.themeColor.secondary),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () => viewModel.sortAccountBookList(type: 'amount', isDescending: viewModel.isAscending),
-                      child: Row(
-                        children: [
-                          TextBasic(text: 'Tutar', color: R.themeColor.secondary, fontSize: 14),
-                          Icon(CupertinoIcons.chevron_up_chevron_down, size: 14, color: R.themeColor.secondary),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () => viewModel.sortAccountBookList(type: 'balance', isDescending: viewModel.isAscending),
-                      child: Row(
-                        children: [
-                          TextBasic(text: 'Bakiye', color: R.themeColor.secondary, fontSize: 14),
-                          Icon(CupertinoIcons.chevron_up_chevron_down, size: 14, color: R.themeColor.secondary),
-                        ],
-                      ),
-                    ),
-                  ),
+                  Divider(color: R.themeColor.border),
                 ],
-              ),
-            ),
-            ListView.builder(
-              itemCount: viewModel.selectedAccountBookList?.length ?? 0,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.zero,
-              itemBuilder: (context, index) {
-                final item = viewModel.selectedAccountBookList?[index];
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    if (index == 0) const SizedBox(height: 15) else const SizedBox(height: 5),
-                    Container(
-                      margin: const EdgeInsets.all(10),
-                      child: WidgetAccountBookDetail(data: item),
-                    ),
-                    Divider(color: R.themeColor.border),
-                  ],
-                );
-              },
-            ),
-          ],
-        ),
+              );
+            },
+          ),
+        ],
       );
 }
