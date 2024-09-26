@@ -61,9 +61,9 @@ class ServiceJsonMapperContext {
             values: QueryType.values,
             mapping: {...Map.fromEntries(List.generate(QueryType.values.length, (index) => MapEntry(QueryType.values[index], QueryType.values[index].id)))},
           ),
-          AdStatus: EnumDescriptor(
-            values: AdStatus.values,
-            mapping: {...Map.fromEntries(List.generate(AdStatus.values.length, (index) => MapEntry(AdStatus.values[index], AdStatus.values[index].id)))},
+          VehicleStatus: EnumDescriptor(
+            values: VehicleStatus.values,
+            mapping: {...Map.fromEntries(List.generate(VehicleStatus.values.length, (index) => MapEntry(VehicleStatus.values[index], VehicleStatus.values[index].id)))},
           ),
         },
         valueDecorators: {

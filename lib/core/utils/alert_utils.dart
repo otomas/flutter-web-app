@@ -28,7 +28,7 @@ import 'general_data.dart';
 import 'permission_utils.dart';
 import 'utilities.dart';
 
-Future<void> showPlatformAlert(BuildContext context, ModelAlertDialog model) async {
+Future<void> showPlatformAlert(BuildContext context, ModelAlertDialog model, [Widget? child]) async {
   final result = await showDialog(
     context: context,
     barrierDismissible: model.isDismissible,
@@ -54,6 +54,10 @@ Future<void> showPlatformAlert(BuildContext context, ModelAlertDialog model) asy
               fontSize: 16,
             ),
             const SizedBox(height: 30),
+            if (child != null) ...[
+              child,
+              const SizedBox(height: 30),
+            ],
             Row(
               children: [
                 if (model.isActiveCancelButton || model.dialogType == enums.DialogTypes.confirmation)

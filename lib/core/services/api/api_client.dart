@@ -9,6 +9,7 @@ import '../../models/request/model_request_add_photo.dart';
 import '../../models/request/model_request_filter_date.dart';
 import '../../models/request/model_request_filter_marketplace.dart';
 import '../../models/request/model_request_publish_ad.dart';
+import '../../models/request/model_request_register.dart';
 import '../../models/request/model_request_register_device.dart';
 import '../../models/request/model_request_vehicle.dart';
 import '../../models/request/model_request_vehicle_info.dart';
@@ -62,6 +63,7 @@ import '../../models/response/model_response_vehicle_model.dart';
 import '../../models/response/model_response_vehicle_model_detail.dart';
 import '../../models/response/model_response_vehicle_report_checklist.dart';
 import '../../models/response/model_response_vehicle_series.dart';
+import '../../models/response/model_response_vehicle_status.dart';
 import '../../models/response/model_response_vehicle_traction_type.dart';
 import '../../models/response/model_response_vehicle_transmission_type.dart';
 import '../../models/response/model_response_vehicle_type.dart';
@@ -74,6 +76,9 @@ part 'api_client.g.dart';
 @RestApi(parser: Parser.DartJsonMapper)
 abstract class ApiClient {
   factory ApiClient(Dio dio, {String? baseUrl}) = _ApiClient;
+
+  @POST('user/auth/register')
+  Future<ResponseData> register(@Body() ModelRequestRegister body);
 
   @FormUrlEncoded()
   @POST('/system/devices')
@@ -576,6 +581,9 @@ abstract class ApiClient {
   @POST('/user/vehicles/{vehicleId}/publish')
   Future<ResponseData> publishAdd(@Path('vehicleId') int vehicleId, @Body() ModelRequestPublishAd body);
 
+  @PUT('/user/vehicles/{vehicleId}/publish')
+  Future<ResponseData> updatePublishedAdd(@Path('vehicleId') int vehicleId, @Body() ModelRequestPublishAd body);
+
   @GET('/public/market-place/{vehicleId}')
   Future<ModelResponsePublicVehicle> getPublicVehicleDetail(@Path('vehicleId') int vehicleId);
 
@@ -584,6 +592,9 @@ abstract class ApiClient {
 
   @GET('/public/new-adverts')
   Future<ModelResponsePublicVehicleCard> getPublicVehicleCards();
+  
+  @GET('/user/vehicles/{vehicleId}/archive-status')
+  Future<ModelResponseVehicleStatus> getVehicleStatus(@Path('vehicleId') int vehicleId);
 
   @DELETE('/user/accounting/accounting-book/{accountBookId}')
   Future<ResponseData> deleteAccountBookDetail(

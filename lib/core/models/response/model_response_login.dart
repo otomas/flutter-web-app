@@ -1,4 +1,5 @@
 import 'package:dart_json_mapper/dart_json_mapper.dart';
+import '../model_balance.dart';
 import '../model_company.dart';
 
 import '../response_data.dart';
@@ -71,7 +72,7 @@ class ModelToken {
 
   final String? email;
   final String? address;
-  final String? balance;
+  final ModelBalance? balance;
 
   @JsonProperty(name: 'date_of_birth')
   final String? dateOfBirth;
@@ -79,10 +80,10 @@ class ModelToken {
   final String? settings;
 
   @JsonProperty(name: 'mobile_number_verified_at')
-  final String? mobileNumberVerifiedAt;
+  final DateTime? mobileNumberVerifiedAt;
 
   @JsonProperty(name: 'email_verified_at')
-  final String? emailVerifiedAt;
+  final DateTime? emailVerifiedAt;
 
   @JsonProperty(name: 'date_of_activity')
   final DateTime? dateOfActivity;
@@ -118,7 +119,7 @@ class ModelToken {
 
   @JsonProperty(name: 'is_verified_email')
   final bool? isVerifiedEmail;
-
+ 
   @JsonProperty(name: 'is_verified_phone')
   final bool? isVerifiedPhone;
 
