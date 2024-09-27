@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:auto_route/auto_route.dart';
+import 'package:dart_json_mapper/dart_json_mapper.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/enums/enum_api.dart';
@@ -24,6 +26,7 @@ import '../../../../core/models/model_vehicle_version.dart';
 import '../../../../core/models/request/model_request_vehicle.dart';
 import '../../../../core/models/response/model_response_vehicle_color_flaw_groups.dart';
 import '../../../../core/models/response/model_response_vehicle_report_checklist.dart';
+import '../../../../core/models/response_data.dart';
 import '../../../../core/resources/_r.dart';
 import '../../../../core/services/router/router.gr.dart';
 import '../../../../core/services/service_api.dart';
@@ -48,6 +51,34 @@ class VmVehicleCreate extends ViewModelBase {
   void setTabsRouter(TabsRouter r) => tabsRouter = r;
 
   late ModelRequestVehicleParams vehicleParams;
+
+  List<String> customerInfoErrorFields = [
+    'supplier_id',
+    'seller_id',
+    'buyer_id',
+  ];
+
+  List<String> vehicleInfoErrorFields = [
+    'vehicle_type',
+    'brand',
+    'series',
+    'vehicle_model_id',
+    'vehicle_version_id',
+    'model_year',
+    'vehicle_fuel_type_id',
+    'vehicle_body_type_id',
+    'vehicle_transmission_type_id',
+    'vehicle_traction_type_id',
+    'chassis_number',
+    'engine_power',
+    'kilometer',
+    'plate_number',
+    'color',
+  ];
+
+  List<String> priceInfoErrorFields = [
+    'payments',
+  ];
 
   @override
   Future<void> init() async {
@@ -204,6 +235,9 @@ class VmVehicleCreate extends ViewModelBase {
       },
       onError: (error) {
         handleApiError(error);
+        if (error is DioException) {
+          handleCustomApiError(error);
+        }
       },
     );
     setActivityState(ActivityState.isLoaded);
@@ -220,6 +254,9 @@ class VmVehicleCreate extends ViewModelBase {
       },
       onError: (error) {
         handleApiError(error);
+        if (error is DioException) {
+          handleCustomApiError(error);
+        }
       },
     );
     setActivityState(ActivityState.isLoaded);
@@ -231,6 +268,22 @@ class VmVehicleCreate extends ViewModelBase {
       return;
     } else {
       tabsRouter.setActiveIndex(tabsRouter.activeIndex - 1);
+    }
+  }
+
+  void handleCustomApiError(DioException error) {
+    final res = JsonMapper.deserialize<ResponseData>(error.response?.data);
+    if (res?.error?.fields?.keys.firstWhereOrNull((e) => customerInfoErrorFields.contains(e)) != null) {
+      tabsRouter.setActiveIndex(0);
+      return;
+    }
+    if (res?.error?.fields?.keys.firstWhereOrNull((e) => vehicleInfoErrorFields.contains(e)) != null) {
+      tabsRouter.setActiveIndex(1);
+      return;
+    }
+    if (res?.error?.fields?.keys.firstWhereOrNull((e) => priceInfoErrorFields.contains(e)) != null) {
+      tabsRouter.setActiveIndex(1);
+      return;
     }
   }
 }

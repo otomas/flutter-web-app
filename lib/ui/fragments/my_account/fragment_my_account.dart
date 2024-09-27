@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import '../../../core/constants/formatter.dart';
 import '../../../core/constants/ui_brightness_style.dart';
 import '../../../core/resources/_r.dart';
 import '../../../ui/base/base_view.dart';
@@ -48,6 +49,7 @@ class _FragmentMyAccountState extends WidgetBaseStatefull<FragmentMyAccount, VmF
             const SizedBox(height: 20),
             _getTaxFields(context, viewModel),
             const SizedBox(height: 20),
+            if (viewModel.isEditable) _getUpdateButton(context, viewModel),
           ],
         ),
       );
@@ -62,7 +64,7 @@ class _FragmentMyAccountState extends WidgetBaseStatefull<FragmentMyAccount, VmF
                 decoration: BoxDecoration(shape: BoxShape.circle, color: R.themeColor.primaryLight),
                 child: Center(
                   child: TextBasic(
-                    text: viewModel.authorizedNameController.text.substring(0, 1).toUpperCase(),
+                    text: viewModel.authorizedNameController.text.isEmpty ? '' : viewModel.authorizedNameController.text.substring(0, 1).toUpperCase(),
                     color: R.themeColor.primary,
                     fontSize: 34,
                   ),
@@ -87,26 +89,28 @@ class _FragmentMyAccountState extends WidgetBaseStatefull<FragmentMyAccount, VmF
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextBasic(
-                text: 'Profil Bilgileri',
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: R.themeColor.smokeDark,
+              Expanded(
+                child: TextBasic(
+                  text: 'Profil Bilgileri',
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: R.themeColor.smokeDark,
+                ),
               ),
+              const SizedBox(width: 20),
               ButtonBasic(
                 onPressed: () => viewModel.edit(),
                 bgColor: R.themeColor.primaryLight,
                 textColor: R.themeColor.primary,
                 child: Row(
                   children: [
-                    Expanded(
-                      child: TextBasic(
-                        text: R.string.editProfile,
-                        color: R.themeColor.primary,
-                        fontSize: 14,
-                        fontFamily: R.fonts.displayBold,
-                      ),
+                    TextBasic(
+                      text: R.string.editProfile,
+                      color: R.themeColor.primary,
+                      fontSize: 14,
+                      fontFamily: R.fonts.displayBold,
                     ),
+                    const SizedBox(width: 20),
                     SvgPicture.asset(R.drawable.svg.iconEdit),
                   ],
                 ),
@@ -131,7 +135,7 @@ class _FragmentMyAccountState extends WidgetBaseStatefull<FragmentMyAccount, VmF
 
   Widget _getContactFields(BuildContext context, VmFragmentMyAccount viewModel) => Row(
         children: [
-          Expanded(child: _getViewField(title: R.string.mobilePhone, controller: viewModel.mobilePhoneController, isEnabled: viewModel.isEditable)),
+          Expanded(child: _getViewField(title: R.string.mobilePhone, controller: viewModel.mobilePhoneController, isEnabled: false, formatters: [phoneNumberMask])),
           const SizedBox(width: 10),
           Expanded(child: _getViewField(title: R.string.emailAddress, controller: viewModel.authorizedEmailController, isEnabled: viewModel.isEditable)),
         ],
@@ -145,20 +149,31 @@ class _FragmentMyAccountState extends WidgetBaseStatefull<FragmentMyAccount, VmF
         ],
       );
 
-  Widget _getViewField({required String title, required TextEditingController controller, required bool isEnabled}) => Column(
+  Widget _getViewField({required String title, required TextEditingController controller, required bool isEnabled, List<TextInputFormatter>? formatters}) => Column(
         children: [
           TextFieldBasic(
             enabled: isEnabled,
             title: title,
-            borderColor: R.color.transparent,
             controller: controller,
-            contentPaddingVertical: 0,
-            contentPaddingHorizontal: 0,
             textColor: R.themeColor.secondary,
             fontSize: 14,
-            isDense: true,
+            isDense: isEnabled,
+            borderColor: isEnabled ? null : R.color.transparent,
+            contentPaddingVertical: isEnabled ? null : 0,
+            contentPaddingHorizontal: isEnabled ? null : 0,
+            inputFormatters: formatters,
           ),
-          Divider(height: 1, color: R.themeColor.border),
+          if (!isEnabled) Divider(height: 1, color: R.themeColor.border),
         ],
       );
+
+  Widget _getUpdateButton(BuildContext context, VmFragmentMyAccount viewModel) => Row(
+    mainAxisAlignment: MainAxisAlignment.end,
+    children: [
+      ButtonBasic(
+            onPressed: () {},
+            text: 'Kaydet',
+          ),
+    ],
+  );
 }

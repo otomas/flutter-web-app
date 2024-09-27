@@ -142,8 +142,10 @@ class ViewLogin extends WidgetBase<VmLogin> {
         hintText: R.string.taxNo,
         keyboardType: TextInputType.number,
         isDense: false,
+        autofillHints: const [AutofillHints.name],
         hasError: viewModel.detectFieldError && !viewModel.taxNumberController.text.isValidTaxNumber(),
         errorLabel: R.string.invalidTaxNo,
+        maxLength: 10,
       );
 
   Widget _getForgotPasswordButton(BuildContext context, VmLogin viewModel) => Row(

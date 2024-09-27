@@ -44,26 +44,31 @@ abstract class WidgetBaseStatefull<Y extends StatefulWidget, T extends ViewModel
         builder: (context, child) => Consumer<T>(
           builder: (context, viewModel, child) {
             initListener(context, viewModel);
-            return !isActiveLoadingIndicator
-                ? isWeb(context)
-                    ? buildWidgetForWeb(context, viewModel)
-                    : buildWidget(context, viewModel)
-                : Stack(
-                    children: [
-                      if (isWeb(context)) buildWidgetForWeb(context, viewModel) else buildWidget(context, viewModel),
-                      if (viewModel.activityState == ActivityState.isLoading)
-                        Positioned(
-                          left: 0,
-                          top: 0,
-                          right: 0,
-                          bottom: 0,
-                          child: GestureDetector(
-                            onTap: () {},
-                            child: const ActivityIndicator(),
+            return GestureDetector(
+              onTap: () {
+                Overlay.of(context).deactivate();
+              },
+              child: !isActiveLoadingIndicator
+                  ? isWeb(context)
+                      ? buildWidgetForWeb(context, viewModel)
+                      : buildWidget(context, viewModel)
+                  : Stack(
+                      children: [
+                        if (isWeb(context)) buildWidgetForWeb(context, viewModel) else buildWidget(context, viewModel),
+                        if (viewModel.activityState == ActivityState.isLoading)
+                          Positioned(
+                            left: 0,
+                            top: 0,
+                            right: 0,
+                            bottom: 0,
+                            child: GestureDetector(
+                              onTap: () {},
+                              child: const ActivityIndicator(),
+                            ),
                           ),
-                        ),
-                    ],
-                  );
+                      ],
+                    ),
+            );
           },
         ),
       );
@@ -87,7 +92,10 @@ abstract class WidgetBase<T extends ViewModelBase> extends StatelessWidget with 
     di<ServiceApp>(context, listen: true);
 
     return GestureDetector(
-      onTap: () => router(context).hideKeyboard(context),
+      onTap: () {
+        di<ServiceApp>(context).closeDropdowns();
+        router(context).hideKeyboard(context);
+      },
       child: systemBarBrightness() == null
           ? _provider(context)
           : AnnotatedRegion<SystemUiOverlayStyle>(
@@ -168,7 +176,7 @@ mixin BaseView {
                 showPlatformAlert(
                   context,
                   ModelAlertDialog(
-                    title:'Çıkış Yap',
+                    title: 'Çıkış Yap',
                     description: R.string.logoutConfirmation,
                     isActiveCancelButton: true,
                     dialogType: DialogTypes.confirmation,

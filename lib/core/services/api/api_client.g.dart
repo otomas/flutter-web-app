@@ -726,12 +726,16 @@ class _ApiClient implements ApiClient {
     start,
     length,
     search,
+    orderByField,
+    orderByDirection,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'start': start,
       r'length': length,
       r'search[value]': search,
+      r'order[0][column]': orderByField,
+      r'order[0][dir]': orderByDirection,
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};

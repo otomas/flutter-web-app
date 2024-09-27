@@ -7,6 +7,7 @@ import '../../../../core/extensions/extension_iterable.dart';
 import '../../../../core/models/request/model_request_vehicle.dart';
 import '../../../../core/resources/_r.dart';
 import '../../../base/base_view.dart';
+import '../../../widgets/widget_checkbox.dart';
 import '../../../widgets/widget_scroll.dart';
 import '../../../widgets/widget_vehicle_create_fragment_base.dart';
 import '../../../widgets/widget_vehicle_svg.dart';
@@ -150,13 +151,32 @@ class _FragmentVehicleCreateExpertiseState extends WidgetBaseStatefull<FragmentV
                   (index) {
                     final item = viewModel.vehicleColorFlawGroups[index];
                     return SizedBox(
-                      width: 100,
-                      child: TextBasic(
-                        text: item.name ?? '',
-                        color: R.themeColor.secondaryHover,
-                        fontFamily: R.fonts.displayBold,
-                        fontSize: 12,
-                      ),
+                      width: 110,
+                      child: 1 == 1
+                          ? CheckboxBasic(
+                            key: UniqueKey(),
+                              onChanged: (v) => viewModel.selectAll(item, v),
+                              item: item,
+                              value: viewModel.isSelectedAllByItem(item),
+                              isRadioButton: true,
+                              fontSize: 10,
+                              iconSize: 14,
+                            )
+                          : Row(
+                              children: [
+                                TextBasic(
+                                  text: item.name ?? '',
+                                  color: R.themeColor.secondaryHover,
+                                  fontFamily: R.fonts.displayBold,
+                                  fontSize: 12,
+                                ),
+                                const SizedBox(width: 10),
+                                Checkbox(
+                                  value: false,
+                                  onChanged: (v) {},
+                                ),
+                              ],
+                            ),
                     );
                   },
                 ),
@@ -192,7 +212,7 @@ class _FragmentVehicleCreateExpertiseState extends WidgetBaseStatefull<FragmentV
                               viewModel.updateSelectedList(item, group);
                             },
                             child: Container(
-                              width: 100,
+                              width: 110,
                               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
                               child: Center(
                                 child: Container(

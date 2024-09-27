@@ -127,7 +127,7 @@ class ModelAutoGalleryWithTitle implements BaseDropdown {
     this.phone,
     this.id,
     this.title,
-    this.accountType
+    this.accountType,
   );
 
   final int? id;

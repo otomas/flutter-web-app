@@ -5,7 +5,6 @@ import '../../core/models/model_base_dropdown.dart';
 import '../../core/resources/_r.dart';
 import '../../ui/base/base_view.dart';
 import '../../ui/widgets/widget_scroll.dart';
-import '../../ui/widgets/widgets_text.dart';
 import '../widgets/widget_button.dart';
 import '../widgets/widget_textfield.dart';
 
@@ -57,64 +56,50 @@ class _BottomSheetDropdownState<T extends BaseDropdown> extends State<BottomShee
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: size(context).width,
-          decoration: BoxDecoration(border: Border(bottom: BorderSide(color: R.themeColor.secondaryLight.withOpacity(0.2)))),
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(Icons.clear, color: R.color.transparent),
-              Expanded(
-                child: TextBasic(
-                  text: widget.title ?? '',
-                  color: R.color.black,
-                  fontFamily: R.fonts.displayBold,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              GestureDetector(
-                onTap: () => Navigator.pop(context),
-                child: Icon(Icons.clear, color: R.themeColor.secondaryLight),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.all(18),
-          child: TextFieldBasic(
-            controller: searchController,
-            hintText: 'Aramak için bir şeyler girin',
-            suffixIcon: const Icon(Icons.search),
-          ),
-        ),
-        Expanded(
-          child: ScrollWithNoGlowWidget(
-            child: Wrap(
-              children: List.generate(
-                _filtredList.length,
-                (index) {
-                  final item = _filtredList[index];
-                  return DropdownButtonBasic<T>(
-                    item: item,
-                    itemTitle: item.dropdownTitle,
-                    isSelected: selectedItem?.dropdownId == item.dropdownId,
-                    isActiveBorder: index != _filtredList.length - 1,
-                    onSelected: (v) {
-                      Navigator.pop(context);
-                      widget.onChanged(v);
-                    },
-                  );
-                },
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: R.themeColor.viewBg,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(blurRadius: 24, color: R.themeColor.viewText.withOpacity(0.15)),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              child: TextFieldBasic(
+                controller: searchController,
+                hintText: 'Aramak için bir şeyler girin',
+                suffixIcon: const Icon(Icons.search),
               ),
             ),
-          ),
+            Expanded(
+              child: ScrollWithNoGlowWidget(
+                child: Wrap(
+                  children: List.generate(
+                    _filtredList.length,
+                    (index) {
+                      final item = _filtredList[index];
+                      return DropdownButtonBasic<T>(
+                        item: item,
+                        itemTitle: item.dropdownTitle,
+                        isSelected: selectedItem?.dropdownId == item.dropdownId,
+                        isActiveBorder: index != _filtredList.length - 1,
+                        onSelected: (v) {
+                          widget.onChanged(v);
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

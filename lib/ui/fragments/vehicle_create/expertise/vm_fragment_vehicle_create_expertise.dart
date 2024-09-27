@@ -20,6 +20,10 @@ class VmFragmentVehicleCreateExpertise extends ViewModelBase {
   List<ModelVehicleColorFlawGroup> _vehicleColorFlawGroups = [];
   List<ModelVehicleColorFlawGroup> get vehicleColorFlawGroups => _vehicleColorFlawGroups.where((e) => e.isVisible).toList();
 
+  bool isSelectedAllByItem(ModelVehicleColorFlawGroup item) {
+    final items = params.selectedExpertiseItems.values.where((e) => e.id == item.id).toList();
+    return params.selectedExpertiseItems.isNotEmpty && items.length == params.selectedExpertiseItems.length && items.length == reportChecklist.length;
+  }
 
   @override
   Future<void> init() async {
@@ -64,6 +68,16 @@ class VmFragmentVehicleCreateExpertise extends ViewModelBase {
       params.selectedExpertiseItems.remove(v.key);
     }
     params.selectedExpertiseItems.addAll({item: group});
+    notifyListeners();
+  }
+
+  void selectAll(ModelVehicleColorFlawGroup selectedItem, bool value) {
+    params.selectedExpertiseItems.clear();
+    if (value) {
+      for (final element in reportChecklist) {
+        params.selectedExpertiseItems.addAll({element: selectedItem});
+      }
+    }
     notifyListeners();
   }
 }

@@ -40,6 +40,7 @@ class _FragmentForMeState extends WidgetBaseStatefull<FragmentForMe, VmFragmentF
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 20),
+            const SizedBox(height: 20),
             const WidgetForMeVehicle(),
             const SizedBox(height: 50),
             const WidgetTillReport(),

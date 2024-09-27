@@ -11,9 +11,11 @@ class ResponseData<T> {
   final ModelError? error;
 }
 
+
+@jsonSerializable
 class ModelError {
 
   const ModelError({required this.description, this.fields});
   final String? description;
-  final Map<String, String>? fields;
+  final dynamic fields;
 }

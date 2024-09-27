@@ -179,7 +179,11 @@ class ViewPublicDetail extends WidgetBase<VmPublicDetail> {
                           children: [
                             const Expanded(child: TextBasic(text: '')),
                             TextBasic(
-                                text: viewModel.data?.priceDomestic.formatPrice() ?? '', fontSize: 32, fontWeight: FontWeight.bold, color: R.themeColor.secondary),
+                              text: viewModel.data?.priceDomestic.formatPrice() ?? '',
+                              fontSize: 32,
+                              fontWeight: FontWeight.bold,
+                              color: R.themeColor.secondary,
+                            ),
                           ],
                         ),
                         Row(
@@ -244,8 +248,7 @@ class ViewPublicDetail extends WidgetBase<VmPublicDetail> {
                 color: R.themeColor.highlighted,
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: TextBasic(
-                  text: viewModel.data?.autoGallery?.accountType?.name ?? '', fontSize: 12, color: R.themeColor.secondary, fontFamily: R.fonts.displayBold),
+              child: TextBasic(text: viewModel.data?.autoGallery?.accountType?.name ?? '', fontSize: 12, color: R.themeColor.secondary, fontFamily: R.fonts.displayBold),
             ),
             const SizedBox(height: 15),
             TextBasic(text: viewModel.data?.autoGallery?.email ?? '', fontSize: 12, color: R.themeColor.secondary),
@@ -341,8 +344,7 @@ class ViewPublicDetail extends WidgetBase<VmPublicDetail> {
                       TextBasic(text: 'Ekspertiz Raporu', color: R.themeColor.secondaryHover, fontFamily: R.fonts.displayBold, fontSize: 18),
                       const SizedBox(height: 10),
                       TextBasic(
-                        text:
-                            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the.",
+                        text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the.",
                         color: R.themeColor.secondaryHover,
                         fontSize: 14,
                       ),
