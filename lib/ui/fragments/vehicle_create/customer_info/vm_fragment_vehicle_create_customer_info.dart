@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 
 import '../../../../core/models/model_customer.dart';
 import '../../../../core/models/request/model_request_vehicle.dart';
@@ -13,9 +14,23 @@ class VmFragmentVehicleCreateCustomerInfo extends ViewModelBase {
 
   final ModelRequestVehicleParams params;
 
+  late ValueKey supplierDropdownKey = const ValueKey(1);
+  late ValueKey buyerDropdownKey = const ValueKey(2);
+  late ValueKey sellerDropdownKey = const ValueKey(3);
 
   @override
-  Future<void> init() async {}
+  Future<void> init() async {
+    unawaited(refreshCustomerKeys());
+  }
+
+  Future<void> refreshCustomerKeys() async {
+    supplierDropdownKey = ValueKey(DateTime.now().toIso8601String());
+    await Future.delayed(const Duration(milliseconds: 1));
+    buyerDropdownKey = ValueKey(DateTime.now().toIso8601String());
+    await Future.delayed(const Duration(milliseconds: 1));
+    sellerDropdownKey = ValueKey(DateTime.now().toIso8601String());
+    notifyListeners();
+  }
 
   void onChangedSupplier(ModelCustomer? value, bool isAutoComplete) {
     params.supplier = value;

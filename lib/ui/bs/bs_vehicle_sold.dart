@@ -193,7 +193,10 @@ class _BsVehicleSoldState extends WidgetBaseStatefull<BsVehicleSold, VmBsVehicle
                         context,
                         BottomSheetDropdown(
                           list: viewModel.paymentTypes,
-                          onChanged: viewModel.addPaymentType,
+                          onChanged: (v) {
+                            viewModel.addPaymentType(v);
+                            Navigator.pop(context);
+                          },
                         ),
                       ),
                     );

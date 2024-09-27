@@ -1,8 +1,12 @@
 extension ExtensionBool on bool? {
-  String? getOrderDirection(String? orderByField) => orderByField == null ? null : this ?? false ? 'ASC' : 'DESC';
+  String? getOrderDirection(String? orderByField) => orderByField == null
+      ? null
+      : this ?? false
+          ? 'ASC'
+          : 'DESC';
 }
 
-extension  ExtensionStringBool on String? {
+extension ExtensionStringBool on String? {
   bool isValidEmail() {
     final value = this;
     if (value == null) {
@@ -85,5 +89,25 @@ extension  ExtensionStringBool on String? {
     return false;
   }
 
-  bool isValidTaxNumber() => this != null && this!.length >= 10;
+  bool isValidTaxNumber() {
+    if (this == null) {
+      return false;
+    }
+
+    if (this!.length == 10) {
+      final v = <int>[];
+      final lastDigit = int.parse(this![9]);
+      for (var i = 0; i < 9; i++) {
+        final tmp = (int.parse(this![i]) + (9 - i)) % 10;
+        var val = (tmp * (1 << (9 - i))) % 9; // 2 ** (9 - i) ifadesini 1 << (9 - i) ile değiştirdim
+        if (tmp != 0 && val == 0) {
+          val = 9;
+        }
+        v.add(val);
+      }
+      final sum = v.reduce((a, b) => a + b) % 10;
+      return (10 - (sum % 10)) % 10 == lastDigit;
+    }
+    return false;
+  }
 }

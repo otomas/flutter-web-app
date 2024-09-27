@@ -261,10 +261,26 @@ class FragmentAuthorization extends _i55.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i9.FragmentBranches]
-class FragmentBranches extends _i55.PageRouteInfo<void> {
-  const FragmentBranches({List<_i55.PageRouteInfo>? children})
-      : super(
+class FragmentBranches extends _i55.PageRouteInfo<FragmentBranchesArgs> {
+  FragmentBranches({
+    _i56.Key? key,
+    int? page,
+    String? orderByDirection,
+    String? orderByField,
+    List<_i55.PageRouteInfo>? children,
+  }) : super(
           FragmentBranches.name,
+          args: FragmentBranchesArgs(
+            key: key,
+            page: page,
+            orderByDirection: orderByDirection,
+            orderByField: orderByField,
+          ),
+          rawQueryParams: {
+            'page': page,
+            'orderByDirection': orderByDirection,
+            'orderByField': orderByField,
+          },
           initialChildren: children,
         );
 
@@ -273,9 +289,43 @@ class FragmentBranches extends _i55.PageRouteInfo<void> {
   static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
-      return const _i9.FragmentBranches();
+      final queryParams = data.queryParams;
+      final args = data.argsAs<FragmentBranchesArgs>(
+          orElse: () => FragmentBranchesArgs(
+                page: queryParams.optInt('page'),
+                orderByDirection: queryParams.optString('orderByDirection'),
+                orderByField: queryParams.optString('orderByField'),
+              ));
+      return _i9.FragmentBranches(
+        key: args.key,
+        page: args.page,
+        orderByDirection: args.orderByDirection,
+        orderByField: args.orderByField,
+      );
     },
   );
+}
+
+class FragmentBranchesArgs {
+  const FragmentBranchesArgs({
+    this.key,
+    this.page,
+    this.orderByDirection,
+    this.orderByField,
+  });
+
+  final _i56.Key? key;
+
+  final int? page;
+
+  final String? orderByDirection;
+
+  final String? orderByField;
+
+  @override
+  String toString() {
+    return 'FragmentBranchesArgs{key: $key, page: $page, orderByDirection: $orderByDirection, orderByField: $orderByField}';
+  }
 }
 
 /// generated route for

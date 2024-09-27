@@ -29,10 +29,12 @@ import '../widgets/widget_textfield.dart';
 import '../widgets/widgets_text.dart';
 
 class BsAddCustomer extends StatefulWidget {
-  const BsAddCustomer({super.key, this.id, this.data});
+  const BsAddCustomer({super.key, this.id, this.data, this.onAddedCustomer});
 
   final int? id;
   final ModelCustomer? data;
+
+  final Function()? onAddedCustomer;
 
   @override
   State<BsAddCustomer> createState() => _BsAddCustomerState();
@@ -306,12 +308,14 @@ class _BsAddCustomerState extends WidgetBaseStatefull<BsAddCustomer, VmBsAddCust
                   if (await viewModel.addCustomer()) {
                     if (context.mounted) {
                       unawaited(router(context).onBackPressed());
+                      widget.onAddedCustomer?.call();
                     }
                   }
                 } else {
                   if (await viewModel.updateCustomer()) {
                     if (context.mounted) {
                       unawaited(router(context).onBackPressed());
+                      widget.onAddedCustomer?.call();
                     }
                   }
                 }

@@ -7,7 +7,9 @@ class ModelResponseBranches extends ResponseData {
   const ModelResponseBranches({
     super.status = false,
     super.error,
+    this.recordsTotal,
     this.data,
   });
+  final int? recordsTotal;
   final List<ModelBranch>? data;
 }

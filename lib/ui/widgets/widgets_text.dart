@@ -155,7 +155,7 @@ class WidgetLocationText extends StatelessWidget {
       children: [
         SvgPicture.asset(R.drawable.svg.iconLocation),
         const SizedBox(width: 5),
-        TextBasic(text: '$city /$district', color: R.themeColor.secondaryHover, fontFamily: R.fonts.displayMedium, fontSize: 14),
+        TextBasic(text: '$city / $district', color: R.themeColor.secondaryHover, fontFamily: R.fonts.displayMedium, fontSize: 14),
       ],
     );
 }

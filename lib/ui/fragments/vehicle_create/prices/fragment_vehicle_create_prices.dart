@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../../core/constants/ui_brightness_style.dart';
 import '../../../../core/extensions/extension_date.dart';
+import '../../../../core/extensions/extension_num.dart';
+import '../../../../core/extensions/extension_string.dart';
 import '../../../../core/models/request/model_request_vehicle.dart';
 import '../../../../core/resources/_r.dart';
 import '../../../../core/utils/alert_utils.dart';
@@ -220,11 +222,30 @@ class _FragmentVehicleCreatePricesState extends WidgetBaseStatefull<FragmentVehi
           Row(
             children: [
               Expanded(
-                child: TextBasic(
-                  text: 'Araç için ödeme yöntemi ekleyiniz',
-                  color: R.themeColor.primary,
-                  fontFamily: R.fonts.displayMedium,
-                  fontSize: 16,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextBasic(
+                      text: 'Araç için ödeme yöntemi ekleyiniz',
+                      color: R.themeColor.primary,
+                      fontFamily: R.fonts.displayMedium,
+                      fontSize: 16,
+                    ),
+                    ValueListenableBuilder(
+                      valueListenable: viewModel.remainingBalance,
+                      builder: (context, count, child) => RichTextBasic(
+                        texts: viewModel.remainingBalance.value.toInt() == 0
+                            ? []
+                            : 'Eklemeniz Gereken Kalan tutar: ${viewModel.remainingBalance.value.toInt().formatPrice()}₺'.highlightOccurrences(
+                                '${count.formatPrice()}₺',
+                                boldTextColor: count.isNegative ? R.themeColor.error : R.themeColor.success,
+                                fontSize: 16,
+                                boldFontSize: 20,
+                                textColor: R.themeColor.smokeDark,
+                              ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(width: 12),
@@ -243,7 +264,10 @@ class _FragmentVehicleCreatePricesState extends WidgetBaseStatefull<FragmentVehi
                       context,
                       BottomSheetDropdown(
                         list: viewModel.paymentTypes,
-                        onChanged: viewModel.addPaymentType,
+                        onChanged: (v) {
+                          viewModel.addPaymentType(v);
+                          Navigator.pop(context);
+                        },
                       ),
                     ),
                   );

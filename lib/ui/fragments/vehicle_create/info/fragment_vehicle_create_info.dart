@@ -167,8 +167,7 @@ class _FragmentVehicleCreateInfoState extends WidgetBaseStatefull<FragmentVehicl
           // ignore: discarded_futures
           callback: () => apiService(context).client.getVehicleTypes(),
           selectedItem: viewModel.params.vehicleType,
-          hasError:
-              viewModel.isDetectError && viewModel.checkErrorByField('vehicle_type') || viewModel.params.vmVehicleCreate.checkErrorByField('vehicle_type'),
+          hasError: viewModel.isDetectError && viewModel.checkErrorByField('vehicle_type') || viewModel.params.vmVehicleCreate.checkErrorByField('vehicle_type'),
           errorLabel: viewModel.getErrorMsg('vehicle_type') ?? viewModel.params.vmVehicleCreate.getErrorMsg('vehicle_type'),
           onChanged: viewModel.setSelectedVehicleType,
         ),
@@ -180,9 +179,7 @@ class _FragmentVehicleCreateInfoState extends WidgetBaseStatefull<FragmentVehicl
           // ignore: discarded_futures
           callback: viewModel.params.vehicleType == null ? null : () => apiService(context).client.getVehicleBrands(viewModel.params.vehicleType!.id),
           selectedItem: viewModel.params.brand,
-          customOnTap: viewModel.params.vehicleType == null
-              ? () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Lütfen araç tipi seçiniz', dialogType: DialogTypes.warning)
-              : null,
+          customOnTap: viewModel.params.vehicleType == null ? () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Lütfen araç tipi seçiniz', dialogType: DialogTypes.warning) : null,
           hasError: viewModel.isDetectError && viewModel.checkErrorByField('brand') || viewModel.params.vmVehicleCreate.checkErrorByField('brand'),
           errorLabel: viewModel.getErrorMsg('brand') ?? viewModel.params.vmVehicleCreate.getErrorMsg('brand'),
           onChanged: viewModel.setSelectedBrand,
@@ -196,9 +193,7 @@ class _FragmentVehicleCreateInfoState extends WidgetBaseStatefull<FragmentVehicl
               ? null
               // ignore: discarded_futures
               : () => apiService(context).client.getVehicleSeries(viewModel.params.brand!.id, viewModel.params.vehicleType!.id),
-          customOnTap: viewModel.params.brand == null
-              ? () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Lütfen marka seçiniz', dialogType: DialogTypes.warning)
-              : null,
+          customOnTap: viewModel.params.brand == null ? () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Lütfen marka seçiniz', dialogType: DialogTypes.warning) : null,
           selectedItem: viewModel.params.series,
           hasError: viewModel.isDetectError && viewModel.checkErrorByField('series') || viewModel.params.vmVehicleCreate.checkErrorByField('series'),
           errorLabel: viewModel.getErrorMsg('series') ?? viewModel.params.vmVehicleCreate.getErrorMsg('series'),
@@ -214,12 +209,9 @@ class _FragmentVehicleCreateInfoState extends WidgetBaseStatefull<FragmentVehicl
           isRequired: true,
           // ignore: discarded_futures
           callback: viewModel.params.series == null ? null : () => apiService(context).client.getVehicleModels(viewModel.params.series!.id),
-          customOnTap: viewModel.params.series == null
-              ? () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Lütfen seri seçiniz', dialogType: DialogTypes.warning)
-              : null,
+          customOnTap: viewModel.params.series == null ? () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Lütfen seri seçiniz', dialogType: DialogTypes.warning) : null,
           selectedItem: viewModel.params.model,
-          hasError: viewModel.isDetectError && viewModel.checkErrorByField('vehicle_model_id') ||
-              viewModel.params.vmVehicleCreate.checkErrorByField('vehicle_model_id'),
+          hasError: viewModel.isDetectError && viewModel.checkErrorByField('vehicle_model_id') || viewModel.params.vmVehicleCreate.checkErrorByField('vehicle_model_id'),
           errorLabel: viewModel.getErrorMsg('vehicle_model_id') ?? viewModel.params.vmVehicleCreate.getErrorMsg('vehicle_model_id'),
           onChanged: viewModel.setSelectedModel,
         ),
@@ -232,12 +224,9 @@ class _FragmentVehicleCreateInfoState extends WidgetBaseStatefull<FragmentVehicl
               ? null
               // ignore: discarded_futures
               : () => apiService(context).client.getVehicleVersions(viewModel.params.model!.id),
-          customOnTap: viewModel.params.model == null
-              ? () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Lütfen model seçiniz', dialogType: DialogTypes.warning)
-              : null,
+          customOnTap: viewModel.params.model == null ? () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Lütfen model seçiniz', dialogType: DialogTypes.warning) : null,
           selectedItem: viewModel.params.version,
-          hasError: viewModel.isDetectError && viewModel.checkErrorByField('vehicle_version_id') ||
-              viewModel.params.vmVehicleCreate.checkErrorByField('vehicle_version_id'),
+          hasError: viewModel.isDetectError && viewModel.checkErrorByField('vehicle_version_id') || viewModel.params.vmVehicleCreate.checkErrorByField('vehicle_version_id'),
           errorLabel: viewModel.getErrorMsg('vehicle_version_id') ?? viewModel.params.vmVehicleCreate.getErrorMsg('vehicle_version_id'),
           onChanged: viewModel.setSelectedVersion,
         ),
@@ -248,11 +237,8 @@ class _FragmentVehicleCreateInfoState extends WidgetBaseStatefull<FragmentVehicl
           isRequired: true,
           selectedItem: viewModel.params.bodyType,
           items: viewModel.vehicleTypeInfo?.vehicleBodyType ?? <ModelVehicleBodyType>[],
-          customOnTap: viewModel.params.model == null
-              ? () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Lütfen model seçiniz', dialogType: DialogTypes.warning)
-              : null,
-          hasError: viewModel.isDetectError && viewModel.checkErrorByField('vehicle_body_type_id') ||
-              viewModel.params.vmVehicleCreate.checkErrorByField('vehicle_body_type_id'),
+          customOnTap: viewModel.params.model == null ? () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Lütfen model seçiniz', dialogType: DialogTypes.warning) : null,
+          hasError: viewModel.isDetectError && viewModel.checkErrorByField('vehicle_body_type_id') || viewModel.params.vmVehicleCreate.checkErrorByField('vehicle_body_type_id'),
           errorLabel: viewModel.getErrorMsg('vehicle_body_type_id') ?? viewModel.params.vmVehicleCreate.getErrorMsg('vehicle_body_type_id'),
           onChanged: viewModel.onChangedBodyType,
         ),
@@ -266,11 +252,8 @@ class _FragmentVehicleCreateInfoState extends WidgetBaseStatefull<FragmentVehicl
           isRequired: true,
           selectedItem: viewModel.params.transmissionType,
           items: viewModel.vehicleTypeInfo?.vehicleTransmissionType ?? <ModelVehicleTransmissionType>[],
-          customOnTap: viewModel.params.model == null
-              ? () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Lütfen model seçiniz', dialogType: DialogTypes.warning)
-              : null,
-          hasError: viewModel.isDetectError && viewModel.checkErrorByField('vehicle_transmission_type_id') ||
-              viewModel.params.vmVehicleCreate.checkErrorByField('vehicle_transmission_type_id'),
+          customOnTap: viewModel.params.model == null ? () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Lütfen model seçiniz', dialogType: DialogTypes.warning) : null,
+          hasError: viewModel.isDetectError && viewModel.checkErrorByField('vehicle_transmission_type_id') || viewModel.params.vmVehicleCreate.checkErrorByField('vehicle_transmission_type_id'),
           errorLabel: viewModel.getErrorMsg('vehicle_transmission_type_id') ?? viewModel.params.vmVehicleCreate.getErrorMsg('vehicle_transmission_type_id'),
           onChanged: viewModel.onChangedTranmissionType,
         ),
@@ -281,11 +264,8 @@ class _FragmentVehicleCreateInfoState extends WidgetBaseStatefull<FragmentVehicl
           selectedItem: viewModel.params.tractionType,
           // ignore: discarded_futures
           callback: () => apiService(context).client.getVehicleTractionTypes(),
-          customOnTap: viewModel.params.model == null
-              ? () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Lütfen model seçiniz', dialogType: DialogTypes.warning)
-              : null,
-          hasError: viewModel.isDetectError && viewModel.checkErrorByField('vehicle_traction_type_id') ||
-              viewModel.params.vmVehicleCreate.checkErrorByField('vehicle_traction_type_id'),
+          customOnTap: viewModel.params.model == null ? () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Lütfen model seçiniz', dialogType: DialogTypes.warning) : null,
+          hasError: viewModel.isDetectError && viewModel.checkErrorByField('vehicle_traction_type_id') || viewModel.params.vmVehicleCreate.checkErrorByField('vehicle_traction_type_id'),
           errorLabel: viewModel.getErrorMsg('vehicle_traction_type_id') ?? viewModel.params.vmVehicleCreate.getErrorMsg('vehicle_traction_type_id'),
           onChanged: viewModel.onChangedTractionType,
         ),
@@ -296,11 +276,8 @@ class _FragmentVehicleCreateInfoState extends WidgetBaseStatefull<FragmentVehicl
           isRequired: true,
           selectedItem: viewModel.params.fuelType,
           items: viewModel.vehicleTypeInfo?.vehicleFuelType ?? <ModelVehicleFuelType>[],
-          customOnTap: viewModel.params.model == null
-              ? () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Lütfen model seçiniz', dialogType: DialogTypes.warning)
-              : null,
-          hasError: viewModel.isDetectError && viewModel.checkErrorByField('vehicle_fuel_type_id') ||
-              viewModel.params.vmVehicleCreate.checkErrorByField('vehicle_fuel_type_id'),
+          customOnTap: viewModel.params.model == null ? () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Lütfen model seçiniz', dialogType: DialogTypes.warning) : null,
+          hasError: viewModel.isDetectError && viewModel.checkErrorByField('vehicle_fuel_type_id') || viewModel.params.vmVehicleCreate.checkErrorByField('vehicle_fuel_type_id'),
           errorLabel: viewModel.getErrorMsg('vehicle_fuel_type_id') ?? viewModel.params.vmVehicleCreate.getErrorMsg('vehicle_fuel_type_id'),
           onChanged: viewModel.onChangedFuelType,
         ),
@@ -321,8 +298,7 @@ class _FragmentVehicleCreateInfoState extends WidgetBaseStatefull<FragmentVehicl
           title: 'Motor Gücü',
           isRequired: true,
           keyboardType: TextInputType.number,
-          hasError:
-              viewModel.isDetectError && viewModel.checkErrorByField('engine_power') || viewModel.params.vmVehicleCreate.checkErrorByField('engine_power'),
+          hasError: viewModel.isDetectError && viewModel.checkErrorByField('engine_power') || viewModel.params.vmVehicleCreate.checkErrorByField('engine_power'),
           errorLabel: viewModel.getErrorMsg('engine_power') ?? viewModel.params.vmVehicleCreate.getErrorMsg('engine_power'),
           inputFormatters: inputDecimalFormatter,
           suffixIcon: Padding(
@@ -338,8 +314,7 @@ class _FragmentVehicleCreateInfoState extends WidgetBaseStatefull<FragmentVehicl
           controller: viewModel.params.engineCapacity,
           title: 'Motor Hacmi',
           keyboardType: TextInputType.number,
-          hasError: viewModel.isDetectError && viewModel.checkErrorByField('engine_capacity') ||
-              viewModel.params.vmVehicleCreate.checkErrorByField('engine_capacity'),
+          hasError: viewModel.isDetectError && viewModel.checkErrorByField('engine_capacity') || viewModel.params.vmVehicleCreate.checkErrorByField('engine_capacity'),
           errorLabel: viewModel.getErrorMsg('engine_capacity') ?? viewModel.params.vmVehicleCreate.getErrorMsg('engine_capacity'),
           inputFormatters: inputDecimalFormatter,
           suffixIcon: Padding(
@@ -361,9 +336,7 @@ class _FragmentVehicleCreateInfoState extends WidgetBaseStatefull<FragmentVehicl
           isRequired: true,
           selectedItem: viewModel.params.year,
           items: viewModel.vehicleTypeInfo?.modelYear?.years ?? <ModelDropdown>[],
-          customOnTap: viewModel.params.model == null
-              ? () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Lütfen model seçiniz', dialogType: DialogTypes.warning)
-              : null,
+          customOnTap: viewModel.params.model == null ? () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Lütfen model seçiniz', dialogType: DialogTypes.warning) : null,
           hasError: viewModel.isDetectError && viewModel.checkErrorByField('model_year') || viewModel.params.vmVehicleCreate.checkErrorByField('model_year'),
           errorLabel: viewModel.getErrorMsg('model_year') ?? viewModel.params.vmVehicleCreate.getErrorMsg('model_year'),
           onChanged: viewModel.onChangedYear,
@@ -372,11 +345,14 @@ class _FragmentVehicleCreateInfoState extends WidgetBaseStatefull<FragmentVehicl
           controller: viewModel.params.plateNumberController,
           title: 'Plaka Numarası',
           isRequired: true,
-          hasError:
-              viewModel.isDetectError && viewModel.checkErrorByField('plate_number') || viewModel.params.vmVehicleCreate.checkErrorByField('plate_number'),
+          hasError: viewModel.isDetectError && viewModel.checkErrorByField('plate_number') || viewModel.params.vmVehicleCreate.checkErrorByField('plate_number'),
           errorLabel: viewModel.getErrorMsg('plate_number') ?? viewModel.params.vmVehicleCreate.getErrorMsg('plate_number'),
           textCapitalization: TextCapitalization.characters,
-          inputFormatters: [FilteringTextInputFormatter.deny(RegExp(r'\s\b|\b\s')), UpperCaseTextFormatter()],
+          maxLength: 8,
+          inputFormatters: [
+            FilteringTextInputFormatter.allow(RegExp(r'[0-9a-zA-Z]')),
+            UpperCaseTextFormatter(),
+          ],
         ),
         TextFieldBasic(
           controller: viewModel.params.chassisNumberController,
@@ -385,12 +361,10 @@ class _FragmentVehicleCreateInfoState extends WidgetBaseStatefull<FragmentVehicl
           maxLength: 17,
           inputFormatters: [UpperCaseTextFormatter()],
           hintText: 'Ruhsatta yer alan 17 karakterli şasi numarasını giriniz',
-          hasError:
-              viewModel.isDetectError && viewModel.checkErrorByField('chassis_number') || viewModel.params.vmVehicleCreate.checkErrorByField('chassis_number'),
+          hasError: viewModel.isDetectError && viewModel.checkErrorByField('chassis_number') || viewModel.params.vmVehicleCreate.checkErrorByField('chassis_number'),
           errorLabel: viewModel.getErrorMsg('chassis_number') ?? viewModel.params.vmVehicleCreate.getErrorMsg('chassis_number'),
           titleSuffix: GestureDetector(
-            onTap: () => viewModel.alertObserver.alert =
-                const ModelAlertDialog(description: 'Ruhsatta yer alan 17 karakterli şasi numarası', dialogType: DialogTypes.warning),
+            onTap: () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Ruhsatta yer alan 17 karakterli şasi numarası', dialogType: DialogTypes.warning),
             child: Row(
               children: [
                 Icon(Icons.help_outline, size: 16, color: R.themeColor.primary),

@@ -32,3 +32,5 @@ const unAuthRequestEndpoints = [
 ];
 
 final inputDecimalFormatter = [DecimalFormatter(), FilteringTextInputFormatter.allow(RegExp(r'^\d+(\.\d+)*$'))];
+
+final RegExp plakaRegex = RegExp(r'^(0[1-9]|[1-7][0-9]|8[01])([A-Z]{1,3})(\d{2,4})$');
