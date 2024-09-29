@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,95 +7,110 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../core/constants/ui_brightness_style.dart';
 import '../../../core/resources/_r.dart';
-import '../../../core/utils/general_data.dart';
+import '../../../core/services/router/router.gr.dart';
 import '../../base/base_view.dart';
-import '../../widgets/widget_scroll.dart';
+import '../../bs/bs_filter_marketplace.dart';
+import '../../widgets/widget_app_bar.dart';
 import '../../widgets/widget_web.dart';
-import '../../widgets/widgets_text.dart';
 import 'vm_public_list.dart';
 
 @RoutePage()
 class ViewPublicListing extends WidgetBase<VmPublicListing> {
-  const ViewPublicListing({
-    super.key,
-    super.isActiveLoadingIndicator = true,
-  });
+  const ViewPublicListing({super.key, super.isActiveLoadingIndicator = true});
 
   @override
   SystemUiOverlayStyle systemBarBrightness() => UIBrightnessStyle.getInstance().system();
 
   @override
-  VmPublicListing createViewModel(BuildContext context) => VmPublicListing(apiService(context));
-
-  @override
-  Widget buildWidget(BuildContext context, VmPublicListing viewModel) => Scaffold(
-        key: viewModel.scaffoldkey,
-        appBar: _getAppBar(context, viewModel),
-        body: _getBody(context, viewModel),
-      );
+  VmPublicListing createViewModel(BuildContext context) => VmPublicListing(apiService(context), router(context));
 
   @override
   Widget buildWidgetForWeb(BuildContext context, VmPublicListing viewModel) => Scaffold(
         body: WidgetWebBase(
-          child: _getBody(context, viewModel),
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(size(context).width * 0.06, 20, 20, 0),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: _getFilterBox(context, viewModel),
+                ),
+                Expanded(
+                  flex: 8,
+                  child: _getAutoTabsRouter(context, viewModel),
+                ),
+              ],
+            ),
+          ),
         ),
       );
 
-  AppBar _getAppBar(BuildContext context, VmPublicListing viewModel) => AppBar(
-        centerTitle: false,
-        backgroundColor: R.color.white,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        title: Row(
-          children: [
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextBasic(text: R.string.hello, color: R.themeColor.smoke, fontFamily: R.fonts.displayMedium, fontSize: 12),
-                  TextBasic(
-                    text: GeneralData.getInstance().getTokenData()?.fullName ?? '-',
-                    color: R.themeColor.secondaryHover,
-                    fontFamily: R.fonts.displayBold,
-                    fontSize: 16,
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 12),
+  @override
+  Widget buildWidget(BuildContext context, VmPublicListing viewModel) => Scaffold(
+        appBar: WidgetAppBarBasic(
+          title: 'Pazar Yeri İlanları',
+          centerTitle: false,
+          actions: [
+            IconButton(onPressed: () {}, icon: SvgPicture.asset(R.drawable.svg.iconStar)),
             IconButton(
-              onPressed: () {},
-              icon: SvgPicture.asset(
-                R.drawable.svg.iconChat,
-                colorFilter: ColorFilter.mode(R.themeColor.secondary, BlendMode.srcIn),
-                width: 26,
-              ),
-            ),
-            const SizedBox(width: 10),
-            // IconButton(
-            //   onPressed: () {},
-            //   icon: SvgPicture.asset(
-            //     R.drawable.svg.iconDate,
-            //     colorFilter: ColorFilter.mode(R.themeColor.secondary, BlendMode.srcIn),
-            //     width: 26.0,
-            //   ),
-            // ),
-            // const SizedBox(width: 10.0),
-            IconButton(
-              onPressed: () {},
-              icon: SvgPicture.asset(
-                R.drawable.svg.iconNotification,
-                colorFilter: ColorFilter.mode(R.themeColor.secondary, BlendMode.srcIn),
-                width: 26,
-              ),
+              onPressed: () {
+                unawaited(router(context).showBaseBottomSheet(context, _getFilters(context, viewModel)));
+              },
+              icon: SvgPicture.asset(R.drawable.svg.iconFilter),
             ),
           ],
         ),
+        body: _getAutoTabsRouter(context, viewModel),
       );
 
-  Widget _getBody(BuildContext context, VmPublicListing viewModel) => ScrollWithNoGlowWidget(
-        child: Container(),
+  Widget _getAutoTabsRouter(BuildContext context, VmPublicListing viewModel) => AutoTabsRouter(
+        routes: [
+          FragmentPublicListing(
+            vehicleTypeId: viewModel.filters.vehicleType?.id,
+            vehicleBrandId: viewModel.filters.brand?.id,
+            vehicleSeriesId: viewModel.filters.serie?.id,
+            vehicleModelId: viewModel.filters.model?.id,
+            vehicleVersionId: viewModel.filters.version?.id,
+            provinceId: viewModel.filters.country?.id,
+            districtId: viewModel.filters.city?.id,
+            minYear: viewModel.filters.minDate?.year,
+            maxYear: viewModel.filters.maxDate?.year,
+            minPrice: viewModel.filters.getMinPrice(),
+            maxPrice: viewModel.filters.getMaxPrice(),
+            minKm: viewModel.filters.getMinKilometer(),
+            maxKm: viewModel.filters.getMaxKilometer(),
+            fuelTypes: viewModel.filters.fuelTypes.map((e) => e.id.toString()).toList(),
+            transmissionTypes: viewModel.filters.transmissionTypes.map((e) => e.id.toString()).toList(),
+            bodyTypes: viewModel.filters.bodyTypes.map((e) => e.id.toString()).toList(),
+            enginePowers: viewModel.filters.enginePowers.map((e) => e.dropdownId).toList(),
+            engineCapacities: viewModel.filters.engineCapacity.map((e) => e.dropdownId).toList(),
+            tractionTypes: viewModel.filters.tractionTypes.map((e) => e.dropdownId).toList(),
+            date: viewModel.filters.dates.map((e) => e.dropdownId).toList(),
+            // onChangedFilters: viewModel.onChangedFilters,
+          ),
+        ],
+        builder: (context, child) {
+          viewModel.tabsRouter = context.tabsRouter;
+          return child;
+        },
+      );
+
+  Widget _getFilterBox(BuildContext context, VmPublicListing viewModel) => Padding(
+        padding: const EdgeInsets.only(bottom: 20),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: R.themeColor.border),
+          ),
+          child: _getFilters(context, viewModel),
+        ),
+      );
+
+  Widget _getFilters(BuildContext context, VmPublicListing viewModel) => BsFiltershowcase(
+        key: viewModel.filterKey,
+        filter: viewModel.filters,
+        onSuccess: (filter) {
+          viewModel.updateFilters(filter);
+        },
       );
 }

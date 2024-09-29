@@ -16,6 +16,7 @@ import '../../models/request/model_request_vehicle_info.dart';
 import '../../models/request/model_request_vehicle_sold.dart';
 import '../../models/response/model_response_account_book_list.dart';
 import '../../models/response/model_response_accounting_book.dart';
+import '../../models/response/model_response_advert_owner_type.dart';
 import '../../models/response/model_response_balance_top_up.dart';
 import '../../models/response/model_response_bank_account_info.dart';
 import '../../models/response/model_response_bank_account_list.dart';
@@ -41,6 +42,7 @@ import '../../models/response/model_response_photo.dart';
 import '../../models/response/model_response_public_vehicle.dart';
 import '../../models/response/model_response_public_vehicle_bar.dart';
 import '../../models/response/model_response_public_vehicle_card.dart';
+import '../../models/response/model_response_public_vehicle_list.dart';
 import '../../models/response/model_response_query.dart';
 import '../../models/response/model_response_sidebar.dart';
 import '../../models/response/model_response_string.dart';
@@ -129,6 +131,9 @@ abstract class ApiClient {
 
   @GET('/common/districts/{districtId}/neighborhoods')
   Future<ModelResponseNeighbourhoodList> getNeighbourhood(@Path('districtId') int districtId);
+
+  @GET('/common/advert-owner-types')
+  Future<ModelResponseAdvertOwnerType> getAdvertOwnerType();
 
   @GET('/user/for-me/till-report')
   Future<ModelResponseTillReport> getTillReport();
@@ -586,6 +591,9 @@ abstract class ApiClient {
 
   @GET('/public/market-place/{vehicleId}')
   Future<ModelResponsePublicVehicle> getPublicVehicleDetail(@Path('vehicleId') int vehicleId);
+  
+  @POST('/public/market-place')
+  Future<ModelResponsePublicVehicleList> getPublicVehicleList(@Body() ModelRequestFilterMarketplace body);
 
   @GET('/public/number-by-vehicle-type')
   Future<ModelResponsePublicVehicleBar> getPublicVehicleBar();

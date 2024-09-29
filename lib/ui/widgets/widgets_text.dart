@@ -145,17 +145,20 @@ class WidgetValueText extends StatelessWidget {
 }
 
 class WidgetLocationText extends StatelessWidget {
-  const WidgetLocationText({required this.city, required this.district, super.key});
+  const WidgetLocationText({required this.city, this.district, super.key});
 
   final String city;
-  final String district;
+  final String? district;
 
   @override
   Widget build(BuildContext context) => Row(
-      children: [
-        SvgPicture.asset(R.drawable.svg.iconLocation),
-        const SizedBox(width: 5),
-        TextBasic(text: '$city /$district', color: R.themeColor.secondaryHover, fontFamily: R.fonts.displayMedium, fontSize: 14),
-      ],
-    );
+        children: [
+          SvgPicture.asset(R.drawable.svg.iconLocation),
+          const SizedBox(width: 5),
+          if (district == null)
+            TextBasic(text: city, color: R.themeColor.secondaryHover, fontFamily: R.fonts.displayMedium, fontSize: 14)
+          else
+            TextBasic(text: '$city /$district', color: R.themeColor.secondaryHover, fontFamily: R.fonts.displayMedium, fontSize: 14),
+        ],
+      );
 }

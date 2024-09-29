@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_field_initializers_in_const_classes
 
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../core/constants/ui_brightness_style.dart';
 import '../../../core/resources/_r.dart';
+import '../../../core/services/router/router.gr.dart';
 import '../../../core/utils/general_data.dart';
 import '../../base/base_view.dart';
 import '../../widgets/widget_home_feature_selection.dart';
@@ -69,7 +72,11 @@ class ViewPublicHome extends WidgetBase<VmPublicHome> {
                       children: [
                         TextBasic(text: 'Bölgenizde eklenmiş yeni ilanlar', fontSize: 18, fontWeight: FontWeight.bold, color: R.color.black),
                         InkWell(
-                          onTap: () {},
+                          onTap: () async => unawaited(
+                            router(context).startNewView(
+                              route: RoutePublicListing(),
+                            ),
+                          ),
                           child: Row(
                             children: [
                               TextBasic(text: 'Tümünü Gör', fontSize: 12, color: R.themeColor.secondary, fontWeight: FontWeight.bold),

@@ -307,6 +307,30 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<ModelResponseAdvertOwnerType> getAdvertOwnerType() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ModelResponseAdvertOwnerType>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/common/advert-owner-types',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = await IsolateHelper.parseJson<ModelResponseAdvertOwnerType>(
+        _result.data!);
+    return value;
+  }
+
+  @override
   Future<ModelResponseTillReport> getTillReport() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -2925,6 +2949,30 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<ModelResponsePublicVehicleList> getPublicVehicleList(body) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = JsonMapper.serialize(body);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ModelResponsePublicVehicleList>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/public/market-place',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = await IsolateHelper.parseJson<ModelResponsePublicVehicleList>(
+        _result.data!);
+    return value;
+  }
+
+  @override
   Future<ModelResponsePublicVehicleBar> getPublicVehicleBar() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -2993,6 +3041,39 @@ class _ApiClient implements ApiClient {
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = await IsolateHelper.parseJson<ModelResponseVehicleStatus>(
         _result.data!);
+    return value;
+  }
+
+  @override
+  Future<ResponseData<dynamic>> deleteAccountBookDetail(
+    accountBookId,
+    accountModel,
+    accountId,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final _data = {
+      'account_model': accountModel,
+      'account_id': accountId,
+    };
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ResponseData<dynamic>>(Options(
+      method: 'DELETE',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/user/accounting/accounting-book/${accountBookId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value =
+        await IsolateHelper.parseJson<ResponseData<dynamic>>(_result.data!);
     return value;
   }
 
