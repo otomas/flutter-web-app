@@ -21,6 +21,7 @@ class WidgetCustomerSelection extends StatefulWidget {
     this.hasError = false,
     this.errorLabel,
     this.onRemove,
+    this.onAddedCustomer,
     super.key,
   });
   final String title;
@@ -31,13 +32,13 @@ class WidgetCustomerSelection extends StatefulWidget {
   final String? errorLabel;
   final bool hasError;
   final Function()? onRemove;
+  final Function()? onAddedCustomer;
 
   @override
   State<WidgetCustomerSelection> createState() => _WidgetCustomerSelectionState();
 }
 
 class _WidgetCustomerSelectionState extends State<WidgetCustomerSelection> {
-  var key = UniqueKey();
 
   @override
   Widget build(BuildContext context) => Container(
@@ -65,7 +66,6 @@ class _WidgetCustomerSelectionState extends State<WidgetCustomerSelection> {
             ),
             const SizedBox(height: 20),
             DropdownBasic(
-              key: key,
               title: R.string.customers,
               onChanged: widget.onChangedCustomer,
               hint: 'Seçiniz',
@@ -83,9 +83,7 @@ class _WidgetCustomerSelectionState extends State<WidgetCustomerSelection> {
                 bgColor: R.themeColor.primaryLight,
                 textColor: R.themeColor.primary,
                 onPressed: () async {
-                  await Provider.of<ServiceRoute>(context, listen: false).showBaseBottomSheet(context, const BsAddCustomer());
-                  key = UniqueKey();
-                  setState(() {});
+                  await Provider.of<ServiceRoute>(context, listen: false).showBaseBottomSheet(context, BsAddCustomer(onAddedCustomer: widget.onAddedCustomer));
                 },
               ),
           ],

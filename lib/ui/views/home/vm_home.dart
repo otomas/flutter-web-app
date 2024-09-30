@@ -38,7 +38,7 @@ class VmHome extends ViewModelBase {
         RouteDestination(route: const FragmentAccountCreditRequests(), iconSvgPath: R.drawable.svg.iconProfile, label: 'Credit Requests'),
         RouteDestination(route: const FragmentAccountTurnover(), iconSvgPath: R.drawable.svg.iconProfile, label: 'Endorsement'),
         RouteDestination(route: const FragmentAuthorization(), iconSvgPath: R.drawable.svg.iconProfile, label: 'Authorization'),
-        RouteDestination(route: const FragmentBranches(), iconSvgPath: R.drawable.svg.iconProfile, label: 'Branches'),
+        RouteDestination(route: FragmentBranches(), iconSvgPath: R.drawable.svg.iconProfile, label: 'Branches'),
         RouteDestination(route: FragmentUsers(), iconSvgPath: R.drawable.svg.iconProfile, label: 'Clients'),
         RouteDestination(route: const FragmentFavorites(), iconSvgPath: R.drawable.svg.iconProfile, label: 'Favorites'),
         RouteDestination(route: const FragmentMessages(), iconSvgPath: R.drawable.svg.iconProfile, label: 'Messages'),

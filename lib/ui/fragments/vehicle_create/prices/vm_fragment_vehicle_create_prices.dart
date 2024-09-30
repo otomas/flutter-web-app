@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
+
 import '../../../../core/enums/enum_app.dart';
 import '../../../../core/models/model_payment_type.dart';
 import '../../../../core/models/model_value.dart';
@@ -16,6 +18,8 @@ class VmFragmentVehicleCreatePrices extends ViewModelBase {
   final ModelRequestVehicleParams params;
 
   List<ModelPaymentType> paymentTypes = [];
+
+  ValueNotifier<double> remainingBalance = ValueNotifier<double>(0);
 
   @override
   Future<void> init() async {
@@ -57,6 +61,7 @@ class VmFragmentVehicleCreatePrices extends ViewModelBase {
 
   void addPaymentType(ModelPaymentType item) {
     params.paymentTypes.add(ModelPaymentType.copyWith(item));
+    params.paymentTypes.last.amountController?.addListener(priceListener);
     notifyListeners();
   }
 
@@ -73,7 +78,17 @@ class VmFragmentVehicleCreatePrices extends ViewModelBase {
   }
 
   void removeSelectedPaymentType(int index) {
+    params.paymentTypes[index].amountController?.removeListener(priceListener);
     params.paymentTypes.removeAt(index);
     notifyListeners();
+  }
+
+  void priceListener() {
+    var price = 0.0;
+    for (final element in params.paymentTypes) {
+      price += double.tryParse(element.amountController?.text.replaceAll('.', '') ?? '0') ?? 0;
+    }
+    final buyingPrice = int.tryParse(params.buyingPriceController.text.replaceAll('.', '')) ?? 0;
+    remainingBalance.value = buyingPrice - price;
   }
 }

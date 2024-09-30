@@ -41,7 +41,7 @@ class ViewVehicleCreate extends WidgetBase<VmVehicleCreate> {
                   child: Container(
                     height: double.infinity,
                     width: double.infinity,
-                    margin: const EdgeInsets.all(40),
+                    margin: const EdgeInsets.only(left: 40, top: 40, right: 40),
                     decoration: BoxDecoration(
                       color: R.themeColor.viewBg,
                       borderRadius: BorderRadius.circular(12),

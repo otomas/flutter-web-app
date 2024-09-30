@@ -1,13 +1,12 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../core/enums/enum_app.dart';
 import '../../core/extensions/extension_iterable.dart';
 import '../../core/extensions/extension_string.dart';
 import '../../core/models/model_base_dropdown.dart';
-import '../../core/models/model_vehicle_fuel_type.dart';
 import '../../core/resources/_r.dart';
+import '../../core/services/service_app.dart';
 import '../base/base_view.dart';
 import '../base/base_view_model.dart';
 import '../bs/bs_dropdown.dart';
@@ -69,7 +68,14 @@ class DropdownBasic<T extends BaseDropdown> extends StatefulWidget {
 
 class _DropdownBasicState<T extends BaseDropdown> extends WidgetBaseStatefull<DropdownBasic<T>, VmDropdownBasic> {
   @override
-  VmDropdownBasic<T> createViewModel(BuildContext context) => VmDropdownBasic<T>(widget.selectedItem, widget.items, widget.callback, widget.isCustomPagination, widget.onChanged);
+  VmDropdownBasic<T> createViewModel(BuildContext context) => VmDropdownBasic<T>(
+        di<ServiceApp>(context),
+        widget.selectedItem,
+        widget.items,
+        widget.callback,
+        widget.isCustomPagination,
+        widget.onChanged,
+      );
 
   @override
   SystemUiOverlayStyle? systemBarBrightness() => null;
@@ -86,37 +92,83 @@ class _DropdownBasicState<T extends BaseDropdown> extends WidgetBaseStatefull<Dr
   @override
   Widget buildWidget(BuildContext context, VmDropdownBasic<BaseDropdown> viewModel) => _getBody(context, viewModel);
 
-  Widget _getBody(BuildContext context, VmDropdownBasic viewModel) => GestureDetector(
-        onTap: widget.customOnTap ?? (widget.enabled && !viewModel.isLoading() ? () => showBottomSheet(context, viewModel) : null),
-        child: Row(
-          children: [
-            widget.child ??
-                Expanded(
-                  child: TextFieldBasic(
-                    enabled: false,
-                    hasError: widget.hasError,
-                    errorLabel: widget.errorLabel,
-                    isRequired: widget.isRequired,
-                    fillColor: widget.color,
-                    controller: viewModel.itemController,
-                    title: widget.isActiveTitle ? widget.title : null,
-                    hintText: widget.hint,
-                    suffixIcon: widget.isActiveSuffixIcon ? (viewModel.isLoading() ? const IOSIndicator() : const Icon(Icons.keyboard_arrow_down)) : widget.suffixIcon,
-                    prefixIcon: widget.isActivePrefixIcon ? widget.prefixIcon ?? (widget.callback == null ? null : widget.suffixIcon ?? const Icon(Icons.search)) : null,
+  Widget _getBody(BuildContext context, VmDropdownBasic viewModel) => 1 == 1
+      ? GestureDetector(
+          onTap: widget.customOnTap ?? (widget.enabled && !viewModel.isLoading() ? null : widget.customOnTap),
+          child: PopupMenuButton(
+            tooltip: '',
+            position: PopupMenuPosition.under,
+            splashRadius: 12,
+            enabled: viewModel.isLoaded(),
+            padding: EdgeInsets.zero,
+            menuPadding: EdgeInsets.zero,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            color: R.themeColor.viewBg,
+            shadowColor: R.themeColor.viewBg,
+            child: TextFieldBasic(
+              enabled: false,
+              hasError: widget.hasError,
+              errorLabel: widget.errorLabel,
+              isRequired: widget.isRequired,
+              fillColor: widget.color,
+              controller: viewModel.itemController,
+              title: widget.isActiveTitle ? widget.title : null,
+              hintText: widget.hint,
+              suffixIcon: widget.isActiveSuffixIcon ? (viewModel.isLoading() ? const IOSIndicator() : const Icon(Icons.keyboard_arrow_down)) : widget.suffixIcon,
+              prefixIcon: widget.isActivePrefixIcon ? widget.prefixIcon ?? (widget.callback == null ? null : widget.suffixIcon ?? const Icon(Icons.search)) : null,
+            ),
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                padding: EdgeInsets.zero,
+                child: Container(
+                  height: context.size?.height,
+                  width: double.infinity,
+                  constraints: const BoxConstraints(minHeight: 330),
+                  child: BottomSheetDropdown<T>(
+                    title: widget.title,
+                    onChanged: (item) {
+                      viewModel.onChanged(item);
+                      Navigator.pop(context);
+                    },
+                    list: viewModel.items as List<T>,
+                    selectedItem: viewModel.selectedItem as T?,
                   ),
                 ),
-            if (widget.onRemove != null && viewModel.selectedItem != null)
-              IconButton(
-                padding: EdgeInsets.zero,
-                onPressed: () {
-                  viewModel.onChanged(null);
-                  widget.onRemove!();
-                },
-                icon: Icon(Icons.clear, color: R.themeColor.primary),
               ),
-          ],
-        ),
-      );
+            ],
+          ),
+        )
+      : GestureDetector(
+          onTap: widget.customOnTap ?? (widget.enabled && !viewModel.isLoading() ? () => showBottomSheet(context, viewModel) : null),
+          child: Row(
+            children: [
+              widget.child ??
+                  Expanded(
+                    child: TextFieldBasic(
+                      enabled: false,
+                      hasError: widget.hasError,
+                      errorLabel: widget.errorLabel,
+                      isRequired: widget.isRequired,
+                      fillColor: widget.color,
+                      controller: viewModel.itemController,
+                      title: widget.isActiveTitle ? widget.title : null,
+                      hintText: widget.hint,
+                      suffixIcon: widget.isActiveSuffixIcon ? (viewModel.isLoading() ? const IOSIndicator() : const Icon(Icons.keyboard_arrow_down)) : widget.suffixIcon,
+                      prefixIcon: widget.isActivePrefixIcon ? widget.prefixIcon ?? (widget.callback == null ? null : widget.suffixIcon ?? const Icon(Icons.search)) : null,
+                    ),
+                  ),
+              if (widget.onRemove != null && viewModel.selectedItem != null)
+                IconButton(
+                  padding: EdgeInsets.zero,
+                  onPressed: () {
+                    viewModel.onChanged(null);
+                    widget.onRemove!();
+                  },
+                  icon: Icon(Icons.clear, color: R.themeColor.primary),
+                ),
+            ],
+          ),
+        );
 
   void showBottomSheet(BuildContext context, VmDropdownBasic viewModel) {
     unawaited(
@@ -124,8 +176,9 @@ class _DropdownBasicState<T extends BaseDropdown> extends WidgetBaseStatefull<Dr
         context,
         BottomSheetDropdown<T>(
           title: widget.title,
-          onChanged: (item) {
-            viewModel.onChanged(item);
+          onChanged: (v) {
+            viewModel.onChanged(v);
+            Navigator.pop(context);
           },
           list: viewModel.items as List<T>,
           selectedItem: viewModel.selectedItem as T?,
@@ -136,12 +189,9 @@ class _DropdownBasicState<T extends BaseDropdown> extends WidgetBaseStatefull<Dr
 }
 
 class VmDropdownBasic<T extends BaseDropdown> extends ViewModelBase {
-  VmDropdownBasic(this.selectedItem, List<T>? items, this.callback, this.isCustomPagination, this.widgetOnChanged) {
+  VmDropdownBasic(this.serviceApp, this.selectedItem, List<T>? items, this.callback, this.isCustomPagination, this.widgetOnChanged) {
     if (items != null) {
       this.items = items;
-      if (selectedItem is ModelVehicleFuelType) {
-        log('message');
-      }
       if (selectedItem != null && selectedItem!.dropdownTitle.isNullOrEmpty()) {
         final itemInList = items.firstWhereOrNull((e) => e.dropdownId == selectedItem?.dropdownId);
         if (itemInList != null) {
@@ -154,6 +204,8 @@ class VmDropdownBasic<T extends BaseDropdown> extends ViewModelBase {
       unawaited(initList());
     }
   }
+
+  final ServiceApp serviceApp;
 
   final Function(T?, bool isAutoComplete) widgetOnChanged;
   final TextEditingController itemController = TextEditingController();
@@ -188,6 +240,7 @@ class VmDropdownBasic<T extends BaseDropdown> extends ViewModelBase {
           setActivityState(ActivityState.isLoaded);
         },
         onError: (error) {
+          handleApiError(error, false);
           setActivityState(ActivityState.isError);
         },
       );

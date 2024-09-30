@@ -226,6 +226,8 @@ abstract class ApiClient {
     @Query('start') int? start,
     @Query('length') int? length,
     @Query('search[value]') String? search,
+    @Query('order[0][column]') String? orderByField,
+    @Query('order[0][dir]') String? orderByDirection,
   );
 
   @FormUrlEncoded()

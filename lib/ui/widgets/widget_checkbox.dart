@@ -11,12 +11,16 @@ class CheckboxBasic<T extends BaseDropdown> extends StatefulWidget {
     super.key,
     this.isRadioButton = false,
     this.isInnerScroll = false,
+    this.fontSize = 14,
+    this.iconSize = 24,
   });
   final T item;
   final bool value;
   final bool isRadioButton;
   final bool isInnerScroll;
   final Function(bool) onChanged;
+  final double fontSize;
+  final double iconSize;
 
   @override
   State<CheckboxBasic> createState() => _CheckboxBasicState();
@@ -45,9 +49,9 @@ class _CheckboxBasicState extends State<CheckboxBasic> {
           child: Row(
             children: [
               Container(
-                height: 24,
-                width: 24,
-                padding: const EdgeInsets.all(4),
+                height: widget.iconSize,
+                width: widget.iconSize,
+                padding: EdgeInsets.all(widget.iconSize / 6),
                 decoration: BoxDecoration(
                   border: widget.isRadioButton
                       ? Border.all(width: value ? 5.0 : 1.0, color: value ? R.themeColor.primary : R.color.gray)
@@ -69,7 +73,7 @@ class _CheckboxBasicState extends State<CheckboxBasic> {
   Widget _getTitle() => TextBasic(
         text: widget.item.dropdownTitle,
         color: value ? R.color.midnight : R.color.gray,
-        fontSize: 14,
+        fontSize: widget.iconSize,
         fontFamily: !value ? null : R.fonts.displayBold,
         fontWeight: value ? FontWeight.w600 : FontWeight.w400,
       );

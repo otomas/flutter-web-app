@@ -141,6 +141,7 @@ class ViewForgotPassword extends WidgetBase<VmForgotPassword> {
         keyboardType: TextInputType.number,
         isDense: false,
         hasError: viewModel.isDetectError && !viewModel.taxNumberController.text.isValidTaxNumber(),
+        maxLength: 10,
         errorLabel: R.string.invalidTaxNo,
       );
 

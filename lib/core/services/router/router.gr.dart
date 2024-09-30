@@ -8,13 +8,13 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i56;
-import 'package:flutter/cupertino.dart' as _i60;
-import 'package:flutter/foundation.dart' as _i61;
-import 'package:flutter/material.dart' as _i57;
-import 'package:otomas/core/models/request/model_request_vehicle.dart' as _i59;
+import 'package:auto_route/auto_route.dart' as _i55;
+import 'package:flutter/cupertino.dart' as _i59;
+import 'package:flutter/foundation.dart' as _i60;
+import 'package:flutter/material.dart' as _i56;
+import 'package:otomas/core/models/request/model_request_vehicle.dart' as _i58;
 import 'package:otomas/core/models/response/model_response_marketplace.dart'
-    as _i58;
+    as _i57;
 import 'package:otomas/ui/fragments/account/balance_top_up/fragment_account_balance_top_up.dart'
     as _i1;
 import 'package:otomas/ui/fragments/account/bank_accounts/fragment_account_bank_accounts.dart'
@@ -43,7 +43,7 @@ import 'package:otomas/ui/fragments/my_account/fragment_my_account.dart'
     as _i16;
 import 'package:otomas/ui/fragments/notifications/fragment_notifications.dart'
     as _i17;
-import 'package:otomas/ui/fragments/public_listing/fragment_public_listing.dart'
+import 'package:otomas/ui/fragments/public/list/fragment_public_list.dart'
     as _i18;
 import 'package:otomas/ui/fragments/queries/damage_record/fragment_queries_damage_record.dart'
     as _i19;
@@ -98,21 +98,19 @@ import 'package:otomas/ui/views/login/view_login.dart' as _i46;
 import 'package:otomas/ui/views/marketplace/view_marketplace.dart' as _i47;
 import 'package:otomas/ui/views/public/view_public_home.dart' as _i49;
 import 'package:otomas/ui/views/public_detail/view_public_detail.dart' as _i48;
-import 'package:otomas/ui/views/public_listing/view_public_listing.dart'
-    as _i50;
-import 'package:otomas/ui/views/register/view_register.dart' as _i51;
-import 'package:otomas/ui/views/splash/view_splash.dart' as _i52;
+import 'package:otomas/ui/views/register/view_register.dart' as _i50;
+import 'package:otomas/ui/views/splash/view_splash.dart' as _i51;
 import 'package:otomas/ui/views/vehicle/create/view_vehicle_create.dart'
-    as _i53;
+    as _i52;
 import 'package:otomas/ui/views/vehicle/detail/view_vehicle_detail.dart'
-    as _i54;
+    as _i53;
 import 'package:otomas/ui/views/vehicle/doping/view_vehicle_doping.dart'
-    as _i55;
+    as _i54;
 
 /// generated route for
 /// [_i1.FragmentAccountBalanceTopUp]
-class FragmentAccountBalanceTopUp extends _i56.PageRouteInfo<void> {
-  const FragmentAccountBalanceTopUp({List<_i56.PageRouteInfo>? children})
+class FragmentAccountBalanceTopUp extends _i55.PageRouteInfo<void> {
+  const FragmentAccountBalanceTopUp({List<_i55.PageRouteInfo>? children})
       : super(
           FragmentAccountBalanceTopUp.name,
           initialChildren: children,
@@ -120,7 +118,7 @@ class FragmentAccountBalanceTopUp extends _i56.PageRouteInfo<void> {
 
   static const String name = 'FragmentAccountBalanceTopUp';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       return const _i1.FragmentAccountBalanceTopUp();
@@ -130,8 +128,8 @@ class FragmentAccountBalanceTopUp extends _i56.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.FragmentAccountBankAccounts]
-class FragmentAccountBankAccounts extends _i56.PageRouteInfo<void> {
-  const FragmentAccountBankAccounts({List<_i56.PageRouteInfo>? children})
+class FragmentAccountBankAccounts extends _i55.PageRouteInfo<void> {
+  const FragmentAccountBankAccounts({List<_i55.PageRouteInfo>? children})
       : super(
           FragmentAccountBankAccounts.name,
           initialChildren: children,
@@ -139,7 +137,7 @@ class FragmentAccountBankAccounts extends _i56.PageRouteInfo<void> {
 
   static const String name = 'FragmentAccountBankAccounts';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       return const _i2.FragmentAccountBankAccounts();
@@ -149,8 +147,8 @@ class FragmentAccountBankAccounts extends _i56.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.FragmentAccountBook]
-class FragmentAccountBook extends _i56.PageRouteInfo<void> {
-  const FragmentAccountBook({List<_i56.PageRouteInfo>? children})
+class FragmentAccountBook extends _i55.PageRouteInfo<void> {
+  const FragmentAccountBook({List<_i55.PageRouteInfo>? children})
       : super(
           FragmentAccountBook.name,
           initialChildren: children,
@@ -158,7 +156,7 @@ class FragmentAccountBook extends _i56.PageRouteInfo<void> {
 
   static const String name = 'FragmentAccountBook';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       return const _i3.FragmentAccountBook();
@@ -168,8 +166,8 @@ class FragmentAccountBook extends _i56.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.FragmentAccountBranchPosDevices]
-class FragmentAccountBranchPosDevices extends _i56.PageRouteInfo<void> {
-  const FragmentAccountBranchPosDevices({List<_i56.PageRouteInfo>? children})
+class FragmentAccountBranchPosDevices extends _i55.PageRouteInfo<void> {
+  const FragmentAccountBranchPosDevices({List<_i55.PageRouteInfo>? children})
       : super(
           FragmentAccountBranchPosDevices.name,
           initialChildren: children,
@@ -177,7 +175,7 @@ class FragmentAccountBranchPosDevices extends _i56.PageRouteInfo<void> {
 
   static const String name = 'FragmentAccountBranchPosDevices';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       return const _i4.FragmentAccountBranchPosDevices();
@@ -187,8 +185,8 @@ class FragmentAccountBranchPosDevices extends _i56.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i5.FragmentAccountCreditRequests]
-class FragmentAccountCreditRequests extends _i56.PageRouteInfo<void> {
-  const FragmentAccountCreditRequests({List<_i56.PageRouteInfo>? children})
+class FragmentAccountCreditRequests extends _i55.PageRouteInfo<void> {
+  const FragmentAccountCreditRequests({List<_i55.PageRouteInfo>? children})
       : super(
           FragmentAccountCreditRequests.name,
           initialChildren: children,
@@ -196,7 +194,7 @@ class FragmentAccountCreditRequests extends _i56.PageRouteInfo<void> {
 
   static const String name = 'FragmentAccountCreditRequests';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       return const _i5.FragmentAccountCreditRequests();
@@ -206,8 +204,8 @@ class FragmentAccountCreditRequests extends _i56.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i6.FragmentAccountInvoices]
-class FragmentAccountInvoices extends _i56.PageRouteInfo<void> {
-  const FragmentAccountInvoices({List<_i56.PageRouteInfo>? children})
+class FragmentAccountInvoices extends _i55.PageRouteInfo<void> {
+  const FragmentAccountInvoices({List<_i55.PageRouteInfo>? children})
       : super(
           FragmentAccountInvoices.name,
           initialChildren: children,
@@ -215,7 +213,7 @@ class FragmentAccountInvoices extends _i56.PageRouteInfo<void> {
 
   static const String name = 'FragmentAccountInvoices';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       return const _i6.FragmentAccountInvoices();
@@ -225,8 +223,8 @@ class FragmentAccountInvoices extends _i56.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i7.FragmentAccountTurnover]
-class FragmentAccountTurnover extends _i56.PageRouteInfo<void> {
-  const FragmentAccountTurnover({List<_i56.PageRouteInfo>? children})
+class FragmentAccountTurnover extends _i55.PageRouteInfo<void> {
+  const FragmentAccountTurnover({List<_i55.PageRouteInfo>? children})
       : super(
           FragmentAccountTurnover.name,
           initialChildren: children,
@@ -234,7 +232,7 @@ class FragmentAccountTurnover extends _i56.PageRouteInfo<void> {
 
   static const String name = 'FragmentAccountTurnover';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       return const _i7.FragmentAccountTurnover();
@@ -244,8 +242,8 @@ class FragmentAccountTurnover extends _i56.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i8.FragmentAuthorization]
-class FragmentAuthorization extends _i56.PageRouteInfo<void> {
-  const FragmentAuthorization({List<_i56.PageRouteInfo>? children})
+class FragmentAuthorization extends _i55.PageRouteInfo<void> {
+  const FragmentAuthorization({List<_i55.PageRouteInfo>? children})
       : super(
           FragmentAuthorization.name,
           initialChildren: children,
@@ -253,7 +251,7 @@ class FragmentAuthorization extends _i56.PageRouteInfo<void> {
 
   static const String name = 'FragmentAuthorization';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       return const _i8.FragmentAuthorization();
@@ -263,32 +261,82 @@ class FragmentAuthorization extends _i56.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i9.FragmentBranches]
-class FragmentBranches extends _i56.PageRouteInfo<void> {
-  const FragmentBranches({List<_i56.PageRouteInfo>? children})
-      : super(
+class FragmentBranches extends _i55.PageRouteInfo<FragmentBranchesArgs> {
+  FragmentBranches({
+    _i56.Key? key,
+    int? page,
+    String? orderByDirection,
+    String? orderByField,
+    List<_i55.PageRouteInfo>? children,
+  }) : super(
           FragmentBranches.name,
+          args: FragmentBranchesArgs(
+            key: key,
+            page: page,
+            orderByDirection: orderByDirection,
+            orderByField: orderByField,
+          ),
+          rawQueryParams: {
+            'page': page,
+            'orderByDirection': orderByDirection,
+            'orderByField': orderByField,
+          },
           initialChildren: children,
         );
 
   static const String name = 'FragmentBranches';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
-      return const _i9.FragmentBranches();
+      final queryParams = data.queryParams;
+      final args = data.argsAs<FragmentBranchesArgs>(
+          orElse: () => FragmentBranchesArgs(
+                page: queryParams.optInt('page'),
+                orderByDirection: queryParams.optString('orderByDirection'),
+                orderByField: queryParams.optString('orderByField'),
+              ));
+      return _i9.FragmentBranches(
+        key: args.key,
+        page: args.page,
+        orderByDirection: args.orderByDirection,
+        orderByField: args.orderByField,
+      );
     },
   );
 }
 
+class FragmentBranchesArgs {
+  const FragmentBranchesArgs({
+    this.key,
+    this.page,
+    this.orderByDirection,
+    this.orderByField,
+  });
+
+  final _i56.Key? key;
+
+  final int? page;
+
+  final String? orderByDirection;
+
+  final String? orderByField;
+
+  @override
+  String toString() {
+    return 'FragmentBranchesArgs{key: $key, page: $page, orderByDirection: $orderByDirection, orderByField: $orderByField}';
+  }
+}
+
 /// generated route for
 /// [_i10.FragmentCustomer]
-class FragmentCustomer extends _i56.PageRouteInfo<FragmentCustomerArgs> {
+class FragmentCustomer extends _i55.PageRouteInfo<FragmentCustomerArgs> {
   FragmentCustomer({
-    _i57.Key? key,
+    _i56.Key? key,
     int? page,
     String? orderByDirection,
     String? orderByField,
-    List<_i56.PageRouteInfo>? children,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           FragmentCustomer.name,
           args: FragmentCustomerArgs(
@@ -307,7 +355,7 @@ class FragmentCustomer extends _i56.PageRouteInfo<FragmentCustomerArgs> {
 
   static const String name = 'FragmentCustomer';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final queryParams = data.queryParams;
@@ -335,7 +383,7 @@ class FragmentCustomerArgs {
     this.orderByField,
   });
 
-  final _i57.Key? key;
+  final _i56.Key? key;
 
   final int? page;
 
@@ -351,8 +399,8 @@ class FragmentCustomerArgs {
 
 /// generated route for
 /// [_i11.FragmentEmpty]
-class FragmentEmpty extends _i56.PageRouteInfo<void> {
-  const FragmentEmpty({List<_i56.PageRouteInfo>? children})
+class FragmentEmpty extends _i55.PageRouteInfo<void> {
+  const FragmentEmpty({List<_i55.PageRouteInfo>? children})
       : super(
           FragmentEmpty.name,
           initialChildren: children,
@@ -360,7 +408,7 @@ class FragmentEmpty extends _i56.PageRouteInfo<void> {
 
   static const String name = 'FragmentEmpty';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       return const _i11.FragmentEmpty();
@@ -370,8 +418,8 @@ class FragmentEmpty extends _i56.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i12.FragmentFavorites]
-class FragmentFavorites extends _i56.PageRouteInfo<void> {
-  const FragmentFavorites({List<_i56.PageRouteInfo>? children})
+class FragmentFavorites extends _i55.PageRouteInfo<void> {
+  const FragmentFavorites({List<_i55.PageRouteInfo>? children})
       : super(
           FragmentFavorites.name,
           initialChildren: children,
@@ -379,7 +427,7 @@ class FragmentFavorites extends _i56.PageRouteInfo<void> {
 
   static const String name = 'FragmentFavorites';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       return const _i12.FragmentFavorites();
@@ -389,8 +437,8 @@ class FragmentFavorites extends _i56.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i13.FragmentForMe]
-class FragmentForMe extends _i56.PageRouteInfo<void> {
-  const FragmentForMe({List<_i56.PageRouteInfo>? children})
+class FragmentForMe extends _i55.PageRouteInfo<void> {
+  const FragmentForMe({List<_i55.PageRouteInfo>? children})
       : super(
           FragmentForMe.name,
           initialChildren: children,
@@ -398,7 +446,7 @@ class FragmentForMe extends _i56.PageRouteInfo<void> {
 
   static const String name = 'FragmentForMe';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       return const _i13.FragmentForMe();
@@ -408,10 +456,10 @@ class FragmentForMe extends _i56.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i14.FragmentMarketPlace]
-class FragmentMarketPlace extends _i56.PageRouteInfo<FragmentMarketPlaceArgs> {
+class FragmentMarketPlace extends _i55.PageRouteInfo<FragmentMarketPlaceArgs> {
   FragmentMarketPlace({
-    dynamic Function(_i58.ModelMarketplaceResponseFilter?)? onChangedFilters,
-    _i57.Key? key,
+    dynamic Function(_i57.ModelMarketplaceResponseFilter?)? onChangedFilters,
+    _i56.Key? key,
     int? vehicleTypeId,
     int? vehicleBrandId,
     int? vehicleSeriesId,
@@ -432,7 +480,7 @@ class FragmentMarketPlace extends _i56.PageRouteInfo<FragmentMarketPlaceArgs> {
     List<String>? engineCapacities,
     List<String>? tractionTypes,
     List<String>? date,
-    List<_i56.PageRouteInfo>? children,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           FragmentMarketPlace.name,
           args: FragmentMarketPlaceArgs(
@@ -486,7 +534,7 @@ class FragmentMarketPlace extends _i56.PageRouteInfo<FragmentMarketPlaceArgs> {
 
   static const String name = 'FragmentMarketPlace';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final queryParams = data.queryParams;
@@ -567,10 +615,10 @@ class FragmentMarketPlaceArgs {
     this.date,
   });
 
-  final dynamic Function(_i58.ModelMarketplaceResponseFilter?)?
+  final dynamic Function(_i57.ModelMarketplaceResponseFilter?)?
       onChangedFilters;
 
-  final _i57.Key? key;
+  final _i56.Key? key;
 
   final int? vehicleTypeId;
 
@@ -620,8 +668,8 @@ class FragmentMarketPlaceArgs {
 
 /// generated route for
 /// [_i15.FragmentMessages]
-class FragmentMessages extends _i56.PageRouteInfo<void> {
-  const FragmentMessages({List<_i56.PageRouteInfo>? children})
+class FragmentMessages extends _i55.PageRouteInfo<void> {
+  const FragmentMessages({List<_i55.PageRouteInfo>? children})
       : super(
           FragmentMessages.name,
           initialChildren: children,
@@ -629,7 +677,7 @@ class FragmentMessages extends _i56.PageRouteInfo<void> {
 
   static const String name = 'FragmentMessages';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       return const _i15.FragmentMessages();
@@ -639,8 +687,8 @@ class FragmentMessages extends _i56.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i16.FragmentMyAccount]
-class FragmentMyAccount extends _i56.PageRouteInfo<void> {
-  const FragmentMyAccount({List<_i56.PageRouteInfo>? children})
+class FragmentMyAccount extends _i55.PageRouteInfo<void> {
+  const FragmentMyAccount({List<_i55.PageRouteInfo>? children})
       : super(
           FragmentMyAccount.name,
           initialChildren: children,
@@ -648,7 +696,7 @@ class FragmentMyAccount extends _i56.PageRouteInfo<void> {
 
   static const String name = 'FragmentMyAccount';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       return const _i16.FragmentMyAccount();
@@ -658,8 +706,8 @@ class FragmentMyAccount extends _i56.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i17.FragmentNotifications]
-class FragmentNotifications extends _i56.PageRouteInfo<void> {
-  const FragmentNotifications({List<_i56.PageRouteInfo>? children})
+class FragmentNotifications extends _i55.PageRouteInfo<void> {
+  const FragmentNotifications({List<_i55.PageRouteInfo>? children})
       : super(
           FragmentNotifications.name,
           initialChildren: children,
@@ -667,7 +715,7 @@ class FragmentNotifications extends _i56.PageRouteInfo<void> {
 
   static const String name = 'FragmentNotifications';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       return const _i17.FragmentNotifications();
@@ -676,222 +724,28 @@ class FragmentNotifications extends _i56.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i18.FragmentPublicListing]
-class FragmentPublicListing
-    extends _i56.PageRouteInfo<FragmentPublicListingArgs> {
-  FragmentPublicListing({
-    dynamic Function(_i58.ModelMarketplaceResponseFilter?)? onChangedFilters,
-    _i57.Key? key,
-    int? vehicleTypeId,
-    int? vehicleBrandId,
-    int? vehicleSeriesId,
-    int? vehicleModelId,
-    int? vehicleVersionId,
-    int? provinceId,
-    int? districtId,
-    num? minPrice,
-    num? maxPrice,
-    num? minKm,
-    num? maxKm,
-    int? minYear,
-    int? maxYear,
-    List<String>? fuelTypes,
-    List<String>? transmissionTypes,
-    List<String>? bodyTypes,
-    List<String>? enginePowers,
-    List<String>? engineCapacities,
-    List<String>? tractionTypes,
-    List<String>? date,
-    List<_i56.PageRouteInfo>? children,
-  }) : super(
-          FragmentPublicListing.name,
-          args: FragmentPublicListingArgs(
-            onChangedFilters: onChangedFilters,
-            key: key,
-            vehicleTypeId: vehicleTypeId,
-            vehicleBrandId: vehicleBrandId,
-            vehicleSeriesId: vehicleSeriesId,
-            vehicleModelId: vehicleModelId,
-            vehicleVersionId: vehicleVersionId,
-            provinceId: provinceId,
-            districtId: districtId,
-            minPrice: minPrice,
-            maxPrice: maxPrice,
-            minKm: minKm,
-            maxKm: maxKm,
-            minYear: minYear,
-            maxYear: maxYear,
-            fuelTypes: fuelTypes,
-            transmissionTypes: transmissionTypes,
-            bodyTypes: bodyTypes,
-            enginePowers: enginePowers,
-            engineCapacities: engineCapacities,
-            tractionTypes: tractionTypes,
-            date: date,
-          ),
-          rawQueryParams: {
-            'vehicleTypeId': vehicleTypeId,
-            'vehicleBrandId': vehicleBrandId,
-            'vehicleSeriesId': vehicleSeriesId,
-            'vehicleModelId': vehicleModelId,
-            'vehicleVersionId': vehicleVersionId,
-            'provinceId': provinceId,
-            'districtId': districtId,
-            'minPrice': minPrice,
-            'maxPrice': maxPrice,
-            'minKm': minKm,
-            'maxKm': maxKm,
-            'minYear': minYear,
-            'maxYear': maxYear,
-            'fuelTypes': fuelTypes,
-            'transmissionTypes': transmissionTypes,
-            'bodyTypes': bodyTypes,
-            'enginePowers': enginePowers,
-            'engineCapacities': engineCapacities,
-            'tractionTypes': tractionTypes,
-            'date': date,
-          },
+/// [_i18.FragmentPublicList]
+class FragmentPublicList extends _i55.PageRouteInfo<void> {
+  const FragmentPublicList({List<_i55.PageRouteInfo>? children})
+      : super(
+          FragmentPublicList.name,
           initialChildren: children,
         );
 
-  static const String name = 'FragmentPublicListing';
+  static const String name = 'FragmentPublicList';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
-      final queryParams = data.queryParams;
-      final args = data.argsAs<FragmentPublicListingArgs>(
-          orElse: () => FragmentPublicListingArgs(
-                vehicleTypeId: queryParams.optInt('vehicleTypeId'),
-                vehicleBrandId: queryParams.optInt('vehicleBrandId'),
-                vehicleSeriesId: queryParams.optInt('vehicleSeriesId'),
-                vehicleModelId: queryParams.optInt('vehicleModelId'),
-                vehicleVersionId: queryParams.optInt('vehicleVersionId'),
-                provinceId: queryParams.optInt('provinceId'),
-                districtId: queryParams.optInt('districtId'),
-                minPrice: queryParams.optNum('minPrice'),
-                maxPrice: queryParams.optNum('maxPrice'),
-                minKm: queryParams.optNum('minKm'),
-                maxKm: queryParams.optNum('maxKm'),
-                minYear: queryParams.optInt('minYear'),
-                maxYear: queryParams.optInt('maxYear'),
-                fuelTypes: queryParams.optList('fuelTypes'),
-                transmissionTypes: queryParams.optList('transmissionTypes'),
-                bodyTypes: queryParams.optList('bodyTypes'),
-                enginePowers: queryParams.optList('enginePowers'),
-                engineCapacities: queryParams.optList('engineCapacities'),
-                tractionTypes: queryParams.optList('tractionTypes'),
-                date: queryParams.optList('date'),
-              ));
-      return _i18.FragmentPublicListing(
-        onChangedFilters: args.onChangedFilters,
-        key: args.key,
-        vehicleTypeId: args.vehicleTypeId,
-        vehicleBrandId: args.vehicleBrandId,
-        vehicleSeriesId: args.vehicleSeriesId,
-        vehicleModelId: args.vehicleModelId,
-        vehicleVersionId: args.vehicleVersionId,
-        provinceId: args.provinceId,
-        districtId: args.districtId,
-        minPrice: args.minPrice,
-        maxPrice: args.maxPrice,
-        minKm: args.minKm,
-        maxKm: args.maxKm,
-        minYear: args.minYear,
-        maxYear: args.maxYear,
-        fuelTypes: args.fuelTypes,
-        transmissionTypes: args.transmissionTypes,
-        bodyTypes: args.bodyTypes,
-        enginePowers: args.enginePowers,
-        engineCapacities: args.engineCapacities,
-        tractionTypes: args.tractionTypes,
-        date: args.date,
-      );
+      return const _i18.FragmentPublicList();
     },
   );
 }
 
-class FragmentPublicListingArgs {
-  const FragmentPublicListingArgs({
-    this.onChangedFilters,
-    this.key,
-    this.vehicleTypeId,
-    this.vehicleBrandId,
-    this.vehicleSeriesId,
-    this.vehicleModelId,
-    this.vehicleVersionId,
-    this.provinceId,
-    this.districtId,
-    this.minPrice,
-    this.maxPrice,
-    this.minKm,
-    this.maxKm,
-    this.minYear,
-    this.maxYear,
-    this.fuelTypes,
-    this.transmissionTypes,
-    this.bodyTypes,
-    this.enginePowers,
-    this.engineCapacities,
-    this.tractionTypes,
-    this.date,
-  });
-
-  final dynamic Function(_i58.ModelMarketplaceResponseFilter?)?
-      onChangedFilters;
-
-  final _i57.Key? key;
-
-  final int? vehicleTypeId;
-
-  final int? vehicleBrandId;
-
-  final int? vehicleSeriesId;
-
-  final int? vehicleModelId;
-
-  final int? vehicleVersionId;
-
-  final int? provinceId;
-
-  final int? districtId;
-
-  final num? minPrice;
-
-  final num? maxPrice;
-
-  final num? minKm;
-
-  final num? maxKm;
-
-  final int? minYear;
-
-  final int? maxYear;
-
-  final List<String>? fuelTypes;
-
-  final List<String>? transmissionTypes;
-
-  final List<String>? bodyTypes;
-
-  final List<String>? enginePowers;
-
-  final List<String>? engineCapacities;
-
-  final List<String>? tractionTypes;
-
-  final List<String>? date;
-
-  @override
-  String toString() {
-    return 'FragmentPublicListingArgs{onChangedFilters: $onChangedFilters, key: $key, vehicleTypeId: $vehicleTypeId, vehicleBrandId: $vehicleBrandId, vehicleSeriesId: $vehicleSeriesId, vehicleModelId: $vehicleModelId, vehicleVersionId: $vehicleVersionId, provinceId: $provinceId, districtId: $districtId, minPrice: $minPrice, maxPrice: $maxPrice, minKm: $minKm, maxKm: $maxKm, minYear: $minYear, maxYear: $maxYear, fuelTypes: $fuelTypes, transmissionTypes: $transmissionTypes, bodyTypes: $bodyTypes, enginePowers: $enginePowers, engineCapacities: $engineCapacities, tractionTypes: $tractionTypes, date: $date}';
-  }
-}
-
 /// generated route for
 /// [_i19.FragmentQueriesDamageRecord]
-class FragmentQueriesDamageRecord extends _i56.PageRouteInfo<void> {
-  const FragmentQueriesDamageRecord({List<_i56.PageRouteInfo>? children})
+class FragmentQueriesDamageRecord extends _i55.PageRouteInfo<void> {
+  const FragmentQueriesDamageRecord({List<_i55.PageRouteInfo>? children})
       : super(
           FragmentQueriesDamageRecord.name,
           initialChildren: children,
@@ -899,7 +753,7 @@ class FragmentQueriesDamageRecord extends _i56.PageRouteInfo<void> {
 
   static const String name = 'FragmentQueriesDamageRecord';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       return const _i19.FragmentQueriesDamageRecord();
@@ -909,8 +763,8 @@ class FragmentQueriesDamageRecord extends _i56.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i20.FragmentQueriesKilometer]
-class FragmentQueriesKilometer extends _i56.PageRouteInfo<void> {
-  const FragmentQueriesKilometer({List<_i56.PageRouteInfo>? children})
+class FragmentQueriesKilometer extends _i55.PageRouteInfo<void> {
+  const FragmentQueriesKilometer({List<_i55.PageRouteInfo>? children})
       : super(
           FragmentQueriesKilometer.name,
           initialChildren: children,
@@ -918,7 +772,7 @@ class FragmentQueriesKilometer extends _i56.PageRouteInfo<void> {
 
   static const String name = 'FragmentQueriesKilometer';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       return const _i20.FragmentQueriesKilometer();
@@ -928,8 +782,8 @@ class FragmentQueriesKilometer extends _i56.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i21.FragmentQueriesPartChange]
-class FragmentQueriesPartChange extends _i56.PageRouteInfo<void> {
-  const FragmentQueriesPartChange({List<_i56.PageRouteInfo>? children})
+class FragmentQueriesPartChange extends _i55.PageRouteInfo<void> {
+  const FragmentQueriesPartChange({List<_i55.PageRouteInfo>? children})
       : super(
           FragmentQueriesPartChange.name,
           initialChildren: children,
@@ -937,7 +791,7 @@ class FragmentQueriesPartChange extends _i56.PageRouteInfo<void> {
 
   static const String name = 'FragmentQueriesPartChange';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       return const _i21.FragmentQueriesPartChange();
@@ -947,8 +801,8 @@ class FragmentQueriesPartChange extends _i56.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i22.FragmentSearch]
-class FragmentSearch extends _i56.PageRouteInfo<void> {
-  const FragmentSearch({List<_i56.PageRouteInfo>? children})
+class FragmentSearch extends _i55.PageRouteInfo<void> {
+  const FragmentSearch({List<_i55.PageRouteInfo>? children})
       : super(
           FragmentSearch.name,
           initialChildren: children,
@@ -956,7 +810,7 @@ class FragmentSearch extends _i56.PageRouteInfo<void> {
 
   static const String name = 'FragmentSearch';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       return const _i22.FragmentSearch();
@@ -966,8 +820,8 @@ class FragmentSearch extends _i56.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i23.FragmentSettings]
-class FragmentSettings extends _i56.PageRouteInfo<void> {
-  const FragmentSettings({List<_i56.PageRouteInfo>? children})
+class FragmentSettings extends _i55.PageRouteInfo<void> {
+  const FragmentSettings({List<_i55.PageRouteInfo>? children})
       : super(
           FragmentSettings.name,
           initialChildren: children,
@@ -975,7 +829,7 @@ class FragmentSettings extends _i56.PageRouteInfo<void> {
 
   static const String name = 'FragmentSettings';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       return const _i23.FragmentSettings();
@@ -985,8 +839,8 @@ class FragmentSettings extends _i56.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i24.FragmentShowcase]
-class FragmentShowcase extends _i56.PageRouteInfo<void> {
-  const FragmentShowcase({List<_i56.PageRouteInfo>? children})
+class FragmentShowcase extends _i55.PageRouteInfo<void> {
+  const FragmentShowcase({List<_i55.PageRouteInfo>? children})
       : super(
           FragmentShowcase.name,
           initialChildren: children,
@@ -994,7 +848,7 @@ class FragmentShowcase extends _i56.PageRouteInfo<void> {
 
   static const String name = 'FragmentShowcase';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       return const _i24.FragmentShowcase();
@@ -1004,8 +858,8 @@ class FragmentShowcase extends _i56.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i25.FragmentSupportRequests]
-class FragmentSupportRequests extends _i56.PageRouteInfo<void> {
-  const FragmentSupportRequests({List<_i56.PageRouteInfo>? children})
+class FragmentSupportRequests extends _i55.PageRouteInfo<void> {
+  const FragmentSupportRequests({List<_i55.PageRouteInfo>? children})
       : super(
           FragmentSupportRequests.name,
           initialChildren: children,
@@ -1013,7 +867,7 @@ class FragmentSupportRequests extends _i56.PageRouteInfo<void> {
 
   static const String name = 'FragmentSupportRequests';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       return const _i25.FragmentSupportRequests();
@@ -1023,13 +877,13 @@ class FragmentSupportRequests extends _i56.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i26.FragmentUsers]
-class FragmentUsers extends _i56.PageRouteInfo<FragmentUsersArgs> {
+class FragmentUsers extends _i55.PageRouteInfo<FragmentUsersArgs> {
   FragmentUsers({
-    _i57.Key? key,
+    _i56.Key? key,
     int? page,
     String? orderByDirection,
     String? orderByField,
-    List<_i56.PageRouteInfo>? children,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           FragmentUsers.name,
           args: FragmentUsersArgs(
@@ -1048,7 +902,7 @@ class FragmentUsers extends _i56.PageRouteInfo<FragmentUsersArgs> {
 
   static const String name = 'FragmentUsers';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final queryParams = data.queryParams;
@@ -1076,7 +930,7 @@ class FragmentUsersArgs {
     this.orderByField,
   });
 
-  final _i57.Key? key;
+  final _i56.Key? key;
 
   final int? page;
 
@@ -1093,13 +947,13 @@ class FragmentUsersArgs {
 /// generated route for
 /// [_i27.FragmentVehicleConsignment]
 class FragmentVehicleConsignment
-    extends _i56.PageRouteInfo<FragmentVehicleConsignmentArgs> {
+    extends _i55.PageRouteInfo<FragmentVehicleConsignmentArgs> {
   FragmentVehicleConsignment({
-    _i57.Key? key,
+    _i56.Key? key,
     int? page,
     String? orderByDirection,
     String? orderByField,
-    List<_i56.PageRouteInfo>? children,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           FragmentVehicleConsignment.name,
           args: FragmentVehicleConsignmentArgs(
@@ -1118,7 +972,7 @@ class FragmentVehicleConsignment
 
   static const String name = 'FragmentVehicleConsignment';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final queryParams = data.queryParams;
@@ -1146,7 +1000,7 @@ class FragmentVehicleConsignmentArgs {
     this.orderByField,
   });
 
-  final _i57.Key? key;
+  final _i56.Key? key;
 
   final int? page;
 
@@ -1163,14 +1017,14 @@ class FragmentVehicleConsignmentArgs {
 /// generated route for
 /// [_i28.FragmentVehicleCreateCustomerInfo]
 class FragmentVehicleCreateCustomerInfo
-    extends _i56.PageRouteInfo<FragmentVehicleCreateCustomerInfoArgs> {
+    extends _i55.PageRouteInfo<FragmentVehicleCreateCustomerInfoArgs> {
   FragmentVehicleCreateCustomerInfo({
-    required _i59.ModelRequestVehicleParams params,
+    required _i58.ModelRequestVehicleParams params,
     required dynamic Function() onPressedPreviousButton,
-    required dynamic Function(_i59.ModelRequestVehicleParams)
+    required dynamic Function(_i58.ModelRequestVehicleParams)
         onPressedNextButton,
-    _i57.Key? key,
-    List<_i56.PageRouteInfo>? children,
+    _i56.Key? key,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           FragmentVehicleCreateCustomerInfo.name,
           args: FragmentVehicleCreateCustomerInfoArgs(
@@ -1184,7 +1038,7 @@ class FragmentVehicleCreateCustomerInfo
 
   static const String name = 'FragmentVehicleCreateCustomerInfo';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<FragmentVehicleCreateCustomerInfoArgs>();
@@ -1206,13 +1060,13 @@ class FragmentVehicleCreateCustomerInfoArgs {
     this.key,
   });
 
-  final _i59.ModelRequestVehicleParams params;
+  final _i58.ModelRequestVehicleParams params;
 
   final dynamic Function() onPressedPreviousButton;
 
-  final dynamic Function(_i59.ModelRequestVehicleParams) onPressedNextButton;
+  final dynamic Function(_i58.ModelRequestVehicleParams) onPressedNextButton;
 
-  final _i57.Key? key;
+  final _i56.Key? key;
 
   @override
   String toString() {
@@ -1223,14 +1077,14 @@ class FragmentVehicleCreateCustomerInfoArgs {
 /// generated route for
 /// [_i29.FragmentVehicleCreateExpertise]
 class FragmentVehicleCreateExpertise
-    extends _i56.PageRouteInfo<FragmentVehicleCreateExpertiseArgs> {
+    extends _i55.PageRouteInfo<FragmentVehicleCreateExpertiseArgs> {
   FragmentVehicleCreateExpertise({
-    required _i59.ModelRequestVehicleParams params,
+    required _i58.ModelRequestVehicleParams params,
     required dynamic Function() onPressedPreviousButton,
-    required dynamic Function(_i59.ModelRequestVehicleParams)
+    required dynamic Function(_i58.ModelRequestVehicleParams)
         onPressedNextButton,
-    _i57.Key? key,
-    List<_i56.PageRouteInfo>? children,
+    _i56.Key? key,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           FragmentVehicleCreateExpertise.name,
           args: FragmentVehicleCreateExpertiseArgs(
@@ -1244,7 +1098,7 @@ class FragmentVehicleCreateExpertise
 
   static const String name = 'FragmentVehicleCreateExpertise';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<FragmentVehicleCreateExpertiseArgs>();
@@ -1266,13 +1120,13 @@ class FragmentVehicleCreateExpertiseArgs {
     this.key,
   });
 
-  final _i59.ModelRequestVehicleParams params;
+  final _i58.ModelRequestVehicleParams params;
 
   final dynamic Function() onPressedPreviousButton;
 
-  final dynamic Function(_i59.ModelRequestVehicleParams) onPressedNextButton;
+  final dynamic Function(_i58.ModelRequestVehicleParams) onPressedNextButton;
 
-  final _i57.Key? key;
+  final _i56.Key? key;
 
   @override
   String toString() {
@@ -1283,14 +1137,14 @@ class FragmentVehicleCreateExpertiseArgs {
 /// generated route for
 /// [_i30.FragmentVehicleCreateInfo]
 class FragmentVehicleCreateInfo
-    extends _i56.PageRouteInfo<FragmentVehicleCreateInfoArgs> {
+    extends _i55.PageRouteInfo<FragmentVehicleCreateInfoArgs> {
   FragmentVehicleCreateInfo({
-    required _i59.ModelRequestVehicleParams params,
+    required _i58.ModelRequestVehicleParams params,
     required dynamic Function() onPressedPreviousButton,
-    required dynamic Function(_i59.ModelRequestVehicleParams)
+    required dynamic Function(_i58.ModelRequestVehicleParams)
         onPressedNextButton,
-    _i57.Key? key,
-    List<_i56.PageRouteInfo>? children,
+    _i56.Key? key,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           FragmentVehicleCreateInfo.name,
           args: FragmentVehicleCreateInfoArgs(
@@ -1304,7 +1158,7 @@ class FragmentVehicleCreateInfo
 
   static const String name = 'FragmentVehicleCreateInfo';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<FragmentVehicleCreateInfoArgs>();
@@ -1326,13 +1180,13 @@ class FragmentVehicleCreateInfoArgs {
     this.key,
   });
 
-  final _i59.ModelRequestVehicleParams params;
+  final _i58.ModelRequestVehicleParams params;
 
   final dynamic Function() onPressedPreviousButton;
 
-  final dynamic Function(_i59.ModelRequestVehicleParams) onPressedNextButton;
+  final dynamic Function(_i58.ModelRequestVehicleParams) onPressedNextButton;
 
-  final _i57.Key? key;
+  final _i56.Key? key;
 
   @override
   String toString() {
@@ -1343,14 +1197,14 @@ class FragmentVehicleCreateInfoArgs {
 /// generated route for
 /// [_i31.FragmentVehicleCreatePrices]
 class FragmentVehicleCreatePrices
-    extends _i56.PageRouteInfo<FragmentVehicleCreatePricesArgs> {
+    extends _i55.PageRouteInfo<FragmentVehicleCreatePricesArgs> {
   FragmentVehicleCreatePrices({
-    required _i59.ModelRequestVehicleParams params,
+    required _i58.ModelRequestVehicleParams params,
     required dynamic Function() onPressedPreviousButton,
-    required dynamic Function(_i59.ModelRequestVehicleParams)
+    required dynamic Function(_i58.ModelRequestVehicleParams)
         onPressedNextButton,
-    _i57.Key? key,
-    List<_i56.PageRouteInfo>? children,
+    _i56.Key? key,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           FragmentVehicleCreatePrices.name,
           args: FragmentVehicleCreatePricesArgs(
@@ -1364,7 +1218,7 @@ class FragmentVehicleCreatePrices
 
   static const String name = 'FragmentVehicleCreatePrices';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<FragmentVehicleCreatePricesArgs>();
@@ -1386,13 +1240,13 @@ class FragmentVehicleCreatePricesArgs {
     this.key,
   });
 
-  final _i59.ModelRequestVehicleParams params;
+  final _i58.ModelRequestVehicleParams params;
 
   final dynamic Function() onPressedPreviousButton;
 
-  final dynamic Function(_i59.ModelRequestVehicleParams) onPressedNextButton;
+  final dynamic Function(_i58.ModelRequestVehicleParams) onPressedNextButton;
 
-  final _i57.Key? key;
+  final _i56.Key? key;
 
   @override
   String toString() {
@@ -1403,13 +1257,13 @@ class FragmentVehicleCreatePricesArgs {
 /// generated route for
 /// [_i32.FragmentVehicleDeleted]
 class FragmentVehicleDeleted
-    extends _i56.PageRouteInfo<FragmentVehicleDeletedArgs> {
+    extends _i55.PageRouteInfo<FragmentVehicleDeletedArgs> {
   FragmentVehicleDeleted({
-    _i57.Key? key,
+    _i56.Key? key,
     int? page,
     String? orderByDirection,
     String? orderByField,
-    List<_i56.PageRouteInfo>? children,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           FragmentVehicleDeleted.name,
           args: FragmentVehicleDeletedArgs(
@@ -1428,7 +1282,7 @@ class FragmentVehicleDeleted
 
   static const String name = 'FragmentVehicleDeleted';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final queryParams = data.queryParams;
@@ -1456,7 +1310,7 @@ class FragmentVehicleDeletedArgs {
     this.orderByField,
   });
 
-  final _i57.Key? key;
+  final _i56.Key? key;
 
   final int? page;
 
@@ -1473,11 +1327,11 @@ class FragmentVehicleDeletedArgs {
 /// generated route for
 /// [_i33.FragmentVehicleDetailAdInfo]
 class FragmentVehicleDetailAdInfo
-    extends _i56.PageRouteInfo<FragmentVehicleDetailAdInfoArgs> {
+    extends _i55.PageRouteInfo<FragmentVehicleDetailAdInfoArgs> {
   FragmentVehicleDetailAdInfo({
     int? branchId,
-    _i57.Key? key,
-    List<_i56.PageRouteInfo>? children,
+    _i56.Key? key,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           FragmentVehicleDetailAdInfo.name,
           args: FragmentVehicleDetailAdInfoArgs(
@@ -1490,7 +1344,7 @@ class FragmentVehicleDetailAdInfo
 
   static const String name = 'FragmentVehicleDetailAdInfo';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final pathParams = data.inheritedPathParams;
@@ -1515,7 +1369,7 @@ class FragmentVehicleDetailAdInfoArgs {
 
   final int? branchId;
 
-  final _i57.Key? key;
+  final _i56.Key? key;
 
   @override
   String toString() {
@@ -1526,11 +1380,11 @@ class FragmentVehicleDetailAdInfoArgs {
 /// generated route for
 /// [_i34.FragmentVehicleDetailInfo]
 class FragmentVehicleDetailInfo
-    extends _i56.PageRouteInfo<FragmentVehicleDetailInfoArgs> {
+    extends _i55.PageRouteInfo<FragmentVehicleDetailInfoArgs> {
   FragmentVehicleDetailInfo({
     int? branchId,
-    _i60.Key? key,
-    List<_i56.PageRouteInfo>? children,
+    _i59.Key? key,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           FragmentVehicleDetailInfo.name,
           args: FragmentVehicleDetailInfoArgs(
@@ -1543,7 +1397,7 @@ class FragmentVehicleDetailInfo
 
   static const String name = 'FragmentVehicleDetailInfo';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final pathParams = data.inheritedPathParams;
@@ -1568,7 +1422,7 @@ class FragmentVehicleDetailInfoArgs {
 
   final int? branchId;
 
-  final _i60.Key? key;
+  final _i59.Key? key;
 
   @override
   String toString() {
@@ -1579,11 +1433,11 @@ class FragmentVehicleDetailInfoArgs {
 /// generated route for
 /// [_i35.FragmentVehicleDetailInfoCard]
 class FragmentVehicleDetailInfoCard
-    extends _i56.PageRouteInfo<FragmentVehicleDetailInfoCardArgs> {
+    extends _i55.PageRouteInfo<FragmentVehicleDetailInfoCardArgs> {
   FragmentVehicleDetailInfoCard({
     int? branchId,
-    _i57.Key? key,
-    List<_i56.PageRouteInfo>? children,
+    _i56.Key? key,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           FragmentVehicleDetailInfoCard.name,
           args: FragmentVehicleDetailInfoCardArgs(
@@ -1596,7 +1450,7 @@ class FragmentVehicleDetailInfoCard
 
   static const String name = 'FragmentVehicleDetailInfoCard';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final pathParams = data.inheritedPathParams;
@@ -1621,7 +1475,7 @@ class FragmentVehicleDetailInfoCardArgs {
 
   final int? branchId;
 
-  final _i57.Key? key;
+  final _i56.Key? key;
 
   @override
   String toString() {
@@ -1632,11 +1486,11 @@ class FragmentVehicleDetailInfoCardArgs {
 /// generated route for
 /// [_i36.FragmentVehicleDetailQueryDamage]
 class FragmentVehicleDetailQueryDamage
-    extends _i56.PageRouteInfo<FragmentVehicleDetailQueryDamageArgs> {
+    extends _i55.PageRouteInfo<FragmentVehicleDetailQueryDamageArgs> {
   FragmentVehicleDetailQueryDamage({
     int? branchId,
-    _i57.Key? key,
-    List<_i56.PageRouteInfo>? children,
+    _i56.Key? key,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           FragmentVehicleDetailQueryDamage.name,
           args: FragmentVehicleDetailQueryDamageArgs(
@@ -1649,7 +1503,7 @@ class FragmentVehicleDetailQueryDamage
 
   static const String name = 'FragmentVehicleDetailQueryDamage';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final pathParams = data.inheritedPathParams;
@@ -1674,7 +1528,7 @@ class FragmentVehicleDetailQueryDamageArgs {
 
   final int? branchId;
 
-  final _i57.Key? key;
+  final _i56.Key? key;
 
   @override
   String toString() {
@@ -1685,11 +1539,11 @@ class FragmentVehicleDetailQueryDamageArgs {
 /// generated route for
 /// [_i37.FragmentVehicleDetailQueryKilometer]
 class FragmentVehicleDetailQueryKilometer
-    extends _i56.PageRouteInfo<FragmentVehicleDetailQueryKilometerArgs> {
+    extends _i55.PageRouteInfo<FragmentVehicleDetailQueryKilometerArgs> {
   FragmentVehicleDetailQueryKilometer({
     int? branchId,
-    _i57.Key? key,
-    List<_i56.PageRouteInfo>? children,
+    _i56.Key? key,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           FragmentVehicleDetailQueryKilometer.name,
           args: FragmentVehicleDetailQueryKilometerArgs(
@@ -1702,7 +1556,7 @@ class FragmentVehicleDetailQueryKilometer
 
   static const String name = 'FragmentVehicleDetailQueryKilometer';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final pathParams = data.inheritedPathParams;
@@ -1727,7 +1581,7 @@ class FragmentVehicleDetailQueryKilometerArgs {
 
   final int? branchId;
 
-  final _i57.Key? key;
+  final _i56.Key? key;
 
   @override
   String toString() {
@@ -1738,11 +1592,11 @@ class FragmentVehicleDetailQueryKilometerArgs {
 /// generated route for
 /// [_i38.FragmentVehicleDetailQueryPartChange]
 class FragmentVehicleDetailQueryPartChange
-    extends _i56.PageRouteInfo<FragmentVehicleDetailQueryPartChangeArgs> {
+    extends _i55.PageRouteInfo<FragmentVehicleDetailQueryPartChangeArgs> {
   FragmentVehicleDetailQueryPartChange({
     int? branchId,
-    _i57.Key? key,
-    List<_i56.PageRouteInfo>? children,
+    _i56.Key? key,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           FragmentVehicleDetailQueryPartChange.name,
           args: FragmentVehicleDetailQueryPartChangeArgs(
@@ -1755,7 +1609,7 @@ class FragmentVehicleDetailQueryPartChange
 
   static const String name = 'FragmentVehicleDetailQueryPartChange';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final pathParams = data.inheritedPathParams;
@@ -1780,7 +1634,7 @@ class FragmentVehicleDetailQueryPartChangeArgs {
 
   final int? branchId;
 
-  final _i57.Key? key;
+  final _i56.Key? key;
 
   @override
   String toString() {
@@ -1791,13 +1645,13 @@ class FragmentVehicleDetailQueryPartChangeArgs {
 /// generated route for
 /// [_i39.FragmentVehicleInventory]
 class FragmentVehicleInventory
-    extends _i56.PageRouteInfo<FragmentVehicleInventoryArgs> {
+    extends _i55.PageRouteInfo<FragmentVehicleInventoryArgs> {
   FragmentVehicleInventory({
-    _i57.Key? key,
+    _i56.Key? key,
     int? page,
     String? orderByDirection,
     String? orderByField,
-    List<_i56.PageRouteInfo>? children,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           FragmentVehicleInventory.name,
           args: FragmentVehicleInventoryArgs(
@@ -1816,7 +1670,7 @@ class FragmentVehicleInventory
 
   static const String name = 'FragmentVehicleInventory';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final queryParams = data.queryParams;
@@ -1844,7 +1698,7 @@ class FragmentVehicleInventoryArgs {
     this.orderByField,
   });
 
-  final _i57.Key? key;
+  final _i56.Key? key;
 
   final int? page;
 
@@ -1860,13 +1714,13 @@ class FragmentVehicleInventoryArgs {
 
 /// generated route for
 /// [_i40.FragmentVehicleSold]
-class FragmentVehicleSold extends _i56.PageRouteInfo<FragmentVehicleSoldArgs> {
+class FragmentVehicleSold extends _i55.PageRouteInfo<FragmentVehicleSoldArgs> {
   FragmentVehicleSold({
-    _i57.Key? key,
+    _i56.Key? key,
     int? page,
     String? orderByDirection,
     String? orderByField,
-    List<_i56.PageRouteInfo>? children,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           FragmentVehicleSold.name,
           args: FragmentVehicleSoldArgs(
@@ -1885,7 +1739,7 @@ class FragmentVehicleSold extends _i56.PageRouteInfo<FragmentVehicleSoldArgs> {
 
   static const String name = 'FragmentVehicleSold';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final queryParams = data.queryParams;
@@ -1913,7 +1767,7 @@ class FragmentVehicleSoldArgs {
     this.orderByField,
   });
 
-  final _i57.Key? key;
+  final _i56.Key? key;
 
   final int? page;
 
@@ -1930,13 +1784,13 @@ class FragmentVehicleSoldArgs {
 /// generated route for
 /// [_i41.FragmentVehiclesArchived]
 class FragmentVehiclesArchived
-    extends _i56.PageRouteInfo<FragmentVehiclesArchivedArgs> {
+    extends _i55.PageRouteInfo<FragmentVehiclesArchivedArgs> {
   FragmentVehiclesArchived({
-    _i57.Key? key,
+    _i56.Key? key,
     int? page,
     String? orderByDirection,
     String? orderByField,
-    List<_i56.PageRouteInfo>? children,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           FragmentVehiclesArchived.name,
           args: FragmentVehiclesArchivedArgs(
@@ -1955,7 +1809,7 @@ class FragmentVehiclesArchived
 
   static const String name = 'FragmentVehiclesArchived';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final queryParams = data.queryParams;
@@ -1983,7 +1837,7 @@ class FragmentVehiclesArchivedArgs {
     this.orderByField,
   });
 
-  final _i57.Key? key;
+  final _i56.Key? key;
 
   final int? page;
 
@@ -2000,13 +1854,13 @@ class FragmentVehiclesArchivedArgs {
 /// generated route for
 /// [_i42.FragmentVehiclesMine]
 class FragmentVehiclesMine
-    extends _i56.PageRouteInfo<FragmentVehiclesMineArgs> {
+    extends _i55.PageRouteInfo<FragmentVehiclesMineArgs> {
   FragmentVehiclesMine({
-    _i57.Key? key,
+    _i56.Key? key,
     int? page,
     String? orderByDirection,
     String? orderByField,
-    List<_i56.PageRouteInfo>? children,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           FragmentVehiclesMine.name,
           args: FragmentVehiclesMineArgs(
@@ -2025,7 +1879,7 @@ class FragmentVehiclesMine
 
   static const String name = 'FragmentVehiclesMine';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final queryParams = data.queryParams;
@@ -2053,7 +1907,7 @@ class FragmentVehiclesMineArgs {
     this.orderByField,
   });
 
-  final _i57.Key? key;
+  final _i56.Key? key;
 
   final int? page;
 
@@ -2070,13 +1924,13 @@ class FragmentVehiclesMineArgs {
 /// generated route for
 /// [_i43.FragmentVehiclesPurchased]
 class FragmentVehiclesPurchased
-    extends _i56.PageRouteInfo<FragmentVehiclesPurchasedArgs> {
+    extends _i55.PageRouteInfo<FragmentVehiclesPurchasedArgs> {
   FragmentVehiclesPurchased({
-    _i57.Key? key,
+    _i56.Key? key,
     int? page,
     String? orderByDirection,
     String? orderByField,
-    List<_i56.PageRouteInfo>? children,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           FragmentVehiclesPurchased.name,
           args: FragmentVehiclesPurchasedArgs(
@@ -2095,7 +1949,7 @@ class FragmentVehiclesPurchased
 
   static const String name = 'FragmentVehiclesPurchased';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final queryParams = data.queryParams;
@@ -2123,7 +1977,7 @@ class FragmentVehiclesPurchasedArgs {
     this.orderByField,
   });
 
-  final _i57.Key? key;
+  final _i56.Key? key;
 
   final int? page;
 
@@ -2139,11 +1993,11 @@ class FragmentVehiclesPurchasedArgs {
 
 /// generated route for
 /// [_i44.ViewForgotPassword]
-class RouteForgotPassword extends _i56.PageRouteInfo<RouteForgotPasswordArgs> {
+class RouteForgotPassword extends _i55.PageRouteInfo<RouteForgotPasswordArgs> {
   RouteForgotPassword({
-    _i61.Key? key,
+    _i60.Key? key,
     bool isActiveLoadingIndicator = true,
-    List<_i56.PageRouteInfo>? children,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           RouteForgotPassword.name,
           args: RouteForgotPasswordArgs(
@@ -2155,7 +2009,7 @@ class RouteForgotPassword extends _i56.PageRouteInfo<RouteForgotPasswordArgs> {
 
   static const String name = 'RouteForgotPassword';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<RouteForgotPasswordArgs>(
@@ -2174,7 +2028,7 @@ class RouteForgotPasswordArgs {
     this.isActiveLoadingIndicator = true,
   });
 
-  final _i61.Key? key;
+  final _i60.Key? key;
 
   final bool isActiveLoadingIndicator;
 
@@ -2186,11 +2040,11 @@ class RouteForgotPasswordArgs {
 
 /// generated route for
 /// [_i45.ViewHome]
-class RouteHome extends _i56.PageRouteInfo<RouteHomeArgs> {
+class RouteHome extends _i55.PageRouteInfo<RouteHomeArgs> {
   RouteHome({
-    _i57.Key? key,
+    _i56.Key? key,
     bool isActiveLoadingIndicator = true,
-    List<_i56.PageRouteInfo>? children,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           RouteHome.name,
           args: RouteHomeArgs(
@@ -2202,7 +2056,7 @@ class RouteHome extends _i56.PageRouteInfo<RouteHomeArgs> {
 
   static const String name = 'RouteHome';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final args =
@@ -2221,7 +2075,7 @@ class RouteHomeArgs {
     this.isActiveLoadingIndicator = true,
   });
 
-  final _i57.Key? key;
+  final _i56.Key? key;
 
   final bool isActiveLoadingIndicator;
 
@@ -2233,11 +2087,11 @@ class RouteHomeArgs {
 
 /// generated route for
 /// [_i46.ViewLogin]
-class RouteLogin extends _i56.PageRouteInfo<RouteLoginArgs> {
+class RouteLogin extends _i55.PageRouteInfo<RouteLoginArgs> {
   RouteLogin({
-    _i57.Key? key,
+    _i56.Key? key,
     bool isActiveLoadingIndicator = true,
-    List<_i56.PageRouteInfo>? children,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           RouteLogin.name,
           args: RouteLoginArgs(
@@ -2249,7 +2103,7 @@ class RouteLogin extends _i56.PageRouteInfo<RouteLoginArgs> {
 
   static const String name = 'RouteLogin';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final args =
@@ -2268,7 +2122,7 @@ class RouteLoginArgs {
     this.isActiveLoadingIndicator = true,
   });
 
-  final _i57.Key? key;
+  final _i56.Key? key;
 
   final bool isActiveLoadingIndicator;
 
@@ -2280,13 +2134,13 @@ class RouteLoginArgs {
 
 /// generated route for
 /// [_i47.ViewMarketPlace]
-class RouteMarketPlace extends _i56.PageRouteInfo<RouteMarketPlaceArgs> {
+class RouteMarketPlace extends _i55.PageRouteInfo<RouteMarketPlaceArgs> {
   RouteMarketPlace({
-    _i57.Key? key,
+    _i56.Key? key,
     bool isActiveLoadingIndicator = true,
     int? vehicleId,
     int? branchId,
-    List<_i56.PageRouteInfo>? children,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           RouteMarketPlace.name,
           args: RouteMarketPlaceArgs(
@@ -2300,7 +2154,7 @@ class RouteMarketPlace extends _i56.PageRouteInfo<RouteMarketPlaceArgs> {
 
   static const String name = 'RouteMarketPlace';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<RouteMarketPlaceArgs>(
@@ -2323,7 +2177,7 @@ class RouteMarketPlaceArgs {
     this.branchId,
   });
 
-  final _i57.Key? key;
+  final _i56.Key? key;
 
   final bool isActiveLoadingIndicator;
 
@@ -2339,34 +2193,28 @@ class RouteMarketPlaceArgs {
 
 /// generated route for
 /// [_i48.ViewPublicDetail]
-class RoutePublicDetail extends _i56.PageRouteInfo<RoutePublicDetailArgs> {
+class RoutePublicDetail extends _i55.PageRouteInfo<RoutePublicDetailArgs> {
   RoutePublicDetail({
-    int? vehicleId,
-    _i60.Key? key,
+    _i59.Key? key,
     bool isActiveLoadingIndicator = true,
-    List<_i56.PageRouteInfo>? children,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           RoutePublicDetail.name,
           args: RoutePublicDetailArgs(
-            vehicleId: vehicleId,
             key: key,
             isActiveLoadingIndicator: isActiveLoadingIndicator,
           ),
-          rawQueryParams: {'vehicleId': vehicleId},
           initialChildren: children,
         );
 
   static const String name = 'RoutePublicDetail';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
-      final queryParams = data.queryParams;
       final args = data.argsAs<RoutePublicDetailArgs>(
-          orElse: () => RoutePublicDetailArgs(
-              vehicleId: queryParams.optInt('vehicleId')));
+          orElse: () => const RoutePublicDetailArgs());
       return _i48.ViewPublicDetail(
-        vehicleId: args.vehicleId,
         key: args.key,
         isActiveLoadingIndicator: args.isActiveLoadingIndicator,
       );
@@ -2376,30 +2224,27 @@ class RoutePublicDetail extends _i56.PageRouteInfo<RoutePublicDetailArgs> {
 
 class RoutePublicDetailArgs {
   const RoutePublicDetailArgs({
-    this.vehicleId,
     this.key,
     this.isActiveLoadingIndicator = true,
   });
 
-  final int? vehicleId;
-
-  final _i60.Key? key;
+  final _i59.Key? key;
 
   final bool isActiveLoadingIndicator;
 
   @override
   String toString() {
-    return 'RoutePublicDetailArgs{vehicleId: $vehicleId, key: $key, isActiveLoadingIndicator: $isActiveLoadingIndicator}';
+    return 'RoutePublicDetailArgs{key: $key, isActiveLoadingIndicator: $isActiveLoadingIndicator}';
   }
 }
 
 /// generated route for
 /// [_i49.ViewPublicHome]
-class RoutePublicHome extends _i56.PageRouteInfo<RoutePublicHomeArgs> {
+class RoutePublicHome extends _i55.PageRouteInfo<RoutePublicHomeArgs> {
   RoutePublicHome({
-    _i60.Key? key,
+    _i59.Key? key,
     bool isActiveLoadingIndicator = true,
-    List<_i56.PageRouteInfo>? children,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           RoutePublicHome.name,
           args: RoutePublicHomeArgs(
@@ -2411,7 +2256,7 @@ class RoutePublicHome extends _i56.PageRouteInfo<RoutePublicHomeArgs> {
 
   static const String name = 'RoutePublicHome';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<RoutePublicHomeArgs>(
@@ -2430,7 +2275,7 @@ class RoutePublicHomeArgs {
     this.isActiveLoadingIndicator = true,
   });
 
-  final _i60.Key? key;
+  final _i59.Key? key;
 
   final bool isActiveLoadingIndicator;
 
@@ -2441,59 +2286,12 @@ class RoutePublicHomeArgs {
 }
 
 /// generated route for
-/// [_i50.ViewPublicListing]
-class RoutePublicListing extends _i56.PageRouteInfo<RoutePublicListingArgs> {
-  RoutePublicListing({
-    _i57.Key? key,
-    bool isActiveLoadingIndicator = true,
-    List<_i56.PageRouteInfo>? children,
-  }) : super(
-          RoutePublicListing.name,
-          args: RoutePublicListingArgs(
-            key: key,
-            isActiveLoadingIndicator: isActiveLoadingIndicator,
-          ),
-          initialChildren: children,
-        );
-
-  static const String name = 'RoutePublicListing';
-
-  static _i56.PageInfo page = _i56.PageInfo(
-    name,
-    builder: (data) {
-      final args = data.argsAs<RoutePublicListingArgs>(
-          orElse: () => const RoutePublicListingArgs());
-      return _i50.ViewPublicListing(
-        key: args.key,
-        isActiveLoadingIndicator: args.isActiveLoadingIndicator,
-      );
-    },
-  );
-}
-
-class RoutePublicListingArgs {
-  const RoutePublicListingArgs({
-    this.key,
-    this.isActiveLoadingIndicator = true,
-  });
-
-  final _i57.Key? key;
-
-  final bool isActiveLoadingIndicator;
-
-  @override
-  String toString() {
-    return 'RoutePublicListingArgs{key: $key, isActiveLoadingIndicator: $isActiveLoadingIndicator}';
-  }
-}
-
-/// generated route for
-/// [_i51.ViewRegister]
-class RouteRegister extends _i56.PageRouteInfo<RouteRegisterArgs> {
+/// [_i50.ViewRegister]
+class RouteRegister extends _i55.PageRouteInfo<RouteRegisterArgs> {
   RouteRegister({
-    _i61.Key? key,
+    _i60.Key? key,
     bool isActiveLoadingIndicator = true,
-    List<_i56.PageRouteInfo>? children,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           RouteRegister.name,
           args: RouteRegisterArgs(
@@ -2505,12 +2303,12 @@ class RouteRegister extends _i56.PageRouteInfo<RouteRegisterArgs> {
 
   static const String name = 'RouteRegister';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<RouteRegisterArgs>(
           orElse: () => const RouteRegisterArgs());
-      return _i51.ViewRegister(
+      return _i50.ViewRegister(
         key: args.key,
         isActiveLoadingIndicator: args.isActiveLoadingIndicator,
       );
@@ -2524,7 +2322,7 @@ class RouteRegisterArgs {
     this.isActiveLoadingIndicator = true,
   });
 
-  final _i61.Key? key;
+  final _i60.Key? key;
 
   final bool isActiveLoadingIndicator;
 
@@ -2535,9 +2333,9 @@ class RouteRegisterArgs {
 }
 
 /// generated route for
-/// [_i52.ViewSplash]
-class RouteSplash extends _i56.PageRouteInfo<void> {
-  const RouteSplash({List<_i56.PageRouteInfo>? children})
+/// [_i51.ViewSplash]
+class RouteSplash extends _i55.PageRouteInfo<void> {
+  const RouteSplash({List<_i55.PageRouteInfo>? children})
       : super(
           RouteSplash.name,
           initialChildren: children,
@@ -2545,23 +2343,23 @@ class RouteSplash extends _i56.PageRouteInfo<void> {
 
   static const String name = 'RouteSplash';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
-      return const _i52.ViewSplash();
+      return const _i51.ViewSplash();
     },
   );
 }
 
 /// generated route for
-/// [_i53.ViewVehicleCreate]
-class RouteVehicleCreate extends _i56.PageRouteInfo<RouteVehicleCreateArgs> {
+/// [_i52.ViewVehicleCreate]
+class RouteVehicleCreate extends _i55.PageRouteInfo<RouteVehicleCreateArgs> {
   RouteVehicleCreate({
-    _i57.Key? key,
+    _i56.Key? key,
     bool isActiveLoadingIndicator = true,
     int? vehicleId,
     int? branchId,
-    List<_i56.PageRouteInfo>? children,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           RouteVehicleCreate.name,
           args: RouteVehicleCreateArgs(
@@ -2577,7 +2375,7 @@ class RouteVehicleCreate extends _i56.PageRouteInfo<RouteVehicleCreateArgs> {
 
   static const String name = 'RouteVehicleCreate';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final pathParams = data.inheritedPathParams;
@@ -2587,7 +2385,7 @@ class RouteVehicleCreate extends _i56.PageRouteInfo<RouteVehicleCreateArgs> {
                 vehicleId: pathParams.optInt('vehicleId'),
                 branchId: queryParams.optInt('branchId'),
               ));
-      return _i53.ViewVehicleCreate(
+      return _i52.ViewVehicleCreate(
         key: args.key,
         isActiveLoadingIndicator: args.isActiveLoadingIndicator,
         vehicleId: args.vehicleId,
@@ -2605,7 +2403,7 @@ class RouteVehicleCreateArgs {
     this.branchId,
   });
 
-  final _i57.Key? key;
+  final _i56.Key? key;
 
   final bool isActiveLoadingIndicator;
 
@@ -2620,14 +2418,14 @@ class RouteVehicleCreateArgs {
 }
 
 /// generated route for
-/// [_i54.ViewVehicleDetail]
-class RouteVehicleDetail extends _i56.PageRouteInfo<RouteVehicleDetailArgs> {
+/// [_i53.ViewVehicleDetail]
+class RouteVehicleDetail extends _i55.PageRouteInfo<RouteVehicleDetailArgs> {
   RouteVehicleDetail({
     required int vehicleId,
     int? branchId,
-    _i61.Key? key,
+    _i60.Key? key,
     bool isActiveLoadingIndicator = true,
-    List<_i56.PageRouteInfo>? children,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           RouteVehicleDetail.name,
           args: RouteVehicleDetailArgs(
@@ -2643,7 +2441,7 @@ class RouteVehicleDetail extends _i56.PageRouteInfo<RouteVehicleDetailArgs> {
 
   static const String name = 'RouteVehicleDetail';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final pathParams = data.inheritedPathParams;
@@ -2653,7 +2451,7 @@ class RouteVehicleDetail extends _i56.PageRouteInfo<RouteVehicleDetailArgs> {
                 vehicleId: pathParams.getInt('vehicleId'),
                 branchId: queryParams.optInt('branchId'),
               ));
-      return _i54.ViewVehicleDetail(
+      return _i53.ViewVehicleDetail(
         vehicleId: args.vehicleId,
         branchId: args.branchId,
         key: args.key,
@@ -2675,7 +2473,7 @@ class RouteVehicleDetailArgs {
 
   final int? branchId;
 
-  final _i61.Key? key;
+  final _i60.Key? key;
 
   final bool isActiveLoadingIndicator;
 
@@ -2686,14 +2484,14 @@ class RouteVehicleDetailArgs {
 }
 
 /// generated route for
-/// [_i55.ViewVehicleDoping]
-class RouteVehicleDoping extends _i56.PageRouteInfo<RouteVehicleDopingArgs> {
+/// [_i54.ViewVehicleDoping]
+class RouteVehicleDoping extends _i55.PageRouteInfo<RouteVehicleDopingArgs> {
   RouteVehicleDoping({
     required int vehicleId,
     int? branchId,
-    _i57.Key? key,
+    _i56.Key? key,
     bool isActiveLoadingIndicator = true,
-    List<_i56.PageRouteInfo>? children,
+    List<_i55.PageRouteInfo>? children,
   }) : super(
           RouteVehicleDoping.name,
           args: RouteVehicleDopingArgs(
@@ -2709,7 +2507,7 @@ class RouteVehicleDoping extends _i56.PageRouteInfo<RouteVehicleDopingArgs> {
 
   static const String name = 'RouteVehicleDoping';
 
-  static _i56.PageInfo page = _i56.PageInfo(
+  static _i55.PageInfo page = _i55.PageInfo(
     name,
     builder: (data) {
       final pathParams = data.inheritedPathParams;
@@ -2719,7 +2517,7 @@ class RouteVehicleDoping extends _i56.PageRouteInfo<RouteVehicleDopingArgs> {
                 vehicleId: pathParams.getInt('vehicleId'),
                 branchId: queryParams.optInt('branchId'),
               ));
-      return _i55.ViewVehicleDoping(
+      return _i54.ViewVehicleDoping(
         vehicleId: args.vehicleId,
         branchId: args.branchId,
         key: args.key,
@@ -2741,7 +2539,7 @@ class RouteVehicleDopingArgs {
 
   final int? branchId;
 
-  final _i57.Key? key;
+  final _i56.Key? key;
 
   final bool isActiveLoadingIndicator;
 

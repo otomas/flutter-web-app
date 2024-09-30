@@ -1,4 +1,5 @@
 import 'dart:async';
+import '../../../../core/constants/app_config.dart';
 import '../../../../core/enums/enum_app.dart';
 import '../../../../core/models/model_dropdown.dart';
 import '../../../../core/models/model_vehicle_body_type.dart';
@@ -196,8 +197,8 @@ class VmFragmentVehicleCreateInfo extends ViewModelBase {
     if (params.kilometerController.text.isEmpty || (double.tryParse(params.kilometerController.text.replaceAll('.', '')) ?? 0) == 0) {
       errorFields.addAll({'kilometer': 'Kilometre alanı doğru formatta değil'});
     }
-    if (params.plateNumberController.text.isEmpty) {
-      errorFields.addAll({'plate_number': 'Plaka numarası boş bırakılamaz'});
+    if (!plakaRegex.hasMatch(params.plateNumberController.text)) {
+      errorFields.addAll({'plate_number': 'Geçersiz plaka numarası'});
     }
     // if (params.color == null) {
     //   errorFields.addAll({'color': 'Renk alanı boş bırakılamaz'});

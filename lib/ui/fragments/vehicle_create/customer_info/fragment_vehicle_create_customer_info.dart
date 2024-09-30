@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -81,6 +83,7 @@ class _FragmentVehicleCreateCustomerInfoState extends WidgetBaseStatefull<Fragme
       ];
 
   Widget _getSupplierSelectionField(BuildContext context, VmFragmentVehicleCreateCustomerInfo viewModel) => WidgetCustomerSelection(
+        key: viewModel.supplierDropdownKey,
         title: 'Tedarikçi',
         buttonTitle: 'Tedarikçi Ekle',
         onChangedCustomer: viewModel.onChangedSupplier,
@@ -89,9 +92,11 @@ class _FragmentVehicleCreateCustomerInfoState extends WidgetBaseStatefull<Fragme
         hasError: viewModel.isDetectError && viewModel.checkErrorByField('supplier_id'),
         errorLabel: viewModel.getErrorMsg('supplier_id'),
         onRemove: () => viewModel.onChangedSupplier(null, false),
+        onAddedCustomer: () => unawaited(viewModel.refreshCustomerKeys()),
       );
 
   Widget _getSellerSelectionField(BuildContext context, VmFragmentVehicleCreateCustomerInfo viewModel) => WidgetCustomerSelection(
+        key: viewModel.sellerDropdownKey,
         title: 'Satıcı',
         buttonTitle: 'Satıcı Ekle',
         onChangedCustomer: viewModel.onChangedSeller,
@@ -100,9 +105,11 @@ class _FragmentVehicleCreateCustomerInfoState extends WidgetBaseStatefull<Fragme
         hasError: viewModel.isDetectError && viewModel.checkErrorByField('seller_id'),
         errorLabel: viewModel.getErrorMsg('seller_id'),
         onRemove: () => viewModel.onChangedSeller(null, false),
+        onAddedCustomer: () => unawaited(viewModel.refreshCustomerKeys()),
       );
 
   Widget _getBuyerSelectionField(BuildContext context, VmFragmentVehicleCreateCustomerInfo viewModel) => WidgetCustomerSelection(
+        key: viewModel.buyerDropdownKey,
         title: 'Alıcı',
         buttonTitle: 'Alıcı Ekle',
         onChangedCustomer: viewModel.onChangedBuyer,
@@ -111,5 +118,6 @@ class _FragmentVehicleCreateCustomerInfoState extends WidgetBaseStatefull<Fragme
         hasError: viewModel.isDetectError && viewModel.checkErrorByField('buyer_id'),
         errorLabel: viewModel.getErrorMsg('buyer_id'),
         onRemove: () => viewModel.onChangedBuyer(null, false),
+        onAddedCustomer: () => unawaited(viewModel.refreshCustomerKeys()),
       );
 }

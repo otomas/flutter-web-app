@@ -178,7 +178,7 @@ class ModelRequestVehicleParams {
 
   Map<ModelVehicleReportChecklist, ModelVehicleColorFlawGroup> selectedExpertiseItems = {};
 
-  DateTime? buyingDate;
+  DateTime? buyingDate = DateTime.now();
   TextEditingController buyingPriceController = TextEditingController();
   TextEditingController sellingPriceController = TextEditingController();
   List<ModelPaymentType> paymentTypes = [];
