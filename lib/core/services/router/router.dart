@@ -40,6 +40,8 @@ class RootRouter extends RootStackRouter {
     // VEHICLE DETAIL
     ...routeVehicleDetail,
 
+    // VEHICLE ADD DOPING
+    AutoRoute(path: '/add-doping/:vehicleId', page: RouteVehicleDoping.page),
 
     // SHOWCASE
     AutoRoute(

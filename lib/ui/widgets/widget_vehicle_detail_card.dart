@@ -20,6 +20,7 @@ class WidgetVehicleDetailCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           color: R.themeColor.viewBg,
+          border: Border.all(color: R.themeColor.borderLight),
           boxShadow: [
             BoxShadow(
               blurRadius: 24,

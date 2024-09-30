@@ -9,6 +9,7 @@ class TextFieldBasic extends StatefulWidget {
   const TextFieldBasic({
     super.key,
     this.title,
+    this.titleColor,
     this.labelText,
     this.focusNode,
     this.keyboardType,
@@ -54,6 +55,7 @@ class TextFieldBasic extends StatefulWidget {
     this.padding,
   });
   final String? title;
+  final Color? titleColor;
   final String? labelText;
   final FocusNode? focusNode;
   final TextInputType? keyboardType;
@@ -124,9 +126,7 @@ class _TextFieldBasicState extends State<TextFieldBasic> {
   Widget build(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (widget.title == null)
-            Container()
-          else
+          if (widget.title != null)
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 4),
               child: Row(
@@ -136,7 +136,7 @@ class _TextFieldBasicState extends State<TextFieldBasic> {
                       textAlign: widget.titleAlign ?? TextAlign.start,
                       texts: ((widget.isRequired ? '* ' : '') + widget.title!).highlightOccurrences(
                         '* ',
-                        textColor: R.themeColor.smoke,
+                        textColor: widget.titleColor ?? R.themeColor.smoke,
                         boldTextColor: R.color.candy,
                         boldFontSize: 14,
                         fontSize: 14,
