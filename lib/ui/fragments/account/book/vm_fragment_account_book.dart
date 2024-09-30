@@ -17,6 +17,7 @@ class VmFragmentAccountBook extends ViewModelBase {
     unawaited(init());
   }
   final ServiceApi serviceApi;
+
   Map<String, List<ModelSideBar>> sideBarList = {};
   Map<String, List<ModelSideBar>> sideBarListTemp = {};
   List<ModelSideBar>? sideBarListData;
@@ -124,6 +125,28 @@ class VmFragmentAccountBook extends ViewModelBase {
     setActivityState(ActivityState.isLoaded);
   }
 
+  Future<void> getSelectedAccountBookDetailForMobile() async {
+    setActivityState(ActivityState.isLoading);
+    await serviceApi.client
+        .getSelectedAccountBookDetail(
+      selectedBankAccount?.modelName ?? '',
+      selectedBankAccount?.modelId ?? -1,
+      startDate.yearMonthDay(),
+      endDate.yearMonthDay(),
+    )
+        .then(
+      (response) {
+        if (data != null) {
+          selectedAccountBookList = response.data;
+        }
+      },
+      onError: (error) {
+        handleApiError(error);
+      },
+    );
+    setActivityState(ActivityState.isLoaded);
+  }
+
   List<ModelSideBar> distincSideBarList() {
     final list = <ModelSideBar>[];
     sideBarList.forEach((key, value) {
@@ -189,5 +212,12 @@ class VmFragmentAccountBook extends ViewModelBase {
 
   void onChangedEndDate(DateTime? value) {
     endDate = value;
+  }
+
+  void resetPage() {
+    selectedBankAccount = null;
+    selectedSideBar = null;
+    unawaited(getData());
+    notifyListeners();
   }
 }

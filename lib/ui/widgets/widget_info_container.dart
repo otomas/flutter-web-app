@@ -14,7 +14,7 @@ class WidgetInfoContainer extends StatelessWidget {
     child: Column(
       children: [
         TextBasic(text: title, fontSize: 12, color: R.themeColor.secondary,maxLines: 1),
-        TextBasic(text: description, fontSize: 24, color: R.themeColor.secondary, fontWeight: FontWeight.bold,maxLines: 1),
+        TextBasic(text: description, fontSize: 18, color: R.themeColor.secondary, fontWeight: FontWeight.bold,maxLines: 1),
       ],
     ),
   );

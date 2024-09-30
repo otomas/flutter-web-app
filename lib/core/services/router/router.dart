@@ -30,6 +30,13 @@ class RootRouter extends RootStackRouter {
     AutoRoute(path: '/forgot-password', page: RouteForgotPassword.page),
     AutoRoute(path: '/public', page: RoutePublicHome.page),
     AutoRoute(path: '/public-detail', page: RoutePublicDetail.page),
+    AutoRoute(
+      path: '/public-listing',
+      page: RoutePublicListing.page,
+      children: [
+        AutoRoute(path: 'filter', page: FragmentPublicListing.page),
+      ],
+    ),
 
     // HOME & FRAGMENTS
     ...routeHome,
@@ -40,6 +47,8 @@ class RootRouter extends RootStackRouter {
     // VEHICLE DETAIL
     ...routeVehicleDetail,
 
+    // VEHICLE ADD DOPING
+    AutoRoute(path: '/add-doping/:vehicleId', page: RouteVehicleDoping.page),
 
     // SHOWCASE
     AutoRoute(

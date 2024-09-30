@@ -24,14 +24,16 @@ import '../widgets/widgets_text.dart';
 
 class BsAccountingReport extends StatefulWidget {
   const BsAccountingReport({
-    required this.type,
+    required this.onUpdateSuccess,
     required this.transactionType,
     this.data,
+    this.selectedSideBar,
     super.key,
   });
-  final AccountBookProcessType type;
   final num transactionType;
   final ModelAccountBookList? data;
+  final ModelSideBar? selectedSideBar;
+  final Function(bool) onUpdateSuccess;
 
   @override
   State<BsAccountingReport> createState() => _BsAccountingReportState();
@@ -39,7 +41,7 @@ class BsAccountingReport extends StatefulWidget {
 
 class _BsAccountingReportState extends WidgetBaseStatefull<BsAccountingReport, VmBsAccountingReport> {
   @override
-  VmBsAccountingReport createViewModel(BuildContext context) => VmBsAccountingReport(apiService(context),widget.type,widget.data);
+  VmBsAccountingReport createViewModel(BuildContext context) => VmBsAccountingReport(apiService(context), widget.data, widget.selectedSideBar);
 
   @override
   SystemUiOverlayStyle? systemBarBrightness() => null;
@@ -62,26 +64,29 @@ class _BsAccountingReportState extends WidgetBaseStatefull<BsAccountingReport, V
               fontSize: 20,
             ),
             const SizedBox(height: 30),
-            Row(
-              children: [
-                CheckboxBasic(
-                  key: UniqueKey(),
-                  item: viewModel.radioButtonList[0],
-                  value: viewModel.selectedType == viewModel.radioButtonList[0],
-                  onChanged: (v) => viewModel.setSelectedType(viewModel.radioButtonList[0]),
-                  isRadioButton: true,
-                  isInnerScroll: true,
-                ),
-                const SizedBox(width: 10),
-                CheckboxBasic(
-                  key: UniqueKey(),
-                  item: viewModel.radioButtonList[1],
-                  value: viewModel.selectedType == viewModel.radioButtonList[1],
-                  onChanged: (v) => viewModel.setSelectedType(viewModel.radioButtonList[1]),
-                  isRadioButton: true,
-                  isInnerScroll: true,
-                ),
-              ],
+            Visibility(
+              visible: widget.data == null,
+              child: Row(
+                children: [
+                  CheckboxBasic(
+                    key: UniqueKey(),
+                    item: viewModel.radioButtonList[0],
+                    value: viewModel.selectedType == viewModel.radioButtonList[0],
+                    onChanged: (v) => viewModel.setSelectedType(viewModel.radioButtonList[0]),
+                    isRadioButton: true,
+                    isInnerScroll: true,
+                  ),
+                  const SizedBox(width: 10),
+                  CheckboxBasic(
+                    key: UniqueKey(),
+                    item: viewModel.radioButtonList[1],
+                    value: viewModel.selectedType == viewModel.radioButtonList[1],
+                    onChanged: (v) => viewModel.setSelectedType(viewModel.radioButtonList[1]),
+                    isRadioButton: true,
+                    isInnerScroll: true,
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 30),
             Row(
@@ -100,8 +105,8 @@ class _BsAccountingReportState extends WidgetBaseStatefull<BsAccountingReport, V
                     isRequired: true,
                   ),
                 ),
-                if (widget.type == AccountBookProcessType.create) const SizedBox(width: 15),
-                if (widget.type == AccountBookProcessType.create)
+                if (widget.data == null) const SizedBox(width: 15),
+                if (widget.data == null)
                   Expanded(
                     child: DropdownBasic(
                       key: UniqueKey(),
@@ -170,13 +175,14 @@ class _BsAccountingReportState extends WidgetBaseStatefull<BsAccountingReport, V
                 ),
                 const SizedBox(width: 20),
                 ButtonBasic(
-                  bgColor: widget.type == AccountBookProcessType.create ? R.themeColor.successLight : R.themeColor.primaryLight,
-                  textColor: widget.type == AccountBookProcessType.create ? R.themeColor.success : R.themeColor.primary,
-                  text: widget.type == AccountBookProcessType.create ? 'Kaydet' : 'Güncelle',
+                  bgColor: widget.data == null ? R.themeColor.successLight : R.themeColor.primaryLight,
+                  textColor: widget.data == null ? R.themeColor.success : R.themeColor.primary,
+                  text: widget.data == null ? 'Kaydet' : 'Güncelle',
                   onPressed: () async {
                     if (await viewModel.addAccountingBook(widget.transactionType)) {
                       unawaited(viewModel.getSideBarData());
                       Navigator.pop(context);
+                      widget.onUpdateSuccess(true);
                     }
                   },
                 ),
@@ -240,13 +246,13 @@ class _BsAccountingReportState extends WidgetBaseStatefull<BsAccountingReport, V
 }
 
 class VmBsAccountingReport extends ViewModelBase {
-  VmBsAccountingReport(this.serviceApi,this.type,this.data) {
+  VmBsAccountingReport(this.serviceApi, this.data, this.selectedSideBar) {
     unawaited(init());
   }
 
   final ServiceApi serviceApi;
-  final AccountBookProcessType type;
   final ModelAccountBookList? data;
+  final ModelSideBar? selectedSideBar;
 
   bool detectFieldError = false;
 
@@ -276,13 +282,9 @@ class VmBsAccountingReport extends ViewModelBase {
   Future<void> init() async {
     selectedType = radioButtonList.first;
     unawaited(getTransactionCategories());
-    if(data == null) {
+    if (data == null) {
       unawaited(getSideBarData());
-    }else{
-      selectedBankAccount = ModelSideBar(
-        modelId: data?.accountTransactionCategoryId ?? -1,
-        modelName: data?.transactionType ?? '',
-      );
+    } else {
       descriptionController.text = data?.description?.description ?? '';
       priceController.text = data?.amount.formatPrice() ?? '';
       date = data?.transactionDate;
@@ -328,6 +330,13 @@ class VmBsAccountingReport extends ViewModelBase {
       final response = await serviceApi.client.getTransactionCategories();
       if (response.data != null) {
         transactionCategories = response.data ?? [];
+        if (data != null) {
+          for (final element in transactionCategories) {
+            if (element.name == data?.description?.category) {
+              selectedTransactionType = element;
+            }
+          }
+        }
       }
     } catch (e) {
       await handleApiError(e);

@@ -4,13 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:uuid/uuid.dart';
 import '../../core/enums/enum_app.dart';
+import '../../core/models/model_advert_owner_type.dart';
 import '../../core/models/model_alert_dialog.dart';
 import '../../core/models/model_filter_marketplace.dart';
+import '../../core/models/model_public_vehicle_bar.dart';
 import '../../core/models/model_value_label.dart';
 import '../../core/models/model_vehicle_body_type.dart';
 import '../../core/models/model_vehicle_fuel_type.dart';
 import '../../core/models/model_vehicle_traction_type.dart';
 import '../../core/models/model_vehicle_transmission_type.dart';
+import '../../core/models/model_vehicle_type.dart';
 import '../../core/models/response/model_response_marketplace_filters.dart';
 import '../../core/resources/_r.dart';
 import '../../core/services/service_api.dart';
@@ -21,6 +24,7 @@ import '../../ui/base/base_view_model.dart';
 import '../widgets/widget_button.dart';
 import '../widgets/widget_collapsable_box.dart';
 import '../widgets/widget_dropdown.dart';
+import '../widgets/widget_image.dart';
 import '../widgets/widget_scroll.dart';
 import '../widgets/widget_textfield.dart';
 import '../widgets/widgets_text.dart';
@@ -137,14 +141,17 @@ class _BsFiltershowcaseState extends WidgetBaseStatefull<BsFiltershowcase, VmBsF
   List<Widget> _getVehicleFilters(BuildContext context, VmBsFiltershowcase viewModel) => [
         TextBasic(text: 'Filtrele', color: R.themeColor.primary, fontFamily: R.fonts.displayBold, fontSize: 18),
         const SizedBox(height: 20),
-        DropdownBasic(
-          hint: 'Araç Tipi',
-          isRequired: true,
-          // ignore: discarded_futures
-          callback: () => apiService(context).client.getVehicleTypes(),
-          selectedItem: viewModel.filter.vehicleType,
-          onChanged: (vehicleType, isAutoComplete) => {viewModel.filter.setVehicleType(vehicleType), setState(() {})},
-        ),
+        // DropdownBasic(
+        //   hint: 'Araç Tipi',
+        //   isRequired: true,
+        //   // ignore: discarded_futures
+        //   callback: () => apiService(context).client.getVehicleTypes(),
+        //   selectedItem: viewModel.filter.vehicleType,
+        //   onChanged: (vehicleType, isAutoComplete) => {viewModel.filter.setVehicleType(vehicleType), setState(() {})},
+        // ),
+        _getAdvertOwnerTypeFilter(context, viewModel),
+        const SizedBox(height: 10),
+        _getAdvertVehicleTypeFilter(context, viewModel),
         const SizedBox(height: 10),
         DropdownBasic(
           key: ValueKey(viewModel.filter.vehicleType),
@@ -153,7 +160,9 @@ class _BsFiltershowcaseState extends WidgetBaseStatefull<BsFiltershowcase, VmBsF
           // ignore: discarded_futures
           callback: viewModel.filter.vehicleType == null ? null : () => apiService(context).client.getVehicleBrands(viewModel.filter.vehicleType!.id),
           selectedItem: viewModel.filter.brand,
-          customOnTap: viewModel.filter.vehicleType == null ? () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Lütfen araç tipi seçiniz', dialogType: DialogTypes.warning) : null,
+          customOnTap: viewModel.filter.vehicleType == null
+              ? () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Lütfen araç tipi seçiniz', dialogType: DialogTypes.warning)
+              : null,
           onChanged: (brand, isAutoComplete) => {viewModel.filter.setBrand(brand), setState(() {})},
         ),
         const SizedBox(height: 10),
@@ -165,7 +174,9 @@ class _BsFiltershowcaseState extends WidgetBaseStatefull<BsFiltershowcase, VmBsF
               ? null
               // ignore: discarded_futures
               : () => apiService(context).client.getVehicleSeries(viewModel.filter.brand!.id, viewModel.filter.vehicleType!.id),
-          customOnTap: viewModel.filter.brand == null ? () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Lütfen marka seçiniz', dialogType: DialogTypes.warning) : null,
+          customOnTap: viewModel.filter.brand == null
+              ? () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Lütfen marka seçiniz', dialogType: DialogTypes.warning)
+              : null,
           selectedItem: viewModel.filter.serie,
           onChanged: (seri, isAutoComplete) => {viewModel.filter.setSerie(seri), setState(() {})},
         ),
@@ -176,7 +187,9 @@ class _BsFiltershowcaseState extends WidgetBaseStatefull<BsFiltershowcase, VmBsF
           isRequired: true,
           // ignore: discarded_futures
           callback: viewModel.filter.serie == null ? null : () => apiService(context).client.getVehicleModels(viewModel.filter.serie!.id),
-          customOnTap: viewModel.filter.serie == null ? () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Lütfen seri seçiniz', dialogType: DialogTypes.warning) : null,
+          customOnTap: viewModel.filter.serie == null
+              ? () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Lütfen seri seçiniz', dialogType: DialogTypes.warning)
+              : null,
           selectedItem: viewModel.filter.model,
           onChanged: (model, isAutoComplete) => {viewModel.filter.setModel(model), setState(() {})},
         ),
@@ -189,7 +202,9 @@ class _BsFiltershowcaseState extends WidgetBaseStatefull<BsFiltershowcase, VmBsF
               ? null
               // ignore: discarded_futures
               : () => apiService(context).client.getVehicleVersions(viewModel.filter.model!.id),
-          customOnTap: viewModel.filter.model == null ? () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Lütfen model seçiniz', dialogType: DialogTypes.warning) : null,
+          customOnTap: viewModel.filter.model == null
+              ? () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Lütfen model seçiniz', dialogType: DialogTypes.warning)
+              : null,
           selectedItem: viewModel.filter.version,
           onChanged: (version, isAutoComplete) => {viewModel.filter.setVersion(version), setState(() {})},
         ),
@@ -215,7 +230,9 @@ class _BsFiltershowcaseState extends WidgetBaseStatefull<BsFiltershowcase, VmBsF
           callback: viewModel.filter.country == null ? null : () => apiService(context).client.getCities(viewModel.filter.country!.id),
           selectedItem: viewModel.filter.city,
           onChanged: viewModel.filter.setCity,
-          customOnTap: viewModel.filter.country == null ? () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Lütfen ülke seçiniz', dialogType: DialogTypes.warning) : null,
+          customOnTap: viewModel.filter.country == null
+              ? () => viewModel.alertObserver.alert = const ModelAlertDialog(description: 'Lütfen ülke seçiniz', dialogType: DialogTypes.warning)
+              : null,
         ),
       ];
 
@@ -323,6 +340,105 @@ class _BsFiltershowcaseState extends WidgetBaseStatefull<BsFiltershowcase, VmBsF
       ),
     );
   }
+
+  Widget _getAdvertOwnerTypeFilter(BuildContext context, VmBsFiltershowcase viewModel) => Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+        margin: const EdgeInsets.symmetric(horizontal: 4),
+        decoration: BoxDecoration(
+          border: Border.all(color: R.themeColor.border),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: ScrollWithNoGlowWidget(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              ...List.generate(
+                viewModel.advertOwnerType?.length ?? 0,
+                (i) {
+                  final item = viewModel.advertOwnerType?[i];
+                  return InkWell(
+                    onTap: () {
+                      viewModel.selectedOwnerTypeIndex = i;
+                      // ..selectedVehicleType = ModelVehicleType(
+                      //   id: (viewModel.advertOwnerType?[i].id ?? 0).toInt(),
+                      //   name: viewModel.advertOwnerType?[i].name,
+                      // );
+                      viewModel.filter.vehicleType = viewModel.selectedVehicleType;
+                      setState(() {});
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 8),
+                      child: Column(
+                        children: [
+                          NetworkImageWithPlaceholder(height: 20, width: 20, imageUrl: item?.icon ?? ''),
+                          TextBasic(
+                            text: item?.name ?? '',
+                            color: i == viewModel.selectedOwnerTypeIndex ? R.themeColor.primary : R.themeColor.smoke,
+                            fontFamily: R.fonts.displayBold,
+                            fontSize: 14,
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      );
+
+  Widget _getAdvertVehicleTypeFilter(BuildContext context, VmBsFiltershowcase viewModel) => Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        margin: const EdgeInsets.symmetric(horizontal: 4),
+        decoration: BoxDecoration(
+          border: Border.all(color: R.themeColor.border),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: ScrollWithNoGlowWidget(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              ...List.generate(
+                viewModel.advertVehicleType?.length ?? 0,
+                (i) {
+                  final item = viewModel.advertVehicleType?[i];
+                  return InkWell(
+                    onTap: () {
+                      viewModel
+                        ..selectedVehicleTypeIndex = i
+                        ..selectedVehicleType = ModelVehicleType(
+                          id: (viewModel.advertVehicleType?[i].id ?? 0),
+                          name: viewModel.advertVehicleType?[i].type,
+                        );
+                      viewModel.filter.vehicleType = viewModel.selectedVehicleType;
+                      setState(() {});
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 8),
+                      child: Row(
+                        children: [
+                          NetworkImageWithPlaceholder(height: 30, width: 30, imageUrl: item?.icon ?? ''),
+                          if (i == viewModel.selectedVehicleTypeIndex) const SizedBox(width: 4),
+                          if (i == viewModel.selectedVehicleTypeIndex)
+                            TextBasic(
+                              text: item?.typeName ?? '',
+                              color: i == viewModel.selectedVehicleTypeIndex ? R.themeColor.primary : R.themeColor.smoke,
+                              fontFamily: R.fonts.displayBold,
+                              fontSize: 14,
+                            ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      );
 }
 
 class VmBsFiltershowcase extends ViewModelBase {
@@ -337,9 +453,18 @@ class VmBsFiltershowcase extends ViewModelBase {
 
   late ModelFilterMarketplace filter;
 
+  List<ModelAdwertOwnerType>? advertOwnerType;
+  int? selectedOwnerTypeIndex;
+
+  ModelVehicleType? selectedVehicleType;
+  List<ModelPublicVehicleBar>? advertVehicleType = [];
+  int? selectedVehicleTypeIndex;
+
   @override
   void init() {
-    unawaited(getFilters());
+    setActivityState(ActivityState.isLoading);
+    unawaited(getAdvertOwnerType());
+    setActivityState(ActivityState.isLoaded);
   }
 
   Future<void> getFilters() async {
@@ -347,6 +472,36 @@ class VmBsFiltershowcase extends ViewModelBase {
     await serviceApi.client.getMarketplaceFilters().then(
       (response) {
         filterData = response.data;
+        unawaited(getFilters());
+      },
+      onError: (error) {
+        handleApiError(error);
+      },
+    );
+    setActivityState(ActivityState.isLoaded);
+  }
+
+  Future<void> getAdvertVehicleType() async {
+    setActivityState(ActivityState.isLoading);
+    await serviceApi.client.getPublicVehicleBar().then(
+      (response) {
+        if (response.data != null) {
+          advertVehicleType = response.data ?? [];
+        }
+      },
+      onError: (error) {
+        handleApiError(error);
+      },
+    );
+    setActivityState(ActivityState.isLoaded);
+  }
+
+  Future<void> getAdvertOwnerType() async {
+    setActivityState(ActivityState.isLoading);
+    await serviceApi.client.getAdvertOwnerType().then(
+      (response) {
+        advertOwnerType = response.data;
+        unawaited(getAdvertVehicleType());
       },
       onError: (error) {
         handleApiError(error);

@@ -112,8 +112,8 @@ class ViewVehicleDetail extends WidgetBase<VmVehicleDetail> {
                                               title: 'Onay Bekliyor',
                                               iconSvgPath: R.drawable.svg.iconZeroWorld,
                                               bgColor: R.themeColor.highlightedLight,
-                                              iconSvgColor: R.themeColor.highlighted,
-                                              titleColor: R.themeColor.highlighted,
+                                              iconSvgColor: R.themeColor.text,
+                                              titleColor: R.themeColor.text,
                                               onTap: () {
                                                 showToast('İlanınız onay sürecinde yakında çok yakında bildirim alacaksınız.');
                                               },
@@ -169,7 +169,13 @@ class ViewVehicleDetail extends WidgetBase<VmVehicleDetail> {
                                             ),
                                           const SizedBox(width: 5),
                                           Expanded(
-                                            child: InkWell(
+                                            child: ActionButtonBasic(
+                                              title: 'Aracımı\nSattım',
+                                              iconSvgPath: R.drawable.svg.iconKey,
+                                              iconSvgColor: R.themeColor.smokeDark,
+                                              bgColor: R.themeColor.viewBg,
+                                              borderColor: R.themeColor.border,
+                                              titleColor: R.themeColor.smokeDark,
                                               onTap: () {
                                                 unawaited(
                                                   router(context).showBaseBottomSheet(
@@ -195,20 +201,6 @@ class ViewVehicleDetail extends WidgetBase<VmVehicleDetail> {
                                                   ),
                                                 );
                                               },
-                                              child: Container(
-                                                padding: const EdgeInsets.all(16),
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(14),
-                                                  border: Border.all(color: R.themeColor.border),
-                                                ),
-                                                child: Column(
-                                                  children: [
-                                                    SvgPicture.asset(R.drawable.svg.iconKey, colorFilter: ColorFilter.mode(R.themeColor.smokeDark, BlendMode.srcIn), height: 36),
-                                                    const SizedBox(height: 8),
-                                                    TextBasic(text: 'Aracımı\nSattım', color: R.themeColor.smokeDark, fontFamily: R.fonts.displayBold, fontSize: 14, textAlign: TextAlign.center),
-                                                  ],
-                                                ),
-                                              ),
                                             ),
                                           ),
                                         ],
@@ -219,42 +211,29 @@ class ViewVehicleDetail extends WidgetBase<VmVehicleDetail> {
                                       child: Row(
                                         children: [
                                           Expanded(
-                                            child: InkWell(
+                                            child: ActionButtonBasic(
+                                              title: 'Kredi\nTeklifi Al',
+                                              iconSvgPath: R.drawable.svg.iconCreditOpportunitie,
+                                              iconSvgColor: R.themeColor.smokeDark,
+                                              bgColor: R.themeColor.viewBg,
+                                              borderColor: R.themeColor.border,
+                                              titleColor: R.themeColor.smokeDark,
                                               onTap: () {
                                                 showToast('Çok yakında');
                                               },
-                                              child: Container(
-                                                padding: const EdgeInsets.all(16),
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(14),
-                                                  border: Border.all(color: R.themeColor.border),
-                                                ),
-                                                child: Column(
-                                                  children: [
-                                                    SvgPicture.asset(R.drawable.svg.iconCreditOpportunitie, colorFilter: ColorFilter.mode(R.themeColor.smokeDark, BlendMode.srcIn), height: 36),
-                                                    const SizedBox(height: 8),
-                                                    TextBasic(text: 'Kredi\nTeklifi Al', color: R.themeColor.smokeDark, fontFamily: R.fonts.displayBold, fontSize: 14, textAlign: TextAlign.center),
-                                                  ],
-                                                ),
-                                              ),
                                             ),
                                           ),
                                           const SizedBox(width: 5),
                                           Expanded(
-                                            child: Container(
-                                              padding: const EdgeInsets.all(16),
-                                              decoration: BoxDecoration(
-                                                color: R.themeColor.highlightedLight,
-                                                borderRadius: BorderRadius.circular(14),
-                                                border: Border.all(color: R.themeColor.highlighted),
-                                              ),
-                                              child: Column(
-                                                children: [
-                                                  SvgPicture.asset(R.drawable.svg.iconRocket, colorFilter: ColorFilter.mode(R.themeColor.text, BlendMode.srcIn), height: 36),
-                                                  const SizedBox(height: 8),
-                                                  TextBasic(text: 'İlanı\nDopingle', color: R.themeColor.text, fontFamily: R.fonts.displayBold, fontSize: 14, textAlign: TextAlign.center),
-                                                ],
-                                              ),
+                                            child: ActionButtonBasic(
+                                              title: 'İlanı\nDopingle',
+                                              iconSvgPath: R.drawable.svg.iconRocket,
+                                              iconSvgColor: R.themeColor.text,
+                                              bgColor: R.themeColor.highlighted,
+                                              titleColor: R.themeColor.text,
+                                              onTap: () {
+                                                unawaited(router(context).startNewView(route: RouteVehicleDoping(vehicleId: vehicleId)));
+                                              },
                                             ),
                                           ),
                                         ],

@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
+
 import '../../../core/enums/enum_app.dart';
 import '../../../core/models/model_public_vehicle_list.dart';
 import '../../../core/models/model_vehicle_equipment.dart';
@@ -9,18 +11,23 @@ import '../../../core/services/service_api.dart';
 import '../../base/base_view_model.dart';
 
 class VmPublicDetail extends ViewModelBase {
-  VmPublicDetail(this.serviceApi) {
+  VmPublicDetail(this.vehicleId, this.serviceApi) {
     unawaited(init());
   }
   final ServiceApi serviceApi;
+  final int vehicleId;
 
   List<ModelVehicleColorFlawGroup> colorFlawGroups = [];
   Map<ModelVehicleReportChecklist, ModelVehicleColorFlawGroup> expertiseItems = {};
+  final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
 
   bool isExpertiseContainerVisible = true;
   bool isInternalEquipmentVisible = true;
   bool isExternalEquipmentVisible = true;
+  bool isMultimediaEquipmentVisible = true;
+  bool isSecurityEquipmentVisible = true;
   bool isGeneralScreenTypeSelected = true;
+  bool isVehicleInfoVisible = true;
 
   Map<String, List<ModelVehicleEquipment>> vehicleEquipments = {};
 
@@ -28,13 +35,12 @@ class VmPublicDetail extends ViewModelBase {
 
   @override
   Future<void> init() async {
-    setActivityState(ActivityState.isLoading);
-    unawaited(getData());
-    setActivityState(ActivityState.isLoaded);
+    unawaited(getData(vehicleId));
   }
 
-  Future<void> getData() async {
-    await serviceApi.client.getPublicVehicleDetail(12).then(
+  Future<void> getData(int vehicleId) async {
+    setActivityState(ActivityState.isLoading);
+    await serviceApi.client.getPublicVehicleDetail(vehicleId).then(
       (response) {
         if (response.data != null) {
           data = response.data;
@@ -46,26 +52,10 @@ class VmPublicDetail extends ViewModelBase {
               }
             },
           );
-          vehicleEquipments['internal'] = [
-            data?.vehicleInteriorEquipments?.forEach((element) {
-              ModelVehicleEquipment(name: element.name);
-            }) as ModelVehicleEquipment,
-          ];
-          vehicleEquipments['external'] = [
-            data?.vehicleExteriorEquipments?.forEach((element) {
-              ModelVehicleEquipment(name: element.name);
-            }) as ModelVehicleEquipment,
-          ];
-          vehicleEquipments['multimedia'] = [
-            data?.vehicleMultimedias?.forEach((element) {
-              ModelVehicleEquipment(name: element.name);
-            }) as ModelVehicleEquipment,
-          ];
-          vehicleEquipments['security'] = [
-            data?.vehicleSecurityEquipments?.forEach((element) {
-              ModelVehicleEquipment(name: element.name);
-            }) as ModelVehicleEquipment,
-          ];
+          vehicleEquipments['internal'] = data?.vehicleInteriorEquipments?.map((element) => ModelVehicleEquipment(name: element.name)).toList() ?? [];
+          vehicleEquipments['external'] = data?.vehicleExteriorEquipments?.map((element) => ModelVehicleEquipment(name: element.name)).toList() ?? [];
+          vehicleEquipments['multimedia'] = data?.vehicleMultimedias?.map((element) => ModelVehicleEquipment(name: element.name)).toList() ?? [];
+          vehicleEquipments['security'] = data?.vehicleSecurityEquipments?.map((element) => ModelVehicleEquipment(name: element.name)).toList() ?? [];
           notifyListeners();
         }
       },
@@ -73,6 +63,7 @@ class VmPublicDetail extends ViewModelBase {
         handleApiError(error);
       },
     );
+    setActivityState(ActivityState.isLoaded);
   }
 
   void changeisExpertiseContainerVisible() {
@@ -90,8 +81,23 @@ class VmPublicDetail extends ViewModelBase {
     notifyListeners();
   }
 
+  void changeisVehicleInfoVisible() {
+    isVehicleInfoVisible = !isVehicleInfoVisible;
+    notifyListeners();
+  }
+
   void changeisGeneralScreenTypeSelected() {
     isGeneralScreenTypeSelected = !isGeneralScreenTypeSelected;
+    notifyListeners();
+  }
+
+  void changeisMultimediaEquipmentVisible() {
+    isMultimediaEquipmentVisible = !isMultimediaEquipmentVisible;
+    notifyListeners();
+  }
+
+  void changeisSecurityEquipmentVisible() {
+    isSecurityEquipmentVisible = !isSecurityEquipmentVisible;
     notifyListeners();
   }
 }
