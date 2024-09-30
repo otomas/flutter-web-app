@@ -50,7 +50,6 @@ class ModelVehicleResponse {
     this.vehicleTransmissionType,
     this.photos,
     this.deletedAt,
-    this.autoGallery,
     this.enginePower,
     this.engineCapacity,
     this.kilometer,
@@ -63,10 +62,15 @@ class ModelVehicleResponse {
     this.vehicleInteriorEquipments,
     this.vehicleMultimedias,
     this.vehicleSecurityEquipments,
+    this.adNumber,
   });
 
   final int id;
   final String? uuid;
+  
+  @JsonProperty(name: 'ad_number')
+  final num? adNumber;
+
   @JsonProperty(name: 'auto_gallery_vehicle_id')
   final int? autoGalleryVehicleId;
 
@@ -168,9 +172,6 @@ class ModelVehicleResponse {
 
   @JsonProperty(name: 'photos')
   final List<ModelPhoto>? photos;
-
-  @JsonProperty(name: 'auto_gallery')
-  final ModelAutoGalleryWithTitle? autoGallery;
 
   @JsonProperty(name: 'vehicle_exterior_equipments')
   final List<ModelVehicleEquipment>? vehicleExteriorEquipments;

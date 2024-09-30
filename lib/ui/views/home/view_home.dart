@@ -44,13 +44,13 @@ class ViewHome extends WidgetBase<VmHome> {
           ),
           body: fragment,
           bottomNavigationBar: viewModel.serviceApp.tabsRouter.activeIndex >= 4 ? null : _getBottomNavigationBar(context, viewModel),
-          floatingActionButton: FloatingActionButton(
+          floatingActionButton: (viewModel.serviceApp.tabsRouter.activeIndex <= 10 && viewModel.serviceApp.tabsRouter.activeIndex > 16) ? FloatingActionButton(
             heroTag: DateTime.now().toIso8601String(),
             onPressed: () {
               router(context).startVehicleCreateView(context);
             },
             child: const Icon(Icons.add, size: 36),
-          ),
+          ) : null,
         ),
       );
 

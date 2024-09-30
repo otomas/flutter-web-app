@@ -53,7 +53,7 @@ class NetworkImageWithPlaceholder extends StatelessWidget {
             )
           : Image.network(
               imageUrl!,
-              fit: boxFit ?? BoxFit.cover,
+              fit: boxFit ?? BoxFit.fitHeight,
               height: height,
               width: width,
               cacheWidth: 900,

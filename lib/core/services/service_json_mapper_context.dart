@@ -3,6 +3,7 @@ import 'package:dart_json_mapper/dart_json_mapper.dart';
 import '../enums/enum_api.dart';
 import '../models/model_account_book_list.dart';
 import '../models/model_accounting_book.dart';
+import '../models/model_advert_owner_type.dart';
 import '../models/model_balance_top_up.dart';
 import '../models/model_branches.dart';
 import '../models/model_buy_sell_chart.dart';
@@ -120,6 +121,7 @@ class ServiceJsonMapperContext {
           typeOf<List<ModelPublicVehicleBar>>(): (value) => value.cast<ModelPublicVehicleBar>(),
           typeOf<List<ModelPublicVehicleCardDetail>>(): (value) => value.cast<ModelPublicVehicleCardDetail>(),
           typeOf<List<ModelVehicleEquipment>>(): (value) => value.cast<ModelVehicleEquipment>(),
+          typeOf<List<ModelAdwertOwnerType>>(): (value) => value.cast<ModelAdwertOwnerType>(),
         },
       ),
     );

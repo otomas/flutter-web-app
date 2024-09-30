@@ -1,5 +1,6 @@
 import 'package:dart_json_mapper/dart_json_mapper.dart';
 
+import '../extensions/extension_num.dart';
 import 'model_balance.dart';
 import 'model_photo.dart';
 
@@ -42,4 +43,6 @@ class ModelPublicVehicleCardDetail {
 
   final String? location;
   final List<ModelPhoto> photos;
+
+  String get shortInfo => '${modelYear ?? ''}      ${kilometer.formatPrice()} km      ${fuelTypeName ?? ''}      ${transmissionTypeName ?? ''}';
 }

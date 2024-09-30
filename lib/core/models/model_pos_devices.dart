@@ -75,7 +75,7 @@ class ModelAutoGalleryBranch implements BaseDropdown {
   final ModelNeighborhood? neighborhood;
 
   @JsonProperty(name: 'auto_gallery')
-  final ModelAutoGallery? autoGallery;
+  final ModelAutoGalleryWithTitle? autoGallery;
 
   @override
   String get dropdownId => id.toString();
